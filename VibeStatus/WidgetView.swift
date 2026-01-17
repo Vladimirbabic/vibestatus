@@ -186,72 +186,42 @@ struct SmallStatusIndicator: View {
     }
 }
 
-// Small runway lights for multi-session rows
+// Small runway lights for multi-session rows - simple pulsing dot
 struct SmallRunwayLightsView: View {
-    @State private var activeDotIndex: Int = 0
-    private let dotCount = 3
+    @State private var isPulsing = false
     private let vibeOrange = Color(red: 0.757, green: 0.373, blue: 0.235)
-    private let timer = Timer.publish(every: 0.2, on: .main, in: .common).autoconnect()
 
     var body: some View {
-        HStack(spacing: 3) {
-            ForEach(0..<dotCount, id: \.self) { index in
-                Circle()
-                    .fill(dotColor(for: index))
-                    .frame(width: 6, height: 6)
-            }
-        }
-        .onReceive(timer) { _ in
-            withAnimation(.easeInOut(duration: 0.1)) {
-                activeDotIndex = (activeDotIndex + 1) % dotCount
-            }
-        }
-    }
-
-    private func dotColor(for index: Int) -> Color {
-        let distance = (index - activeDotIndex + dotCount) % dotCount
-        if distance == 0 {
-            return vibeOrange
-        } else if distance == dotCount - 1 {
-            return vibeOrange.opacity(0.5)
-        } else {
-            return vibeOrange.opacity(0.15)
-        }
+        Circle()
+            .fill(vibeOrange)
+            .frame(width: 8, height: 8)
+            .scaleEffect(isPulsing ? 1.2 : 0.8)
+            .opacity(isPulsing ? 1.0 : 0.6)
+            .animation(.easeInOut(duration: 0.6).repeatForever(autoreverses: true), value: isPulsing)
+            .onAppear { isPulsing = true }
     }
 }
 
 struct RunwayLightsView: View {
-    @State private var activeDotIndex: Int = 0
-    private let dotCount = 5
+    @State private var isPulsing = false
     private let vibeOrange = Color(red: 0.757, green: 0.373, blue: 0.235)
-    private let timer = Timer.publish(every: 0.15, on: .main, in: .common).autoconnect()
 
     var body: some View {
         HStack(spacing: 6) {
-            ForEach(0..<dotCount, id: \.self) { index in
+            ForEach(0..<5, id: \.self) { index in
                 RoundedRectangle(cornerRadius: 2)
-                    .fill(dotColor(for: index))
+                    .fill(vibeOrange)
                     .frame(width: 8, height: 8)
+                    .opacity(opacity(for: index))
             }
         }
-        .onReceive(timer) { _ in
-            withAnimation(.easeInOut(duration: 0.1)) {
-                activeDotIndex = (activeDotIndex + 1) % dotCount
-            }
-        }
+        .animation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true), value: isPulsing)
+        .onAppear { isPulsing = true }
     }
 
-    private func dotColor(for index: Int) -> Color {
-        let distance = (index - activeDotIndex + dotCount) % dotCount
-        if distance == 0 {
-            return vibeOrange
-        } else if distance == dotCount - 1 {
-            return vibeOrange.opacity(0.7)
-        } else if distance == dotCount - 2 {
-            return vibeOrange.opacity(0.4)
-        } else {
-            return vibeOrange.opacity(0.12)
-        }
+    private func opacity(for index: Int) -> Double {
+        let base = isPulsing ? Double(index) / 4.0 : Double(4 - index) / 4.0
+        return 0.3 + (base * 0.7)
     }
 }
 
