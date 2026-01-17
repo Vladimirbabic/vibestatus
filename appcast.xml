@@ -35,7 +35,8 @@
             ]]></description>
             <enclosure
                 url="https://github.com/Vladimirbabic/vibestatus/releases/download/v1.3/VibeStatus.zip"
-                length="2960754"
+                sparkle:edSignature="ogRtww+xEJLHmdBj+RZQkDduJIgu5qNUS13ZSYy9C46YctTGoJ9q1zjf/r78oyiiBz9xLo9kHlszxAKssccIAg=="
+                length="2960770"
                 type="application/octet-stream" />
         </item>
         <item>
