@@ -46,7 +46,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         menu.addItem(NSMenuItem(title: "Show Widget", action: #selector(showWidget), keyEquivalent: "s"))
         menu.addItem(NSMenuItem(title: "Hide Widget", action: #selector(hideWidget), keyEquivalent: "h"))
         menu.addItem(NSMenuItem.separator())
-        menu.addItem(NSMenuItem(title: "Configure Hooks...", action: #selector(showSetupWindow), keyEquivalent: ","))
+        menu.addItem(NSMenuItem(title: "Settings...", action: #selector(showSetupWindow), keyEquivalent: ","))
         menu.addItem(NSMenuItem.separator())
         let checkForUpdatesItem = NSMenuItem(title: "Check for Updates...", action: #selector(SPUStandardUpdaterController.checkForUpdates(_:)), keyEquivalent: "u")
         checkForUpdatesItem.target = updaterController
@@ -187,7 +187,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         )
 
         window.contentView = hostingView
-        window.title = "VibeStatus Setup"
+        window.title = "Settings"
         window.center()
         window.makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)

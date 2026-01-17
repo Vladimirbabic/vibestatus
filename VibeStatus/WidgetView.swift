@@ -159,112 +159,103 @@ struct SmallStatusIndicator: View {
 // Small runway lights for multi-session rows (3 dots)
 struct SmallRunwayLightsView: View {
     private let vibeOrange = Color(red: 0.757, green: 0.373, blue: 0.235)
-    private let dotCount = 3
+    @State private var animationPhase: Double = 0
 
     var body: some View {
-        TimelineView(.animation(minimumInterval: 0.03)) { timeline in
-            let time = timeline.date.timeIntervalSinceReferenceDate
-
-            HStack(spacing: 4) {
-                ForEach(0..<dotCount, id: \.self) { index in
-                    Circle()
-                        .fill(vibeOrange)
-                        .frame(width: 7, height: 7)
-                        .opacity(shimmerOpacity(for: index, time: time))
-                }
+        HStack(spacing: 4) {
+            ForEach(0..<3, id: \.self) { index in
+                Circle()
+                    .fill(vibeOrange)
+                    .frame(width: 7, height: 7)
+                    .opacity(opacityFor(index))
+            }
+        }
+        .onAppear {
+            withAnimation(.linear(duration: 1.2).repeatForever(autoreverses: false)) {
+                animationPhase = 1
             }
         }
     }
 
-    private func shimmerOpacity(for index: Int, time: Double) -> Double {
-        let waveSpeed = 2.5
-        let position = time * waveSpeed
-        let dotPosition = Double(index)
-
-        let waveCenter = position.truncatingRemainder(dividingBy: Double(dotCount + 2)) - 1
-        let distance = abs(dotPosition - waveCenter)
-
-        let brightness = exp(-distance * distance * 0.6)
-        return 0.3 + 0.7 * brightness
+    private func opacityFor(_ index: Int) -> Double {
+        let offset = Double(index) / 3.0
+        let phase = (animationPhase + offset).truncatingRemainder(dividingBy: 1.0)
+        return 0.3 + 0.7 * (phase < 0.5 ? phase * 2 : (1 - phase) * 2)
     }
 }
 
-// Pulsing indicator using TimelineView
+// Pulsing indicator
 struct PulsingIndicator: View {
     let color: Color
     let size: CGFloat
     let cornerRadius: CGFloat
+    @State private var isPulsing = false
 
     var body: some View {
-        TimelineView(.animation(minimumInterval: 0.05)) { timeline in
-            let phase = timeline.date.timeIntervalSinceReferenceDate
-            let scale = 1.0 + 0.3 * sin(phase * 4)
-            let pulseOpacity = 0.4 * (1 - (scale - 1) / 0.3)
-
-            RoundedRectangle(cornerRadius: cornerRadius)
-                .fill(color.opacity(0.9))
-                .frame(width: size, height: size)
-                .overlay(
-                    RoundedRectangle(cornerRadius: cornerRadius)
-                        .stroke(color.opacity(pulseOpacity), lineWidth: 2)
-                        .scaleEffect(scale)
-                )
-        }
+        RoundedRectangle(cornerRadius: cornerRadius)
+            .fill(color.opacity(0.9))
+            .frame(width: size, height: size)
+            .overlay(
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .stroke(color.opacity(isPulsing ? 0.1 : 0.4), lineWidth: 2)
+                    .scaleEffect(isPulsing ? 1.5 : 1.0)
+            )
+            .onAppear {
+                withAnimation(.easeInOut(duration: 0.8).repeatForever(autoreverses: true)) {
+                    isPulsing = true
+                }
+            }
     }
 }
 
 // Small pulsing indicator
 struct SmallPulsingIndicator: View {
     let color: Color
+    @State private var isPulsing = false
 
     var body: some View {
-        TimelineView(.animation(minimumInterval: 0.05)) { timeline in
-            let phase = timeline.date.timeIntervalSinceReferenceDate
-            let opacity = 0.5 + 0.5 * sin(phase * 3)
-
-            Circle()
-                .fill(color)
-                .frame(width: 9, height: 9)
-                .opacity(opacity)
-        }
+        Circle()
+            .fill(color)
+            .frame(width: 9, height: 9)
+            .opacity(isPulsing ? 1.0 : 0.5)
+            .onAppear {
+                withAnimation(.easeInOut(duration: 0.6).repeatForever(autoreverses: true)) {
+                    isPulsing = true
+                }
+            }
     }
 }
 
 // Runway lights animation - shimmering dots
 struct RunwayLightsView: View {
     private let vibeOrange = Color(red: 0.757, green: 0.373, blue: 0.235)
-    private let dotCount = 5
+    @State private var animationPhase: Double = 0
 
     var body: some View {
-        TimelineView(.animation(minimumInterval: 0.03)) { timeline in
-            let time = timeline.date.timeIntervalSinceReferenceDate
-
-            HStack(spacing: 7) {
-                ForEach(0..<dotCount, id: \.self) { index in
-                    RoundedRectangle(cornerRadius: 2)
-                        .fill(vibeOrange)
-                        .frame(width: 9, height: 9)
-                        .opacity(shimmerOpacity(for: index, time: time))
-                }
+        HStack(spacing: 7) {
+            ForEach(0..<5, id: \.self) { index in
+                RoundedRectangle(cornerRadius: 2)
+                    .fill(vibeOrange)
+                    .frame(width: 9, height: 9)
+                    .opacity(opacityFor(index))
+            }
+        }
+        .onAppear {
+            withAnimation(.linear(duration: 1.5).repeatForever(autoreverses: false)) {
+                animationPhase = 1
             }
         }
     }
 
-    private func shimmerOpacity(for index: Int, time: Double) -> Double {
-        // Create a wider wave that spans ~3 dots at a time
-        let waveSpeed = 2.0
-        let waveWidth = 0.8  // Smaller = wider shimmer band
-        let position = time * waveSpeed
-        let dotPosition = Double(index)
+    private func opacityFor(_ index: Int) -> Double {
+        // Create shimmer wave across 5 dots
+        let offset = Double(index) / 5.0
+        let phase = (animationPhase + offset).truncatingRemainder(dividingBy: 1.0)
 
-        // Calculate distance from wave center (wrapping around)
-        let waveCenter = position.truncatingRemainder(dividingBy: Double(dotCount + 2)) - 1
-        let distance = abs(dotPosition - waveCenter)
+        // Gaussian-like brightness curve
+        let distance = abs(phase - 0.5) * 2 // 0 at center, 1 at edges
+        let brightness = exp(-distance * distance * 2)
 
-        // Gaussian-like falloff for smooth 3-dot wide shimmer
-        let brightness = exp(-distance * distance * waveWidth)
-
-        // Map to opacity range (0.25 base, up to 1.0 at peak)
         return 0.25 + 0.75 * brightness
     }
 }
