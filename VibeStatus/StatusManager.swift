@@ -26,15 +26,17 @@ struct StatusData: Codable {
     let state: VibeStatus
     let message: String?
     let timestamp: Date?
+    let project: String?
 
     enum CodingKeys: String, CodingKey {
-        case state, message, timestamp
+        case state, message, timestamp, project
     }
 
-    init(state: VibeStatus, message: String? = nil, timestamp: Date? = nil) {
+    init(state: VibeStatus, message: String? = nil, timestamp: Date? = nil, project: String? = nil) {
         self.state = state
         self.message = message
         self.timestamp = timestamp
+        self.project = project
     }
 
     init(from decoder: Decoder) throws {
@@ -42,7 +44,16 @@ struct StatusData: Codable {
         state = try container.decode(VibeStatus.self, forKey: .state)
         message = try container.decodeIfPresent(String.self, forKey: .message)
         timestamp = try container.decodeIfPresent(Date.self, forKey: .timestamp)
+        project = try container.decodeIfPresent(String.self, forKey: .project)
     }
+}
+
+// Session info for widget display
+struct SessionInfo: Identifiable {
+    let id: String
+    let status: VibeStatus
+    let project: String
+    let timestamp: Date
 }
 
 class StatusManager: ObservableObject {
@@ -54,6 +65,7 @@ class StatusManager: ObservableObject {
     @Published var statusMessage: String?
     @Published var pulseScale: CGFloat = 1.0
     @Published var activeSessionCount: Int = 0
+    @Published var sessions: [SessionInfo] = []
 
     private var fileMonitor: DispatchSourceFileSystemObject?
     private var fileDescriptor: Int32 = -1
@@ -61,7 +73,7 @@ class StatusManager: ObservableObject {
     private var pollTimer: Timer?
 
     // Track individual session statuses
-    private var sessionStatuses: [String: (status: VibeStatus, timestamp: Date)] = [:]
+    private var sessionStatuses: [String: (status: VibeStatus, project: String, timestamp: Date)] = [:]
     private let sessionTimeout: TimeInterval = 30 // Consider session dead after 30s of no updates
 
     var statusText: String {
@@ -213,7 +225,7 @@ class StatusManager: ObservableObject {
         }
 
         let now = Date()
-        var updatedSessions: [String: (status: VibeStatus, timestamp: Date)] = [:]
+        var updatedSessions: [String: (status: VibeStatus, project: String, timestamp: Date)] = [:]
 
         // Read all vibestatus files
         for file in files where file.hasPrefix(Self.statusFilePrefix) && file.hasSuffix(".json") {
@@ -226,10 +238,11 @@ class StatusManager: ObservableObject {
 
             let sessionId = file
             let timestamp = status.timestamp ?? now
+            let project = status.project ?? "Unknown"
 
             // Only include sessions that have been updated recently
             if now.timeIntervalSince(timestamp) < sessionTimeout {
-                updatedSessions[sessionId] = (status.state, timestamp)
+                updatedSessions[sessionId] = (status.state, project, timestamp)
             } else {
                 // Clean up old session files
                 try? fileManager.removeItem(atPath: filePath)
@@ -238,6 +251,11 @@ class StatusManager: ObservableObject {
 
         // Update session tracking
         sessionStatuses = updatedSessions
+
+        // Convert to SessionInfo array sorted by project name
+        let sessionInfos = updatedSessions.map { (id, data) in
+            SessionInfo(id: id, status: data.status, project: data.project, timestamp: data.timestamp)
+        }.sorted { $0.project < $1.project }
 
         // Aggregate status (priority: needsInput > working > idle)
         let aggregatedStatus = aggregateStatuses(updatedSessions)
@@ -249,6 +267,7 @@ class StatusManager: ObservableObject {
             withAnimation(.easeInOut(duration: 0.3)) {
                 self.activeSessionCount = updatedSessions.count
                 self.currentStatus = aggregatedStatus
+                self.sessions = sessionInfos
             }
 
             // Play sound when any session transitions from working to idle or needsInput
@@ -258,7 +277,7 @@ class StatusManager: ObservableObject {
         }
     }
 
-    private func aggregateStatuses(_ sessions: [String: (status: VibeStatus, timestamp: Date)]) -> VibeStatus {
+    private func aggregateStatuses(_ sessions: [String: (status: VibeStatus, project: String, timestamp: Date)]) -> VibeStatus {
         if sessions.isEmpty {
             return .notRunning
         }
@@ -317,6 +336,19 @@ class StatusManager: ObservableObject {
     static func preview(status: VibeStatus) -> StatusManager {
         let manager = StatusManager()
         manager.currentStatus = status
+        return manager
+    }
+
+    // For previews with multiple sessions
+    static func previewMultiSession() -> StatusManager {
+        let manager = StatusManager()
+        manager.currentStatus = .working
+        manager.activeSessionCount = 3
+        manager.sessions = [
+            SessionInfo(id: "1", status: .working, project: "MyApp", timestamp: Date()),
+            SessionInfo(id: "2", status: .idle, project: "Backend", timestamp: Date()),
+            SessionInfo(id: "3", status: .needsInput, project: "Frontend", timestamp: Date())
+        ]
         return manager
     }
 }

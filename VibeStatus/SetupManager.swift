@@ -110,7 +110,7 @@ class SetupManager: ObservableObject {
         #!/bin/bash
         # VibeStatus Status Hook
         # This script is called by Claude Code hooks to update the VibeStatus widget
-        # Supports multiple Claude sessions
+        # Supports multiple Claude sessions with project names
 
         TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
@@ -125,19 +125,27 @@ class SetupManager: ObservableObject {
             SESSION_ID="$$"
         fi
 
+        # Extract working directory and get project name (last folder in path)
+        WORKING_DIR=$(echo "$INPUT" | grep -o '"cwd":"[^"]*"' | cut -d'"' -f4)
+        if [ -z "$WORKING_DIR" ]; then
+            PROJECT_NAME="Unknown"
+        else
+            PROJECT_NAME=$(basename "$WORKING_DIR")
+        fi
+
         STATUS_FILE="/tmp/vibestatus-${SESSION_ID}.json"
 
         case "$HOOK_EVENT" in
             "UserPromptSubmit")
-                echo "{\\"state\\":\\"working\\",\\"message\\":\\"Processing...\\",\\"timestamp\\":\\"$TIMESTAMP\\"}" > "$STATUS_FILE"
+                echo "{\\"state\\":\\"working\\",\\"project\\":\\"$PROJECT_NAME\\",\\"timestamp\\":\\"$TIMESTAMP\\"}" > "$STATUS_FILE"
                 ;;
             "Stop")
-                echo "{\\"state\\":\\"idle\\",\\"message\\":\\"Ready\\",\\"timestamp\\":\\"$TIMESTAMP\\"}" > "$STATUS_FILE"
+                echo "{\\"state\\":\\"idle\\",\\"project\\":\\"$PROJECT_NAME\\",\\"timestamp\\":\\"$TIMESTAMP\\"}" > "$STATUS_FILE"
                 ;;
             "Notification")
                 # Check if it's an idle_prompt notification
                 if echo "$INPUT" | grep -q "idle_prompt"; then
-                    echo "{\\"state\\":\\"needs_input\\",\\"message\\":\\"Waiting for input\\",\\"timestamp\\":\\"$TIMESTAMP\\"}" > "$STATUS_FILE"
+                    echo "{\\"state\\":\\"needs_input\\",\\"project\\":\\"$PROJECT_NAME\\",\\"timestamp\\":\\"$TIMESTAMP\\"}" > "$STATUS_FILE"
                 fi
                 ;;
         esac
