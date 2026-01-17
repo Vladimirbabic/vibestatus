@@ -110,13 +110,22 @@ class SetupManager: ObservableObject {
         #!/bin/bash
         # VibeStatus Status Hook
         # This script is called by Claude Code hooks to update the VibeStatus widget
+        # Supports multiple Claude sessions
 
-        STATUS_FILE="/tmp/vibestatus-status.json"
         TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
         # Read the hook event from stdin
         INPUT=$(cat)
         HOOK_EVENT=$(echo "$INPUT" | grep -o '"hook_event_name":"[^"]*"' | cut -d'"' -f4)
+
+        # Extract session_id for multi-terminal support
+        SESSION_ID=$(echo "$INPUT" | grep -o '"session_id":"[^"]*"' | cut -d'"' -f4)
+        if [ -z "$SESSION_ID" ]; then
+            # Fallback to parent PID if no session_id
+            SESSION_ID="$$"
+        fi
+
+        STATUS_FILE="/tmp/vibestatus-${SESSION_ID}.json"
 
         case "$HOOK_EVENT" in
             "UserPromptSubmit")

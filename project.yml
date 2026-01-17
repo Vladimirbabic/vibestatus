@@ -24,8 +24,8 @@ targets:
       path: VibeStatus/Info.plist
       properties:
         LSUIElement: true
-        CFBundleShortVersionString: "1.3"
-        CFBundleVersion: "4"
+        CFBundleShortVersionString: "1.4"
+        CFBundleVersion: "5"
         NSHumanReadableCopyright: "Copyright © 2025. All rights reserved."
         LSApplicationCategoryType: public.app-category.utilities
         SUFeedURL: "https://raw.githubusercontent.com/Vladimirbabic/vibestatus/main/appcast.xml"

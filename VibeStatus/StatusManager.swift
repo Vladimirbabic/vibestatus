@@ -47,24 +47,32 @@ struct StatusData: Codable {
 
 class StatusManager: ObservableObject {
     static let shared = StatusManager()
-    static let statusFilePath = "/tmp/vibestatus-status.json"
+    static let statusDirectory = "/tmp"
+    static let statusFilePrefix = "vibestatus-"
+
     @Published var currentStatus: VibeStatus = .idle
     @Published var statusMessage: String?
     @Published var pulseScale: CGFloat = 1.0
+    @Published var activeSessionCount: Int = 0
 
     private var fileMonitor: DispatchSourceFileSystemObject?
     private var fileDescriptor: Int32 = -1
     private var pulseTimer: Timer?
     private var pollTimer: Timer?
 
+    // Track individual session statuses
+    private var sessionStatuses: [String: (status: VibeStatus, timestamp: Date)] = [:]
+    private let sessionTimeout: TimeInterval = 30 // Consider session dead after 30s of no updates
+
     var statusText: String {
+        let count = activeSessionCount
         switch currentStatus {
         case .working:
-            return "Working..."
+            return count > 1 ? "Working (\(count))" : "Working..."
         case .idle:
-            return "Ready"
+            return count > 1 ? "Ready (\(count))" : "Ready"
         case .needsInput:
-            return "Input needed"
+            return count > 1 ? "Input (\(count))" : "Input needed"
         case .notRunning:
             return "Run Claude"
         }
@@ -92,7 +100,7 @@ class StatusManager: ObservableObject {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.pollTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
-                self?.readStatusFile()
+                self?.readAllStatusFiles()
             }
             if let timer = self.pollTimer {
                 RunLoop.main.add(timer, forMode: .common)
@@ -121,13 +129,13 @@ class StatusManager: ObservableObject {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
 
-            if !isRunning && self.currentStatus != .notRunning {
+            if !isRunning && self.activeSessionCount == 0 && self.currentStatus != .notRunning {
                 withAnimation(.easeInOut(duration: 0.3)) {
                     self.currentStatus = .notRunning
                 }
             } else if isRunning && self.currentStatus == .notRunning {
-                // Claude started, read the status file to get actual state
-                self.readStatusFile()
+                // Claude started, read all status files to get actual state
+                self.readAllStatusFiles()
             }
         }
     }
@@ -151,22 +159,16 @@ class StatusManager: ObservableObject {
     }
 
     private func createStatusFileIfNeeded() {
-        let fileManager = FileManager.default
-        if !fileManager.fileExists(atPath: Self.statusFilePath) {
-            let initialStatus = StatusData(state: .idle, message: "Ready")
-            if let data = try? JSONEncoder().encode(initialStatus) {
-                fileManager.createFile(atPath: Self.statusFilePath, contents: data)
-            }
-        }
+        // No longer needed for multi-session support
+        // Each session creates its own file
     }
 
     private func startFileMonitoring() {
-        let path = Self.statusFilePath
-        fileDescriptor = open(path, O_RDONLY)
+        // Monitor the /tmp directory for vibestatus files
+        fileDescriptor = open(Self.statusDirectory, O_RDONLY)
 
         guard fileDescriptor != -1 else {
-            print("Failed to open status file for monitoring")
-            // Try again in a second
+            print("Failed to open status directory for monitoring")
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
                 self?.startFileMonitoring()
             }
@@ -175,12 +177,12 @@ class StatusManager: ObservableObject {
 
         let source = DispatchSource.makeFileSystemObjectSource(
             fileDescriptor: fileDescriptor,
-            eventMask: [.write, .extend, .rename, .delete],
+            eventMask: [.write],
             queue: DispatchQueue.main
         )
 
         source.setEventHandler { [weak self] in
-            self?.readStatusFile()
+            self?.readAllStatusFiles()
         }
 
         source.setCancelHandler { [weak self] in
@@ -193,7 +195,7 @@ class StatusManager: ObservableObject {
         fileMonitor = source
 
         // Initial read
-        readStatusFile()
+        readAllStatusFiles()
     }
 
     private func stopFileMonitoring() {
@@ -201,32 +203,86 @@ class StatusManager: ObservableObject {
         fileMonitor = nil
     }
 
-    private func readStatusFile() {
-        guard let data = FileManager.default.contents(atPath: Self.statusFilePath) else {
-            return
-        }
-
+    private func readAllStatusFiles() {
+        let fileManager = FileManager.default
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
 
-        guard let status = try? decoder.decode(StatusData.self, from: data) else {
+        guard let files = try? fileManager.contentsOfDirectory(atPath: Self.statusDirectory) else {
             return
         }
 
-        if currentStatus != status.state {
-            let previousStatus = currentStatus
-            DispatchQueue.main.async { [weak self] in
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    self?.currentStatus = status.state
-                    self?.statusMessage = status.message
-                }
+        let now = Date()
+        var updatedSessions: [String: (status: VibeStatus, timestamp: Date)] = [:]
 
-                // Play sound when transitioning from working to idle or needsInput
-                if previousStatus == .working {
-                    self?.playNotificationSound(for: status.state)
-                }
+        // Read all vibestatus files
+        for file in files where file.hasPrefix(Self.statusFilePrefix) && file.hasSuffix(".json") {
+            let filePath = "\(Self.statusDirectory)/\(file)"
+
+            guard let data = fileManager.contents(atPath: filePath),
+                  let status = try? decoder.decode(StatusData.self, from: data) else {
+                continue
+            }
+
+            let sessionId = file
+            let timestamp = status.timestamp ?? now
+
+            // Only include sessions that have been updated recently
+            if now.timeIntervalSince(timestamp) < sessionTimeout {
+                updatedSessions[sessionId] = (status.state, timestamp)
+            } else {
+                // Clean up old session files
+                try? fileManager.removeItem(atPath: filePath)
             }
         }
+
+        // Update session tracking
+        sessionStatuses = updatedSessions
+
+        // Aggregate status (priority: needsInput > working > idle)
+        let aggregatedStatus = aggregateStatuses(updatedSessions)
+        let previousStatus = currentStatus
+
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+
+            withAnimation(.easeInOut(duration: 0.3)) {
+                self.activeSessionCount = updatedSessions.count
+                self.currentStatus = aggregatedStatus
+            }
+
+            // Play sound when any session transitions from working to idle or needsInput
+            if previousStatus == .working && aggregatedStatus != .working {
+                self.playNotificationSound(for: aggregatedStatus)
+            }
+        }
+    }
+
+    private func aggregateStatuses(_ sessions: [String: (status: VibeStatus, timestamp: Date)]) -> VibeStatus {
+        if sessions.isEmpty {
+            return .notRunning
+        }
+
+        // Priority: needsInput > working > idle
+        var hasWorking = false
+        var hasIdle = false
+
+        for (_, session) in sessions {
+            switch session.status {
+            case .needsInput:
+                return .needsInput // Highest priority
+            case .working:
+                hasWorking = true
+            case .idle:
+                hasIdle = true
+            case .notRunning:
+                break
+            }
+        }
+
+        if hasWorking { return .working }
+        if hasIdle { return .idle }
+        return .notRunning
     }
 
     private func playNotificationSound(for status: VibeStatus) {
