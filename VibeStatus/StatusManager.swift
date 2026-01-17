@@ -56,12 +56,12 @@ struct SessionInfo: Identifiable {
     let timestamp: Date
 }
 
+@MainActor
 class StatusManager: ObservableObject {
     static let shared = StatusManager()
     static let statusDirectory = "/tmp"
     static let statusFilePrefix = "vibestatus-"
 
-    // Use MainActor to ensure thread safety
     @Published var currentStatus: VibeStatus = .notRunning
     @Published var statusMessage: String?
     @Published var activeSessionCount: Int = 0
@@ -77,8 +77,8 @@ class StatusManager: ObservableObject {
     private let sessionTimeout: TimeInterval = 300 // Consider session dead after 5 minutes of no updates
 
     // Debounce to prevent rapid updates
-    private var pendingUpdate: DispatchWorkItem?
-    private let debounceInterval: TimeInterval = 0.1
+    private var updateTimer: Timer?
+    private let debounceInterval: TimeInterval = 0.15
 
     var statusText: String {
         let count = activeSessionCount
@@ -100,41 +100,41 @@ class StatusManager: ObservableObject {
         startClaudeDetection()
     }
 
-    deinit {
-        stopFileMonitoring()
-        pollTimer?.invalidate()
-        claudeDetectionTimer?.invalidate()
-        pendingUpdate?.cancel()
+    nonisolated func cleanup() {
+        Task { @MainActor in
+            stopFileMonitoring()
+            pollTimer?.invalidate()
+            claudeDetectionTimer?.invalidate()
+            updateTimer?.invalidate()
+        }
     }
 
     private var claudeDetectionTimer: Timer?
 
     private func startPolling() {
         // Poll every 0.5 seconds as a backup in case file monitoring misses changes
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.pollTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
+        pollTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
+            Task { @MainActor in
                 self?.readAllStatusFiles()
             }
-            if let timer = self.pollTimer {
-                RunLoop.main.add(timer, forMode: .common)
-            }
+        }
+        if let timer = pollTimer {
+            RunLoop.main.add(timer, forMode: .common)
         }
     }
 
     private func startClaudeDetection() {
         // Check every 2 seconds if Claude is running
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.claudeDetectionTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] _ in
+        claudeDetectionTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] _ in
+            Task { @MainActor in
                 self?.checkClaudeRunning()
             }
-            if let timer = self.claudeDetectionTimer {
-                RunLoop.main.add(timer, forMode: .common)
-            }
-            // Initial check
-            self.checkClaudeRunning()
         }
+        if let timer = claudeDetectionTimer {
+            RunLoop.main.add(timer, forMode: .common)
+        }
+        // Initial check
+        checkClaudeRunning()
     }
 
     private func checkClaudeRunning() {
@@ -208,14 +208,14 @@ class StatusManager: ObservableObject {
 
     private func readAllStatusFiles() {
         // Cancel any pending update
-        pendingUpdate?.cancel()
+        updateTimer?.invalidate()
 
         // Debounce updates to prevent rapid state changes
-        let workItem = DispatchWorkItem { [weak self] in
-            self?.performStatusUpdate()
+        updateTimer = Timer.scheduledTimer(withTimeInterval: debounceInterval, repeats: false) { [weak self] _ in
+            Task { @MainActor in
+                self?.performStatusUpdate()
+            }
         }
-        pendingUpdate = workItem
-        DispatchQueue.main.asyncAfter(deadline: .now() + debounceInterval, execute: workItem)
     }
 
     private func performStatusUpdate() {

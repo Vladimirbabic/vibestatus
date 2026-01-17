@@ -14,6 +14,7 @@ struct VibeStatusApp: App {
     }
 }
 
+@MainActor
 class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItem: NSStatusItem?
     var floatingWindow: NSWindow?
