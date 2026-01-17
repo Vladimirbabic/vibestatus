@@ -87,6 +87,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         case .needsInput:
             iconName = "questionmark.circle.fill"
             accessibilityLabel = "VibeStatus Needs Input"
+        case .notRunning:
+            iconName = "circle"
+            accessibilityLabel = "VibeStatus Not Running"
         }
 
         button.image = NSImage(systemSymbolName: iconName, accessibilityDescription: accessibilityLabel)

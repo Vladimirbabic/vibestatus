@@ -1,5 +1,33 @@
 import SwiftUI
 import Foundation
+import AppKit
+
+// Available system sounds
+enum NotificationSound: String, CaseIterable {
+    case glass = "Glass"
+    case purr = "Purr"
+    case blow = "Blow"
+    case bottle = "Bottle"
+    case frog = "Frog"
+    case funk = "Funk"
+    case hero = "Hero"
+    case morse = "Morse"
+    case ping = "Ping"
+    case pop = "Pop"
+    case submarine = "Submarine"
+    case tink = "Tink"
+    case none = "None"
+
+    var displayName: String {
+        if self == .none { return "No Sound" }
+        return rawValue
+    }
+
+    func play() {
+        guard self != .none else { return }
+        NSSound(named: NSSound.Name(rawValue))?.play()
+    }
+}
 
 class SetupManager: ObservableObject {
     static let shared = SetupManager()
@@ -7,6 +35,10 @@ class SetupManager: ObservableObject {
     @Published var isConfigured: Bool = false
     @Published var setupError: String?
     @Published var isSettingUp: Bool = false
+
+    // Sound settings
+    @AppStorage("idleSound") var idleSound: String = NotificationSound.glass.rawValue
+    @AppStorage("needsInputSound") var needsInputSound: String = NotificationSound.purr.rawValue
 
     private let claudeSettingsPath: String
     private let hookScriptPath: String

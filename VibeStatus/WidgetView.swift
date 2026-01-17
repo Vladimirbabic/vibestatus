@@ -32,6 +32,10 @@ struct WidgetView: View {
                                 .scaleEffect(statusManager.pulseScale)
                                 .opacity(2 - statusManager.pulseScale)
                         )
+                case .notRunning:
+                    RoundedRectangle(cornerRadius: 3)
+                        .fill(Color.gray.opacity(0.5))
+                        .frame(width: 10, height: 10)
                 }
             }
         }
@@ -99,6 +103,9 @@ struct WidgetView_Previews: PreviewProvider {
 
             WidgetView()
                 .environmentObject(StatusManager.preview(status: .needsInput))
+
+            WidgetView()
+                .environmentObject(StatusManager.preview(status: .notRunning))
         }
         .padding()
         .background(Color.gray)

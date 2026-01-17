@@ -143,6 +143,54 @@ struct SetupView: View {
                     Text("Blue = Claude needs your input")
                         .font(.system(size: 14))
                 }
+                HStack(spacing: 12) {
+                    Circle()
+                        .fill(Color.gray)
+                        .frame(width: 14, height: 14)
+                    Text("Gray = Claude is not running")
+                        .font(.system(size: 14))
+                }
+            }
+            .padding(18)
+            .background(Color.gray.opacity(0.1))
+            .cornerRadius(12)
+
+            // Sound settings
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Notification Sounds")
+                    .font(.system(size: 14, weight: .semibold))
+
+                HStack {
+                    Text("Task Complete:")
+                        .font(.system(size: 13))
+                        .frame(width: 100, alignment: .leading)
+                    Picker("", selection: $setupManager.idleSound) {
+                        ForEach(NotificationSound.allCases, id: \.rawValue) { sound in
+                            Text(sound.displayName).tag(sound.rawValue)
+                        }
+                    }
+                    .frame(width: 120)
+                    Button("Test") {
+                        NotificationSound(rawValue: setupManager.idleSound)?.play()
+                    }
+                    .buttonStyle(.borderless)
+                }
+
+                HStack {
+                    Text("Needs Input:")
+                        .font(.system(size: 13))
+                        .frame(width: 100, alignment: .leading)
+                    Picker("", selection: $setupManager.needsInputSound) {
+                        ForEach(NotificationSound.allCases, id: \.rawValue) { sound in
+                            Text(sound.displayName).tag(sound.rawValue)
+                        }
+                    }
+                    .frame(width: 120)
+                    Button("Test") {
+                        NotificationSound(rawValue: setupManager.needsInputSound)?.play()
+                    }
+                    .buttonStyle(.borderless)
+                }
             }
             .padding(18)
             .background(Color.gray.opacity(0.1))

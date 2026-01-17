@@ -6,6 +6,7 @@ enum VibeStatus: String, Codable {
     case working
     case idle
     case needsInput = "needs_input"
+    case notRunning = "not_running"
 
     var borderColor: Color {
         switch self {
@@ -15,6 +16,8 @@ enum VibeStatus: String, Codable {
             return .green
         case .needsInput:
             return .blue
+        case .notRunning:
+            return .gray
         }
     }
 }
@@ -62,6 +65,8 @@ class StatusManager: ObservableObject {
             return "Ready"
         case .needsInput:
             return "Input needed"
+        case .notRunning:
+            return "Run Claude"
         }
     }
 
@@ -70,13 +75,17 @@ class StatusManager: ObservableObject {
         startFileMonitoring()
         startPulseAnimation()
         startPolling()
+        startClaudeDetection()
     }
 
     deinit {
         stopFileMonitoring()
         pulseTimer?.invalidate()
         pollTimer?.invalidate()
+        claudeDetectionTimer?.invalidate()
     }
+
+    private var claudeDetectionTimer: Timer?
 
     private func startPolling() {
         // Poll every 0.5 seconds as a backup in case file monitoring misses changes
@@ -88,6 +97,56 @@ class StatusManager: ObservableObject {
             if let timer = self.pollTimer {
                 RunLoop.main.add(timer, forMode: .common)
             }
+        }
+    }
+
+    private func startClaudeDetection() {
+        // Check every 2 seconds if Claude is running
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.claudeDetectionTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] _ in
+                self?.checkClaudeRunning()
+            }
+            if let timer = self.claudeDetectionTimer {
+                RunLoop.main.add(timer, forMode: .common)
+            }
+            // Initial check
+            self.checkClaudeRunning()
+        }
+    }
+
+    private func checkClaudeRunning() {
+        let isRunning = isClaudeProcessRunning()
+
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+
+            if !isRunning && self.currentStatus != .notRunning {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    self.currentStatus = .notRunning
+                }
+            } else if isRunning && self.currentStatus == .notRunning {
+                // Claude started, read the status file to get actual state
+                self.readStatusFile()
+            }
+        }
+    }
+
+    private func isClaudeProcessRunning() -> Bool {
+        let task = Process()
+        task.launchPath = "/usr/bin/pgrep"
+        task.arguments = ["-f", "claude"]
+
+        let pipe = Pipe()
+        task.standardOutput = pipe
+        task.standardError = pipe
+
+        do {
+            try task.run()
+            task.waitUntilExit()
+            return task.terminationStatus == 0
+        } catch {
+            return false
         }
     }
 
@@ -174,14 +233,14 @@ class StatusManager: ObservableObject {
         let soundName: String
         switch status {
         case .idle:
-            soundName = "Glass"  // Pleasant completion sound
+            soundName = SetupManager.shared.idleSound
         case .needsInput:
-            soundName = "Purr"   // Attention-getting sound
-        case .working:
-            return  // No sound when starting work
+            soundName = SetupManager.shared.needsInputSound
+        case .working, .notRunning:
+            return  // No sound when starting work or not running
         }
 
-        if let sound = NSSound(named: NSSound.Name(soundName)) {
+        if let sound = NotificationSound(rawValue: soundName) {
             sound.play()
         }
     }
