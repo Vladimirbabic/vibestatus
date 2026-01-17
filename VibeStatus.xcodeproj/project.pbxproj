@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 63;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -103,6 +103,7 @@
 				8D96DB510B277D9C842C455B /* Sources */,
 				1576C8C3C71FDDC31A17C3D5 /* Resources */,
 				C54B9A92149472EC6BB8B808 /* Frameworks */,
+				91FDB00D8CB91EAC06FABDD9 /* Sign Sparkle XPC Services */,
 			);
 			buildRules = (
 			);
@@ -126,7 +127,8 @@
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					39E544D97E60FB8707292710 = {
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = 7MKQAN7HM5;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -143,6 +145,7 @@
 			packageReferences = (
 				0A39820F65309DA53C8DF4CE /* XCRemoteSwiftPackageReference "Sparkle" */,
 			);
+			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -163,6 +166,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		91FDB00D8CB91EAC06FABDD9 /* Sign Sparkle XPC Services */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Sign Sparkle XPC Services";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Sign Sparkle's XPC services and helpers for Hardened Runtime\nSPARKLE_FRAMEWORK=\"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework\"\n\n# Use ad-hoc signing if no identity specified\nSIGN_IDENTITY=\"${CODE_SIGN_IDENTITY:-\"-\"}\"\nif [ -z \"$SIGN_IDENTITY\" ]; then\n  SIGN_IDENTITY=\"-\"\nfi\n\nif [ -d \"$SPARKLE_FRAMEWORK\" ]; then\n  # Sign XPC services\n  find \"$SPARKLE_FRAMEWORK\" -name \"*.xpc\" -type d | while read xpc; do\n    codesign --force --options runtime --sign \"$SIGN_IDENTITY\" \"$xpc\" || true\n  done\n\n  # Sign helper apps\n  find \"$SPARKLE_FRAMEWORK\" -name \"*.app\" -type d | while read app; do\n    codesign --force --options runtime --sign \"$SIGN_IDENTITY\" \"$app\" || true\n  done\n\n  # Sign Autoupdate\n  if [ -f \"$SPARKLE_FRAMEWORK/Versions/B/Autoupdate\" ]; then\n    codesign --force --options runtime --sign \"$SIGN_IDENTITY\" \"$SPARKLE_FRAMEWORK/Versions/B/Autoupdate\" || true\n  fi\n\n  # Re-sign the framework itself\n  codesign --force --options runtime --sign \"$SIGN_IDENTITY\" \"$SPARKLE_FRAMEWORK\" || true\nfi\n\nexit 0\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8D96DB510B277D9C842C455B /* Sources */ = {
@@ -185,7 +209,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = VibeStatus/VibeStatus.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Developer ID Application: Mladjan Antic (7MKQAN7HM5)";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 7MKQAN7HM5;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -205,7 +230,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = VibeStatus/VibeStatus.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Developer ID Application: Mladjan Antic (7MKQAN7HM5)";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 7MKQAN7HM5;
 				ENABLE_HARDENED_RUNTIME = YES;

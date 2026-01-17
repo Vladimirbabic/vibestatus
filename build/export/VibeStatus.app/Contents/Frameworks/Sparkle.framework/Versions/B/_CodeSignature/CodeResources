@@ -345,10 +345,10 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			IRwNYeLg2k6QOQUC9zT1WkmsMG0=
+			tZBlAHbdBnmKWn51ZjIU0aTJRyY=
 			</data>
 			<key>requirement</key>
-			<string>anchor apple generic and identifier "Autoupdate-5555494459251b2ebc0232c783a3e31c4a4e4056" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "7MKQAN7HM5")</string>
+			<string>anchor apple generic and identifier Autoupdate and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "7MKQAN7HM5")</string>
 		</dict>
 		<key>Resources/Base.lproj/Sparkle.strings</key>
 		<dict>
@@ -709,7 +709,7 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			3ekwaB6iadqXHazHYfS+I0rer9I=
+			odvy8DDRMg+4JoaCuyUmleeKXFQ=
 			</data>
 			<key>requirement</key>
 			<string>anchor apple generic and identifier "org.sparkle-project.Sparkle.Updater" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "7MKQAN7HM5")</string>
@@ -718,7 +718,7 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			8f02RAX9pID3OcSXfxP608+0eZ8=
+			xO5XwP3OshE1M04iLtyunmDfS8Q=
 			</data>
 			<key>requirement</key>
 			<string>anchor apple generic and identifier "org.sparkle-project.DownloaderService" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "7MKQAN7HM5")</string>
@@ -727,7 +727,7 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			h2qYcDT9v0dQEjdf+b/kKHFhLSY=
+			Jr43XgdKIEld2KotCP8OOvSx7KE=
 			</data>
 			<key>requirement</key>
 			<string>anchor apple generic and identifier "org.sparkle-project.InstallerLauncher" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "7MKQAN7HM5")</string>

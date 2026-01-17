@@ -27,10 +27,10 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			NTZQ21lEFhhamf/f2SNtZOQlkYw=
+			d12mG20Cqr4iRpb8m0vxm+fhbn0=
 			</data>
 			<key>requirement</key>
-			<string>identifier "org.sparkle-project.Sparkle" and anchor apple generic and certificate leaf[subject.CN] = "Apple Development: Mladjan Antic (FQ77QDLBQR)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+			<string>identifier "org.sparkle-project.Sparkle" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "7MKQAN7HM5"</string>
 		</dict>
 		<key>Resources/AppIcon.icns</key>
 		<dict>

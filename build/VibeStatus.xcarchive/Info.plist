@@ -14,18 +14,18 @@
 		<key>CFBundleIdentifier</key>
 		<string>com.vibestatus.app</string>
 		<key>CFBundleShortVersionString</key>
-		<string>1.0</string>
+		<string>1.3</string>
 		<key>CFBundleVersion</key>
-		<string>1</string>
+		<string>4</string>
 		<key>SigningIdentity</key>
-		<string>Apple Development: Mladjan Antic (FQ77QDLBQR)</string>
+		<string>Developer ID Application: Mladjan Antic (7MKQAN7HM5)</string>
 		<key>Team</key>
 		<string>7MKQAN7HM5</string>
 	</dict>
 	<key>ArchiveVersion</key>
 	<integer>2</integer>
 	<key>CreationDate</key>
-	<date>2026-01-17T13:53:22Z</date>
+	<date>2026-01-17T15:35:07Z</date>
 	<key>Name</key>
 	<string>VibeStatus</string>
 	<key>SchemeName</key>

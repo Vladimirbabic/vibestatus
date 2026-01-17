@@ -34,7 +34,9 @@ targets:
       PRODUCT_BUNDLE_IDENTIFIER: com.vibestatus.app
       PRODUCT_NAME: "VibeStatus"
       INFOPLIST_FILE: VibeStatus/Info.plist
-      CODE_SIGN_STYLE: Automatic
+      CODE_SIGN_STYLE: Manual
+      DEVELOPMENT_TEAM: 7MKQAN7HM5
+      CODE_SIGN_IDENTITY: "Developer ID Application: Mladjan Antic (7MKQAN7HM5)"
       ENABLE_HARDENED_RUNTIME: YES
       ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
     dependencies:
@@ -49,22 +51,30 @@ targets:
           # Sign Sparkle's XPC services and helpers for Hardened Runtime
           SPARKLE_FRAMEWORK="${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework"
 
+          # Use ad-hoc signing if no identity specified
+          SIGN_IDENTITY="${CODE_SIGN_IDENTITY:-"-"}"
+          if [ -z "$SIGN_IDENTITY" ]; then
+            SIGN_IDENTITY="-"
+          fi
+
           if [ -d "$SPARKLE_FRAMEWORK" ]; then
             # Sign XPC services
             find "$SPARKLE_FRAMEWORK" -name "*.xpc" -type d | while read xpc; do
-              codesign --force --options runtime --sign "${CODE_SIGN_IDENTITY}" "$xpc"
+              codesign --force --options runtime --sign "$SIGN_IDENTITY" "$xpc" || true
             done
 
             # Sign helper apps
             find "$SPARKLE_FRAMEWORK" -name "*.app" -type d | while read app; do
-              codesign --force --options runtime --sign "${CODE_SIGN_IDENTITY}" "$app"
+              codesign --force --options runtime --sign "$SIGN_IDENTITY" "$app" || true
             done
 
             # Sign Autoupdate
             if [ -f "$SPARKLE_FRAMEWORK/Versions/B/Autoupdate" ]; then
-              codesign --force --options runtime --sign "${CODE_SIGN_IDENTITY}" "$SPARKLE_FRAMEWORK/Versions/B/Autoupdate"
+              codesign --force --options runtime --sign "$SIGN_IDENTITY" "$SPARKLE_FRAMEWORK/Versions/B/Autoupdate" || true
             fi
 
             # Re-sign the framework itself
-            codesign --force --options runtime --sign "${CODE_SIGN_IDENTITY}" "$SPARKLE_FRAMEWORK"
+            codesign --force --options runtime --sign "$SIGN_IDENTITY" "$SPARKLE_FRAMEWORK" || true
           fi
+
+          exit 0
