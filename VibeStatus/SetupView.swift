@@ -205,8 +205,13 @@ struct AboutSettingsView: View {
 
             // App Name & Version
             VStack(spacing: 6) {
-                Text("Vibe Status")
-                    .font(.system(size: 24, weight: .semibold))
+                HStack(spacing: 8) {
+                    Image(nsImage: NSApp.applicationIconImage)
+                        .resizable()
+                        .frame(width: 28, height: 28)
+                    Text("Vibe Status")
+                        .font(.system(size: 24, weight: .semibold))
+                }
 
                 Text("Version \(Bundle.main.appVersion)")
                     .font(.subheadline)
