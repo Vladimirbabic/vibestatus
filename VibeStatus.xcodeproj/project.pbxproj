@@ -7,8 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		20ACD9B541686F0052F11805 /* icon.json in Resources */ = {isa = PBXBuildFile; fileRef = D8350CD5E857CC0D98AA8820 /* icon.json */; };
 		3DA544F7C18DE916BA35D611 /* StatusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A463B145CA42C5E50923202 /* StatusManager.swift */; };
 		5AFA32077A3F5C28A43F7446 /* SetupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF86F6EB9C44E4D2B358120C /* SetupManager.swift */; };
+		738399C69C702A76F4C53F8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 140DA74FA64F361E90C3068C /* Assets.xcassets */; };
+		7C37E0DE42C0DB307EF8369B /* vibestatus.png in Resources */ = {isa = PBXBuildFile; fileRef = B0A6A2FB778A7248D78C2BD4 /* vibestatus.png */; };
 		E0A827D3ED45FFB6591B6CB8 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 6C01A196025A7F870110503F /* Sparkle */; };
 		EFBA751CC4530557D617AF33 /* WidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A48C8FDA2A1FE59903E641 /* WidgetView.swift */; };
 		F39D6289237B96B70BF1B4B9 /* VibeStatusApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC433EF6F9DD14A5BF442D65 /* VibeStatusApp.swift */; };
@@ -16,14 +19,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		140DA74FA64F361E90C3068C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2D1D2A93D202FD3350744520 /* VibeStatus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VibeStatus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60A48C8FDA2A1FE59903E641 /* WidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetView.swift; sourceTree = "<group>"; };
 		6B031F1A2CF365B846E88B51 /* VibeStatus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VibeStatus.entitlements; sourceTree = "<group>"; };
 		8A463B145CA42C5E50923202 /* StatusManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusManager.swift; sourceTree = "<group>"; };
 		A19C86FF5E455EA2DBD30C0F /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
+		B0A6A2FB778A7248D78C2BD4 /* vibestatus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vibestatus.png; sourceTree = "<group>"; };
 		BC433EF6F9DD14A5BF442D65 /* VibeStatusApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VibeStatusApp.swift; sourceTree = "<group>"; };
 		C86E9678C318609D6BD7EB6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		CF86F6EB9C44E4D2B358120C /* SetupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupManager.swift; sourceTree = "<group>"; };
+		D8350CD5E857CC0D98AA8820 /* icon.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = icon.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,9 +52,19 @@
 			);
 			sourceTree = "<group>";
 		};
+		5A7ADD370A85864AD0DD155D /* vibe-status-icon.icon */ = {
+			isa = PBXGroup;
+			children = (
+				D8350CD5E857CC0D98AA8820 /* icon.json */,
+				A20C7F669D1430D2C200703F /* Assets */,
+			);
+			path = "vibe-status-icon.icon";
+			sourceTree = "<group>";
+		};
 		9B6B14D4C5F7145B0C008E29 /* VibeStatus */ = {
 			isa = PBXGroup;
 			children = (
+				140DA74FA64F361E90C3068C /* Assets.xcassets */,
 				C86E9678C318609D6BD7EB6B /* Info.plist */,
 				CF86F6EB9C44E4D2B358120C /* SetupManager.swift */,
 				A19C86FF5E455EA2DBD30C0F /* SetupView.swift */,
@@ -56,6 +72,7 @@
 				6B031F1A2CF365B846E88B51 /* VibeStatus.entitlements */,
 				BC433EF6F9DD14A5BF442D65 /* VibeStatusApp.swift */,
 				60A48C8FDA2A1FE59903E641 /* WidgetView.swift */,
+				5A7ADD370A85864AD0DD155D /* vibe-status-icon.icon */,
 			);
 			path = VibeStatus;
 			sourceTree = "<group>";
@@ -68,6 +85,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		A20C7F669D1430D2C200703F /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				B0A6A2FB778A7248D78C2BD4 /* vibestatus.png */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -76,6 +101,7 @@
 			buildConfigurationList = AA4E7FED3131E09754CFE2B1 /* Build configuration list for PBXNativeTarget "VibeStatus" */;
 			buildPhases = (
 				8D96DB510B277D9C842C455B /* Sources */,
+				1576C8C3C71FDDC31A17C3D5 /* Resources */,
 				C54B9A92149472EC6BB8B808 /* Frameworks */,
 			);
 			buildRules = (
@@ -125,6 +151,19 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1576C8C3C71FDDC31A17C3D5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				738399C69C702A76F4C53F8A /* Assets.xcassets in Resources */,
+				20ACD9B541686F0052F11805 /* icon.json in Resources */,
+				7C37E0DE42C0DB307EF8369B /* vibestatus.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8D96DB510B277D9C842C455B /* Sources */ = {
