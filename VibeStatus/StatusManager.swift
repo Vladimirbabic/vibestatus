@@ -129,18 +129,22 @@ final class StatusManager: ObservableObject {
                 let timestamp = status.timestamp ?? now
                 let project = status.project ?? "Unknown"
 
-                // Check if process is still alive
-                if let pid = status.pid, !isProcessRunning(pid: pid) {
+                // Check session timeout first
+                let age = now.timeIntervalSince(timestamp)
+                if age >= StatusFileConstants.sessionTimeoutSeconds {
+                    // Session expired, remove file
                     try? fileManager.removeItem(atPath: filePath)
                     continue
                 }
 
-                // Check session timeout
-                if now.timeIntervalSince(timestamp) < StatusFileConstants.sessionTimeoutSeconds {
-                    sessions[file] = ParsedSession(status: status.state, project: project, timestamp: timestamp)
-                } else {
+                // Only check PID if session is old (> 60s) to avoid false positives
+                // The hook's PPID may be a short-lived shell, not the main Claude process
+                if age > 60, let pid = status.pid, !isProcessRunning(pid: pid) {
                     try? fileManager.removeItem(atPath: filePath)
+                    continue
                 }
+
+                sessions[file] = ParsedSession(status: status.state, project: project, timestamp: timestamp)
             } catch {
                 errorCount += 1
                 #if DEBUG

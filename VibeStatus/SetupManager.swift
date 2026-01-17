@@ -211,12 +211,23 @@ final class SetupManager: ObservableObject {
         # Extract session_id for multi-terminal support
         SESSION_ID=$(echo "$INPUT" | grep -o '"session_id":"[^"]*"' | cut -d'"' -f4)
         if [ -z "$SESSION_ID" ]; then
-            # Fallback to parent PID if no session_id
+            # Fallback to script PID if no session_id
             SESSION_ID="$$"
         fi
 
-        # Get the parent process ID (the Claude process)
+        # Find the main Claude process - walk up the process tree to find 'claude'
+        # PPID is the immediate parent (usually a shell), so we look for the actual Claude process
         CLAUDE_PID=$PPID
+        CURRENT_PID=$PPID
+        for _ in 1 2 3 4 5; do
+            PARENT_NAME=$(ps -p "$CURRENT_PID" -o comm= 2>/dev/null | xargs basename 2>/dev/null)
+            if [ "$PARENT_NAME" = "claude" ]; then
+                CLAUDE_PID=$CURRENT_PID
+                break
+            fi
+            CURRENT_PID=$(ps -p "$CURRENT_PID" -o ppid= 2>/dev/null | tr -d ' ')
+            [ -z "$CURRENT_PID" ] && break
+        done
 
         # Extract working directory and get project name (last folder in path)
         WORKING_DIR=$(echo "$INPUT" | grep -o '"cwd":"[^"]*"' | cut -d'"' -f4)
