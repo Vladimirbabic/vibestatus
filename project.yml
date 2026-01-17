@@ -1,0 +1,44 @@
+name: VibeStatus
+options:
+  bundleIdPrefix: com.vibestatus
+  deploymentTarget:
+    macOS: "13.0"
+  xcodeVersion: "15.0"
+
+settings:
+  SWIFT_VERSION: "5.9"
+  MACOSX_DEPLOYMENT_TARGET: "13.0"
+
+packages:
+  Sparkle:
+    url: https://github.com/sparkle-project/Sparkle
+    from: "2.5.0"
+
+targets:
+  VibeStatus:
+    type: application
+    platform: macOS
+    sources:
+      - VibeStatus
+    info:
+      path: VibeStatus/Info.plist
+      properties:
+        LSUIElement: true
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
+        NSHumanReadableCopyright: "Copyright © 2025. All rights reserved."
+        LSApplicationCategoryType: public.app-category.utilities
+        SUFeedURL: "https://raw.githubusercontent.com/Vladimirbabic/vibestatus/main/appcast.xml"
+        SUPublicEDKey: ""
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.vibestatus.app
+      PRODUCT_NAME: "VibeStatus"
+      INFOPLIST_FILE: VibeStatus/Info.plist
+      CODE_SIGN_STYLE: Automatic
+      ENABLE_HARDENED_RUNTIME: YES
+    dependencies:
+      - package: Sparkle
+    entitlements:
+      path: VibeStatus/VibeStatus.entitlements
+      properties:
+        com.apple.security.app-sandbox: false
