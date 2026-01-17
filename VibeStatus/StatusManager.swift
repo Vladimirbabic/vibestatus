@@ -61,20 +61,24 @@ class StatusManager: ObservableObject {
     static let statusDirectory = "/tmp"
     static let statusFilePrefix = "vibestatus-"
 
-    @Published var currentStatus: VibeStatus = .idle
+    // Use MainActor to ensure thread safety
+    @Published var currentStatus: VibeStatus = .notRunning
     @Published var statusMessage: String?
-    @Published var pulseScale: CGFloat = 1.0
     @Published var activeSessionCount: Int = 0
     @Published var sessions: [SessionInfo] = []
 
     private var fileMonitor: DispatchSourceFileSystemObject?
     private var fileDescriptor: Int32 = -1
-    private var pulseTimer: Timer?
     private var pollTimer: Timer?
 
     // Track individual session statuses
     private var sessionStatuses: [String: (status: VibeStatus, project: String, timestamp: Date)] = [:]
+    private var previousSessionStatuses: [String: VibeStatus] = [:] // Track previous status for each session
     private let sessionTimeout: TimeInterval = 300 // Consider session dead after 5 minutes of no updates
+
+    // Debounce to prevent rapid updates
+    private var pendingUpdate: DispatchWorkItem?
+    private let debounceInterval: TimeInterval = 0.1
 
     var statusText: String {
         let count = activeSessionCount
@@ -92,16 +96,15 @@ class StatusManager: ObservableObject {
 
     init() {
         startFileMonitoring()
-        startPulseAnimation()
         startPolling()
         startClaudeDetection()
     }
 
     deinit {
         stopFileMonitoring()
-        pulseTimer?.invalidate()
         pollTimer?.invalidate()
         claudeDetectionTimer?.invalidate()
+        pendingUpdate?.cancel()
     }
 
     private var claudeDetectionTimer: Timer?
@@ -137,17 +140,11 @@ class StatusManager: ObservableObject {
     private func checkClaudeRunning() {
         let isRunning = isClaudeProcessRunning()
 
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-
-            if !isRunning && self.activeSessionCount == 0 && self.currentStatus != .notRunning {
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    self.currentStatus = .notRunning
-                }
-            } else if isRunning && self.currentStatus == .notRunning {
-                // Claude started, read all status files to get actual state
-                self.readAllStatusFiles()
-            }
+        if !isRunning && self.activeSessionCount == 0 && self.currentStatus != .notRunning {
+            self.currentStatus = .notRunning
+        } else if isRunning && self.currentStatus == .notRunning {
+            // Claude started, read all status files to get actual state
+            self.readAllStatusFiles()
         }
     }
 
@@ -210,6 +207,18 @@ class StatusManager: ObservableObject {
     }
 
     private func readAllStatusFiles() {
+        // Cancel any pending update
+        pendingUpdate?.cancel()
+
+        // Debounce updates to prevent rapid state changes
+        let workItem = DispatchWorkItem { [weak self] in
+            self?.performStatusUpdate()
+        }
+        pendingUpdate = workItem
+        DispatchQueue.main.asyncAfter(deadline: .now() + debounceInterval, execute: workItem)
+    }
+
+    private func performStatusUpdate() {
         let fileManager = FileManager.default
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
@@ -243,31 +252,48 @@ class StatusManager: ObservableObject {
             }
         }
 
+        // Check for individual session transitions (working -> idle/needsInput)
+        var shouldPlayIdleSound = false
+        var shouldPlayNeedsInputSound = false
+
+        for (sessionId, sessionData) in updatedSessions {
+            let currentSessionStatus = sessionData.status
+            let previousSessionStatus = previousSessionStatuses[sessionId]
+
+            // If this session was working and now finished
+            if previousSessionStatus == .working && currentSessionStatus != .working {
+                if currentSessionStatus == .needsInput {
+                    shouldPlayNeedsInputSound = true
+                } else if currentSessionStatus == .idle {
+                    shouldPlayIdleSound = true
+                }
+            }
+        }
+
+        // Update previous session statuses for next comparison
+        previousSessionStatuses = updatedSessions.mapValues { $0.status }
+
         // Update session tracking
         sessionStatuses = updatedSessions
 
         // Convert to SessionInfo array sorted by project name
-        let sessionInfos = updatedSessions.map { (id, data) in
+        let newSessions = updatedSessions.map { (id, data) in
             SessionInfo(id: id, status: data.status, project: data.project, timestamp: data.timestamp)
         }.sorted { $0.project < $1.project }
 
         // Aggregate status (priority: needsInput > working > idle)
         let aggregatedStatus = aggregateStatuses(updatedSessions)
-        let previousStatus = currentStatus
 
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
+        // Update state without animation to prevent crashes
+        self.activeSessionCount = updatedSessions.count
+        self.currentStatus = aggregatedStatus
+        self.sessions = newSessions
 
-            withAnimation(.easeInOut(duration: 0.3)) {
-                self.activeSessionCount = updatedSessions.count
-                self.currentStatus = aggregatedStatus
-                self.sessions = sessionInfos
-            }
-
-            // Play sound when any session transitions from working to idle or needsInput
-            if previousStatus == .working && aggregatedStatus != .working {
-                self.playNotificationSound(for: aggregatedStatus)
-            }
+        // Play sound when any individual session finishes (needsInput has priority)
+        if shouldPlayNeedsInputSound {
+            self.playNotificationSound(for: .needsInput)
+        } else if shouldPlayIdleSound {
+            self.playNotificationSound(for: .idle)
         }
     }
 
@@ -311,18 +337,6 @@ class StatusManager: ObservableObject {
 
         if let sound = NotificationSound(rawValue: soundName) {
             sound.play()
-        }
-    }
-
-    private func startPulseAnimation() {
-        pulseTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: true) { [weak self] _ in
-            guard let self = self, self.currentStatus == .needsInput else { return }
-            withAnimation(.easeOut(duration: 1.5)) {
-                self.pulseScale = 2.0
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                self.pulseScale = 1.0
-            }
         }
     }
 

@@ -6,10 +6,8 @@ struct WidgetView: View {
     var body: some View {
         Group {
             if statusManager.sessions.count <= 1 {
-                // Single session or no sessions - show simple view
                 SingleSessionView()
             } else {
-                // Multiple sessions - show each with project name
                 MultiSessionView()
             }
         }
@@ -21,7 +19,7 @@ struct WidgetView: View {
     }
 }
 
-// Single session view (original layout)
+// Single session view
 struct SingleSessionView: View {
     @EnvironmentObject var statusManager: StatusManager
 
@@ -30,26 +28,24 @@ struct SingleSessionView: View {
     }
 
     var body: some View {
-        HStack(spacing: 12) {
-            // Status text and project name
+        HStack(spacing: 14) {
             VStack(alignment: .leading, spacing: 2) {
                 Text(statusManager.statusText)
-                    .font(.system(size: 14, weight: .medium, design: .rounded))
+                    .font(.system(size: 15, weight: .medium, design: .rounded))
                     .foregroundColor(.white.opacity(0.9))
 
                 if !projectName.isEmpty && statusManager.currentStatus != .notRunning {
                     Text(projectName)
-                        .font(.system(size: 10, weight: .regular, design: .rounded))
+                        .font(.system(size: 11, weight: .regular, design: .rounded))
                         .foregroundColor(.white.opacity(0.5))
                         .lineLimit(1)
                 }
             }
-            .frame(minWidth: 80, alignment: .leading)
+            .frame(minWidth: 88, alignment: .leading)
 
             Spacer()
 
-            // Runway lights or status indicator
-            StatusIndicator(status: statusManager.currentStatus, pulseScale: statusManager.pulseScale)
+            StatusIndicator(status: statusManager.currentStatus)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.horizontal, 20)
@@ -79,7 +75,7 @@ struct MultiSessionView: View {
     private var sessionList: some View {
         VStack(alignment: .leading, spacing: 6) {
             ForEach(statusManager.sessions) { session in
-                SessionRowView(session: session, pulseScale: statusManager.pulseScale)
+                SessionRowView(session: session)
             }
         }
     }
@@ -88,24 +84,20 @@ struct MultiSessionView: View {
 // Individual session row
 struct SessionRowView: View {
     let session: SessionInfo
-    let pulseScale: CGFloat
 
     var body: some View {
-        HStack(spacing: 10) {
-            // Status indicator (small)
-            SmallStatusIndicator(status: session.status, pulseScale: pulseScale)
+        HStack(spacing: 11) {
+            SmallStatusIndicator(status: session.status)
 
-            // Project name
             Text(session.project)
-                .font(.system(size: 11, weight: .medium, design: .rounded))
+                .font(.system(size: 12, weight: .medium, design: .rounded))
                 .foregroundColor(.white.opacity(0.7))
                 .lineLimit(1)
 
             Spacer()
 
-            // Status text (small, grayed)
             Text(statusLabel(for: session.status))
-                .font(.system(size: 10, weight: .regular, design: .rounded))
+                .font(.system(size: 11, weight: .regular, design: .rounded))
                 .foregroundColor(.white.opacity(0.4))
         }
     }
@@ -123,32 +115,21 @@ struct SessionRowView: View {
 // Full-size status indicator
 struct StatusIndicator: View {
     let status: VibeStatus
-    let pulseScale: CGFloat
 
     var body: some View {
-        Group {
-            switch status {
-            case .working:
-                RunwayLightsView()
-            case .idle:
-                RoundedRectangle(cornerRadius: 3)
-                    .fill(Color.green.opacity(0.9))
-                    .frame(width: 10, height: 10)
-            case .needsInput:
-                RoundedRectangle(cornerRadius: 3)
-                    .fill(Color.blue.opacity(0.9))
-                    .frame(width: 10, height: 10)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 3)
-                            .stroke(Color.blue.opacity(0.4), lineWidth: 2)
-                            .scaleEffect(pulseScale)
-                            .opacity(2 - pulseScale)
-                    )
-            case .notRunning:
-                RoundedRectangle(cornerRadius: 3)
-                    .fill(Color.gray.opacity(0.5))
-                    .frame(width: 10, height: 10)
-            }
+        switch status {
+        case .working:
+            RunwayLightsView()
+        case .idle:
+            RoundedRectangle(cornerRadius: 3)
+                .fill(Color.green.opacity(0.9))
+                .frame(width: 11, height: 11)
+        case .needsInput:
+            PulsingIndicator(color: .blue, size: 11, cornerRadius: 3)
+        case .notRunning:
+            RoundedRectangle(cornerRadius: 3)
+                .fill(Color.gray.opacity(0.5))
+                .frame(width: 11, height: 11)
         }
     }
 }
@@ -156,78 +137,135 @@ struct StatusIndicator: View {
 // Small status indicator for multi-session rows
 struct SmallStatusIndicator: View {
     let status: VibeStatus
-    let pulseScale: CGFloat
 
     var body: some View {
-        Group {
-            switch status {
-            case .working:
-                SmallRunwayLightsView()
-            case .idle:
-                Circle()
-                    .fill(Color.green.opacity(0.9))
-                    .frame(width: 8, height: 8)
-            case .needsInput:
-                Circle()
-                    .fill(Color.blue.opacity(0.9))
-                    .frame(width: 8, height: 8)
-                    .overlay(
-                        Circle()
-                            .stroke(Color.blue.opacity(0.4), lineWidth: 1)
-                            .scaleEffect(pulseScale * 0.8)
-                            .opacity(2 - pulseScale)
-                    )
-            case .notRunning:
-                Circle()
-                    .fill(Color.gray.opacity(0.5))
-                    .frame(width: 8, height: 8)
-            }
+        switch status {
+        case .working:
+            SmallRunwayLightsView()
+        case .idle:
+            Circle()
+                .fill(Color.green.opacity(0.9))
+                .frame(width: 9, height: 9)
+        case .needsInput:
+            SmallPulsingIndicator(color: .blue)
+        case .notRunning:
+            Circle()
+                .fill(Color.gray.opacity(0.5))
+                .frame(width: 9, height: 9)
         }
     }
 }
 
-// Small pulsing indicator for multi-session rows
+// Small runway lights for multi-session rows (3 dots)
 struct SmallRunwayLightsView: View {
-    @State private var opacity: Double = 0.4
     private let vibeOrange = Color(red: 0.757, green: 0.373, blue: 0.235)
+    private let dotCount = 3
 
     var body: some View {
-        Circle()
-            .fill(vibeOrange)
-            .frame(width: 8, height: 8)
-            .opacity(opacity)
-            .onAppear {
-                withAnimation(.easeInOut(duration: 0.8).repeatForever(autoreverses: true)) {
-                    opacity = 1.0
+        TimelineView(.animation(minimumInterval: 0.03)) { timeline in
+            let time = timeline.date.timeIntervalSinceReferenceDate
+
+            HStack(spacing: 4) {
+                ForEach(0..<dotCount, id: \.self) { index in
+                    Circle()
+                        .fill(vibeOrange)
+                        .frame(width: 7, height: 7)
+                        .opacity(shimmerOpacity(for: index, time: time))
                 }
             }
+        }
+    }
+
+    private func shimmerOpacity(for index: Int, time: Double) -> Double {
+        let waveSpeed = 2.5
+        let position = time * waveSpeed
+        let dotPosition = Double(index)
+
+        let waveCenter = position.truncatingRemainder(dividingBy: Double(dotCount + 2)) - 1
+        let distance = abs(dotPosition - waveCenter)
+
+        let brightness = exp(-distance * distance * 0.6)
+        return 0.3 + 0.7 * brightness
     }
 }
 
-// Runway lights animation
-struct RunwayLightsView: View {
-    @State private var glowOpacity: Double = 1.0
-    private let vibeOrange = Color(red: 0.757, green: 0.373, blue: 0.235)
+// Pulsing indicator using TimelineView
+struct PulsingIndicator: View {
+    let color: Color
+    let size: CGFloat
+    let cornerRadius: CGFloat
 
     var body: some View {
-        HStack(spacing: 6) {
-            ForEach(0..<5, id: \.self) { index in
-                RoundedRectangle(cornerRadius: 2)
-                    .fill(vibeOrange)
-                    .frame(width: 8, height: 8)
-                    .opacity(opacityFor(index))
-            }
+        TimelineView(.animation(minimumInterval: 0.05)) { timeline in
+            let phase = timeline.date.timeIntervalSinceReferenceDate
+            let scale = 1.0 + 0.3 * sin(phase * 4)
+            let pulseOpacity = 0.4 * (1 - (scale - 1) / 0.3)
+
+            RoundedRectangle(cornerRadius: cornerRadius)
+                .fill(color.opacity(0.9))
+                .frame(width: size, height: size)
+                .overlay(
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .stroke(color.opacity(pulseOpacity), lineWidth: 2)
+                        .scaleEffect(scale)
+                )
         }
-        .onAppear {
-            withAnimation(.easeInOut(duration: 0.6).repeatForever(autoreverses: true)) {
-                glowOpacity = 0.3
+    }
+}
+
+// Small pulsing indicator
+struct SmallPulsingIndicator: View {
+    let color: Color
+
+    var body: some View {
+        TimelineView(.animation(minimumInterval: 0.05)) { timeline in
+            let phase = timeline.date.timeIntervalSinceReferenceDate
+            let opacity = 0.5 + 0.5 * sin(phase * 3)
+
+            Circle()
+                .fill(color)
+                .frame(width: 9, height: 9)
+                .opacity(opacity)
+        }
+    }
+}
+
+// Runway lights animation - shimmering dots
+struct RunwayLightsView: View {
+    private let vibeOrange = Color(red: 0.757, green: 0.373, blue: 0.235)
+    private let dotCount = 5
+
+    var body: some View {
+        TimelineView(.animation(minimumInterval: 0.03)) { timeline in
+            let time = timeline.date.timeIntervalSinceReferenceDate
+
+            HStack(spacing: 7) {
+                ForEach(0..<dotCount, id: \.self) { index in
+                    RoundedRectangle(cornerRadius: 2)
+                        .fill(vibeOrange)
+                        .frame(width: 9, height: 9)
+                        .opacity(shimmerOpacity(for: index, time: time))
+                }
             }
         }
     }
 
-    private func opacityFor(_ index: Int) -> Double {
-        let baseOpacity = Double(index + 1) / 5.0
-        return baseOpacity * glowOpacity + 0.15
+    private func shimmerOpacity(for index: Int, time: Double) -> Double {
+        // Create a wider wave that spans ~3 dots at a time
+        let waveSpeed = 2.0
+        let waveWidth = 0.8  // Smaller = wider shimmer band
+        let position = time * waveSpeed
+        let dotPosition = Double(index)
+
+        // Calculate distance from wave center (wrapping around)
+        let waveCenter = position.truncatingRemainder(dividingBy: Double(dotCount + 2)) - 1
+        let distance = abs(dotPosition - waveCenter)
+
+        // Gaussian-like falloff for smooth 3-dot wide shimmer
+        let brightness = exp(-distance * distance * waveWidth)
+
+        // Map to opacity range (0.25 base, up to 1.0 at peak)
+        return 0.25 + 0.75 * brightness
     }
 }
 
@@ -235,7 +273,6 @@ struct RunwayLightsView: View {
 struct WidgetView_Previews: PreviewProvider {
     static var previews: some View {
         VStack(spacing: 20) {
-            // Single session states
             WidgetView()
                 .environmentObject(StatusManager.preview(status: .working))
                 .frame(width: 180, height: 44)
@@ -252,7 +289,6 @@ struct WidgetView_Previews: PreviewProvider {
                 .environmentObject(StatusManager.preview(status: .notRunning))
                 .frame(width: 180, height: 44)
 
-            // Multi-session view
             WidgetView()
                 .environmentObject(StatusManager.previewMultiSession())
                 .frame(width: 180, height: 80)
