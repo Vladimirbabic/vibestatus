@@ -5,6 +5,26 @@
         <link>https://github.com/Vladimirbabic/vibestatus</link>
         <description>Most recent updates to VibeStatus</description>
         <language>en</language>
-        <!-- Items will be added here when releases are made -->
+        <item>
+            <title>Version 1.0</title>
+            <pubDate>Fri, 17 Jan 2025 14:40:00 +0000</pubDate>
+            <sparkle:version>1</sparkle:version>
+            <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+            <description><![CDATA[
+                <h2>VibeStatus v1.0</h2>
+                <p>Initial release!</p>
+                <ul>
+                    <li>Floating glass widget showing Claude's status</li>
+                    <li>Menu bar icon that changes based on status</li>
+                    <li>Sound notifications when Claude finishes</li>
+                    <li>Always-on-top across all spaces</li>
+                </ul>
+            ]]></description>
+            <enclosure
+                url="https://github.com/Vladimirbabic/vibestatus/releases/download/v1.0/VibeStatus-1.0.zip"
+                length="2745745"
+                type="application/octet-stream" />
+        </item>
     </channel>
 </rss>
