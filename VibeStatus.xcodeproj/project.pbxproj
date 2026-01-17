@@ -9,9 +9,12 @@
 /* Begin PBXBuildFile section */
 		20ACD9B541686F0052F11805 /* icon.json in Resources */ = {isa = PBXBuildFile; fileRef = D8350CD5E857CC0D98AA8820 /* icon.json */; };
 		3DA544F7C18DE916BA35D611 /* StatusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A463B145CA42C5E50923202 /* StatusManager.swift */; };
+		4C20DC04FC3D47E2F04F0321 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E2AAC2067CCE3EFAEC1CC6 /* Constants.swift */; };
+		5895C989E31D69E6907FBF8D /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70E5CB1FF7DBC83116DA6DA /* Types.swift */; };
 		5AFA32077A3F5C28A43F7446 /* SetupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF86F6EB9C44E4D2B358120C /* SetupManager.swift */; };
 		738399C69C702A76F4C53F8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 140DA74FA64F361E90C3068C /* Assets.xcassets */; };
 		7C37E0DE42C0DB307EF8369B /* vibestatus.png in Resources */ = {isa = PBXBuildFile; fileRef = B0A6A2FB778A7248D78C2BD4 /* vibestatus.png */; };
+		BBAE18020A23C500CE25C43B /* FloatingWidgetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09B6CA81F0BFA2DB61B0B0F /* FloatingWidgetController.swift */; };
 		E0A827D3ED45FFB6591B6CB8 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 6C01A196025A7F870110503F /* Sparkle */; };
 		EFBA751CC4530557D617AF33 /* WidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A48C8FDA2A1FE59903E641 /* WidgetView.swift */; };
 		F39D6289237B96B70BF1B4B9 /* VibeStatusApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC433EF6F9DD14A5BF442D65 /* VibeStatusApp.swift */; };
@@ -21,6 +24,7 @@
 /* Begin PBXFileReference section */
 		140DA74FA64F361E90C3068C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2D1D2A93D202FD3350744520 /* VibeStatus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VibeStatus.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		47E2AAC2067CCE3EFAEC1CC6 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		60A48C8FDA2A1FE59903E641 /* WidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetView.swift; sourceTree = "<group>"; };
 		6B031F1A2CF365B846E88B51 /* VibeStatus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VibeStatus.entitlements; sourceTree = "<group>"; };
 		8A463B145CA42C5E50923202 /* StatusManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusManager.swift; sourceTree = "<group>"; };
@@ -29,6 +33,8 @@
 		BC433EF6F9DD14A5BF442D65 /* VibeStatusApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VibeStatusApp.swift; sourceTree = "<group>"; };
 		C86E9678C318609D6BD7EB6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		CF86F6EB9C44E4D2B358120C /* SetupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupManager.swift; sourceTree = "<group>"; };
+		D09B6CA81F0BFA2DB61B0B0F /* FloatingWidgetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingWidgetController.swift; sourceTree = "<group>"; };
+		D70E5CB1FF7DBC83116DA6DA /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		D8350CD5E857CC0D98AA8820 /* icon.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = icon.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -65,10 +71,13 @@
 			isa = PBXGroup;
 			children = (
 				140DA74FA64F361E90C3068C /* Assets.xcassets */,
+				47E2AAC2067CCE3EFAEC1CC6 /* Constants.swift */,
+				D09B6CA81F0BFA2DB61B0B0F /* FloatingWidgetController.swift */,
 				C86E9678C318609D6BD7EB6B /* Info.plist */,
 				CF86F6EB9C44E4D2B358120C /* SetupManager.swift */,
 				A19C86FF5E455EA2DBD30C0F /* SetupView.swift */,
 				8A463B145CA42C5E50923202 /* StatusManager.swift */,
+				D70E5CB1FF7DBC83116DA6DA /* Types.swift */,
 				6B031F1A2CF365B846E88B51 /* VibeStatus.entitlements */,
 				BC433EF6F9DD14A5BF442D65 /* VibeStatusApp.swift */,
 				60A48C8FDA2A1FE59903E641 /* WidgetView.swift */,
@@ -193,9 +202,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C20DC04FC3D47E2F04F0321 /* Constants.swift in Sources */,
+				BBAE18020A23C500CE25C43B /* FloatingWidgetController.swift in Sources */,
 				5AFA32077A3F5C28A43F7446 /* SetupManager.swift in Sources */,
 				F877D28594870DBF61BFDE74 /* SetupView.swift in Sources */,
 				3DA544F7C18DE916BA35D611 /* StatusManager.swift in Sources */,
+				5895C989E31D69E6907FBF8D /* Types.swift in Sources */,
 				F39D6289237B96B70BF1B4B9 /* VibeStatusApp.swift in Sources */,
 				EFBA751CC4530557D617AF33 /* WidgetView.swift in Sources */,
 			);

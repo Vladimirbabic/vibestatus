@@ -1,56 +1,41 @@
-import SwiftUI
+// StatusManager.swift
+// VibeStatus
+//
+// Responsible for monitoring Claude Code session status by polling status files
+// written by the hook script. This is the single source of truth for session state.
+//
+// Architecture:
+// - Hook script (vibestatus.sh) writes JSON to /tmp/vibestatus-{session_id}.json
+// - StatusManager polls these files every second
+// - State changes trigger sound notifications and UI updates via Combine
+//
+// Thread Safety:
+// - All published properties are @MainActor isolated
+// - File I/O runs on detached background tasks
+// - State updates always happen on MainActor
+
 import AppKit
+import Combine
 
-enum VibeStatus: String, Codable {
-    case working
-    case idle
-    case needsInput = "needs_input"
-    case notRunning = "not_running"
-
-    var borderColor: Color {
-        switch self {
-        case .working:
-            return Color(red: 0.757, green: 0.373, blue: 0.235)
-        case .idle:
-            return .green
-        case .needsInput:
-            return .blue
-        case .notRunning:
-            return .gray
-        }
-    }
-}
-
-struct StatusData: Codable {
-    let state: VibeStatus
-    let message: String?
-    let timestamp: Date?
-    let project: String?
-}
-
-struct SessionInfo: Identifiable {
-    let id: String
-    let status: VibeStatus
-    let project: String
-    let timestamp: Date
-}
-
-class StatusManager: ObservableObject {
+/// Monitors Claude Code sessions and aggregates their status.
+///
+/// Use `StatusManager.shared` to access the singleton instance.
+/// Call `start()` to begin polling and `stop()` to halt polling.
+@MainActor
+final class StatusManager: ObservableObject {
     static let shared = StatusManager()
-    static let statusDirectory = "/tmp"
-    static let statusFilePrefix = "vibestatus-"
 
-    @Published var currentStatus: VibeStatus = .notRunning
-    @Published var statusMessage: String?
-    @Published var activeSessionCount: Int = 0
-    @Published var sessions: [SessionInfo] = []
+    // MARK: - Published State
 
-    private var timer: Timer?
-    private var previousSessionStatuses: [String: VibeStatus] = [:]
-    private let sessionTimeout: TimeInterval = 300
+    /// The aggregated status across all active sessions
+    @Published private(set) var currentStatus: VibeStatus = .notRunning
 
+    /// All currently active Claude sessions
+    @Published private(set) var sessions: [SessionInfo] = []
+
+    /// Human-readable status text for UI display
     var statusText: String {
-        let count = activeSessionCount
+        let count = sessions.count
         switch currentStatus {
         case .working:
             return count > 1 ? "Working (\(count))" : "Working..."
@@ -63,83 +48,146 @@ class StatusManager: ObservableObject {
         }
     }
 
-    init() {
-        // Single timer that does everything
-        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
-            DispatchQueue.main.async {
-                self?.update()
-            }
-        }
-        RunLoop.main.add(timer!, forMode: .common)
+    // MARK: - Private State
 
-        // Initial update
-        DispatchQueue.main.async { [weak self] in
-            self?.update()
+    private var pollingTask: Task<Void, Never>?
+    private var previousSessionStatuses: [String: VibeStatus] = [:]
+
+    private init() {}
+
+    deinit {
+        pollingTask?.cancel()
+    }
+
+    // MARK: - Public API
+
+    /// Start polling for status updates. Safe to call multiple times.
+    func start() {
+        pollingTask?.cancel()
+
+        pollingTask = Task { [weak self] in
+            guard let self else { return }
+
+            await self.update()
+
+            while !Task.isCancelled {
+                try? await Task.sleep(nanoseconds: UInt64(StatusFileConstants.pollingIntervalSeconds * 1_000_000_000))
+                guard !Task.isCancelled else { break }
+                await self.update()
+            }
         }
     }
 
-    private func update() {
+    /// Stop polling for status updates.
+    func stop() {
+        pollingTask?.cancel()
+        pollingTask = nil
+    }
+
+    // MARK: - Private Methods
+
+    private func update() async {
+        let result = await Task.detached(priority: .utility) {
+            Self.readStatusFiles()
+        }.value
+
+        processUpdate(result)
+    }
+
+    /// Reads all status files from disk. Runs on background thread.
+    /// Returns parsed session data and error count for diagnostics.
+    private nonisolated static func readStatusFiles() -> ParsedSessions {
         let fileManager = FileManager.default
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
 
-        guard let files = try? fileManager.contentsOfDirectory(atPath: Self.statusDirectory) else {
-            return
+        let files: [String]
+        do {
+            files = try fileManager.contentsOfDirectory(atPath: StatusFileConstants.directory)
+        } catch {
+            return ParsedSessions(sessions: [:], errorCount: 1)
         }
 
         let now = Date()
-        var updatedSessions: [String: (status: VibeStatus, project: String, timestamp: Date)] = [:]
+        var sessions: [String: ParsedSession] = [:]
+        var errorCount = 0
 
-        for file in files where file.hasPrefix(Self.statusFilePrefix) && file.hasSuffix(".json") {
-            let filePath = "\(Self.statusDirectory)/\(file)"
-
-            guard let data = fileManager.contents(atPath: filePath),
-                  let status = try? decoder.decode(StatusData.self, from: data) else {
+        for file in files {
+            guard file.hasPrefix(StatusFileConstants.filePrefix),
+                  file.hasSuffix(StatusFileConstants.fileExtension) else {
                 continue
             }
 
-            let sessionId = file
-            let timestamp = status.timestamp ?? now
-            let project = status.project ?? "Unknown"
+            let filePath = "\(StatusFileConstants.directory)/\(file)"
+            let fileURL = URL(fileURLWithPath: filePath)
 
-            if now.timeIntervalSince(timestamp) < sessionTimeout {
-                updatedSessions[sessionId] = (status.state, project, timestamp)
-            } else {
-                try? fileManager.removeItem(atPath: filePath)
+            do {
+                let data = try Data(contentsOf: fileURL, options: .mappedIfSafe)
+                guard !data.isEmpty else { continue }
+
+                let status = try decoder.decode(StatusData.self, from: data)
+                let timestamp = status.timestamp ?? now
+                let project = status.project ?? "Unknown"
+
+                // Check if process is still alive
+                if let pid = status.pid, !isProcessRunning(pid: pid) {
+                    try? fileManager.removeItem(atPath: filePath)
+                    continue
+                }
+
+                // Check session timeout
+                if now.timeIntervalSince(timestamp) < StatusFileConstants.sessionTimeoutSeconds {
+                    sessions[file] = ParsedSession(status: status.state, project: project, timestamp: timestamp)
+                } else {
+                    try? fileManager.removeItem(atPath: filePath)
+                }
+            } catch {
+                errorCount += 1
+                #if DEBUG
+                print("[StatusManager] Failed to decode \(file): \(error)")
+                #endif
             }
         }
 
-        // Check for sounds
+        return ParsedSessions(sessions: sessions, errorCount: errorCount)
+    }
+
+    /// Process parsed sessions and update published state.
+    private func processUpdate(_ result: ParsedSessions) {
+        // Determine sound triggers before updating state
         var shouldPlayIdleSound = false
         var shouldPlayNeedsInputSound = false
 
-        for (sessionId, sessionData) in updatedSessions {
-            let currentSessionStatus = sessionData.status
-            let previousSessionStatus = previousSessionStatuses[sessionId]
+        for (sessionId, session) in result.sessions {
+            let previous = previousSessionStatuses[sessionId]
 
-            if previousSessionStatus == .working && currentSessionStatus != .working {
-                if currentSessionStatus == .needsInput {
+            if previous == .working && session.status != .working {
+                if session.status == .needsInput {
                     shouldPlayNeedsInputSound = true
-                } else if currentSessionStatus == .idle {
+                } else if session.status == .idle {
                     shouldPlayIdleSound = true
                 }
             }
         }
 
-        previousSessionStatuses = updatedSessions.mapValues { $0.status }
+        previousSessionStatuses = result.sessions.mapValues { $0.status }
 
-        let newSessions = updatedSessions.map { (id, data) in
+        let newSessions = result.sessions.map { (id, data) in
             SessionInfo(id: id, status: data.status, project: data.project, timestamp: data.timestamp)
         }.sorted { $0.project < $1.project }
 
-        let aggregatedStatus = aggregateStatuses(updatedSessions)
+        let aggregatedStatus = Self.aggregateStatuses(result.sessions)
 
-        // Update published properties
-        self.activeSessionCount = updatedSessions.count
-        self.currentStatus = aggregatedStatus
-        self.sessions = newSessions
+        // Only update if changed to minimize SwiftUI redraws
+        if currentStatus != aggregatedStatus {
+            currentStatus = aggregatedStatus
+        }
 
-        // Play sounds
+        if sessions != newSessions {
+            sessions = newSessions
+        }
+
+        // Play notification sounds
         if shouldPlayNeedsInputSound {
             playNotificationSound(for: .needsInput)
         } else if shouldPlayIdleSound {
@@ -147,15 +195,15 @@ class StatusManager: ObservableObject {
         }
     }
 
-    private func aggregateStatuses(_ sessions: [String: (status: VibeStatus, project: String, timestamp: Date)]) -> VibeStatus {
-        if sessions.isEmpty {
-            return .notRunning
-        }
+    /// Determine the aggregate status from multiple sessions.
+    /// Priority: needsInput > working > idle > notRunning
+    private static func aggregateStatuses(_ sessions: [String: ParsedSession]) -> VibeStatus {
+        guard !sessions.isEmpty else { return .notRunning }
 
         var hasWorking = false
         var hasIdle = false
 
-        for (_, session) in sessions {
+        for session in sessions.values {
             switch session.status {
             case .needsInput:
                 return .needsInput
@@ -184,8 +232,26 @@ class StatusManager: ObservableObject {
             return
         }
 
-        if let sound = NotificationSound(rawValue: soundName) {
-            sound.play()
-        }
+        NotificationSound(rawValue: soundName)?.play()
+    }
+
+    /// Check if a process with the given PID is still running.
+    private nonisolated static func isProcessRunning(pid: Int) -> Bool {
+        kill(Int32(pid), 0) == 0
+    }
+}
+
+// MARK: - Internal Types
+
+private extension StatusManager {
+    struct ParsedSession {
+        let status: VibeStatus
+        let project: String
+        let timestamp: Date
+    }
+
+    struct ParsedSessions {
+        let sessions: [String: ParsedSession]
+        let errorCount: Int
     }
 }

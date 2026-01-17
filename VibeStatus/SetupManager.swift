@@ -1,93 +1,129 @@
-import SwiftUI
+// SetupManager.swift
+// VibeStatus
+//
+// Manages application configuration and Claude Code hook integration.
+// Responsible for:
+// - Persisting user preferences via UserDefaults
+// - Installing/removing Claude Code hooks
+// - Providing reactive settings via Combine
+//
+// Hook Integration:
+// The app works by installing a shell script hook that Claude Code calls
+// on status changes. This script writes JSON files to /tmp that StatusManager reads.
+
 import Foundation
 import AppKit
+import Combine
 
-// Widget position options
-enum WidgetPosition: String, CaseIterable {
-    case bottomRight = "bottom_right"
-    case bottomLeft = "bottom_left"
-
-    var displayName: String {
-        switch self {
-        case .bottomRight: return "Bottom Right"
-        case .bottomLeft: return "Bottom Left"
-        }
-    }
-}
-
-// Available system sounds
-enum NotificationSound: String, CaseIterable {
-    case glass = "Glass"
-    case purr = "Purr"
-    case blow = "Blow"
-    case bottle = "Bottle"
-    case frog = "Frog"
-    case funk = "Funk"
-    case hero = "Hero"
-    case morse = "Morse"
-    case ping = "Ping"
-    case pop = "Pop"
-    case submarine = "Submarine"
-    case tink = "Tink"
-    case none = "None"
-
-    var displayName: String {
-        if self == .none { return "No Sound" }
-        return rawValue
-    }
-
-    func play() {
-        guard self != .none else { return }
-        NSSound(named: NSSound.Name(rawValue))?.play()
-    }
-}
-
-class SetupManager: ObservableObject {
+/// Manages app configuration and Claude Code hook setup.
+///
+/// Use `SetupManager.shared` to access the singleton instance.
+/// All properties are @Published for SwiftUI binding.
+@MainActor
+final class SetupManager: ObservableObject {
     static let shared = SetupManager()
 
-    @Published var isConfigured: Bool = false
-    @Published var setupError: String?
-    @Published var isSettingUp: Bool = false
+    // MARK: - Published State
 
-    // Sound settings
-    @AppStorage("idleSound") var idleSound: String = NotificationSound.glass.rawValue
-    @AppStorage("needsInputSound") var needsInputSound: String = NotificationSound.purr.rawValue
+    /// Whether Claude Code hooks are configured
+    @Published private(set) var isConfigured: Bool = false
 
-    // Widget position (using @Published for Combine support)
-    @Published var widgetPosition: String = WidgetPosition.bottomRight.rawValue {
-        didSet {
-            UserDefaults.standard.set(widgetPosition, forKey: "widgetPosition")
-        }
+    /// Error message from last setup attempt, if any
+    @Published private(set) var setupError: String?
+
+    /// Whether setup is currently in progress
+    @Published private(set) var isSettingUp: Bool = false
+
+    // MARK: - Sound Settings
+
+    @Published var idleSound: String {
+        didSet { UserDefaults.standard.set(idleSound, forKey: UserDefaultsKey.idleSound.rawValue) }
     }
 
-    private let claudeSettingsPath: String
-    private let hookScriptPath: String
-    private let hookScriptDir: String
+    @Published var needsInputSound: String {
+        didSet { UserDefaults.standard.set(needsInputSound, forKey: UserDefaultsKey.needsInputSound.rawValue) }
+    }
 
-    init() {
+    // MARK: - Widget Settings
+
+    @Published var widgetEnabled: Bool {
+        didSet { UserDefaults.standard.set(widgetEnabled, forKey: UserDefaultsKey.widgetEnabled.rawValue) }
+    }
+
+    @Published var widgetAutoShow: Bool {
+        didSet { UserDefaults.standard.set(widgetAutoShow, forKey: UserDefaultsKey.widgetAutoShow.rawValue) }
+    }
+
+    @Published var widgetPosition: String {
+        didSet { UserDefaults.standard.set(widgetPosition, forKey: UserDefaultsKey.widgetPosition.rawValue) }
+    }
+
+    @Published var widgetStyle: String {
+        didSet { UserDefaults.standard.set(widgetStyle, forKey: UserDefaultsKey.widgetStyle.rawValue) }
+    }
+
+    // MARK: - Theme Settings
+
+    @Published var widgetTheme: String {
+        didSet { UserDefaults.standard.set(widgetTheme, forKey: UserDefaultsKey.widgetTheme.rawValue) }
+    }
+
+    @Published var widgetOpacity: Double {
+        didSet { UserDefaults.standard.set(widgetOpacity, forKey: UserDefaultsKey.widgetOpacity.rawValue) }
+    }
+
+    @Published var widgetAccentColor: String {
+        didSet { UserDefaults.standard.set(widgetAccentColor, forKey: UserDefaultsKey.widgetAccentColor.rawValue) }
+    }
+
+    // MARK: - Private Properties
+
+    private nonisolated let claudeSettingsPath: String
+    private nonisolated let hookScriptPath: String
+    private nonisolated let hookScriptDir: String
+
+    // MARK: - Initialization
+
+    private init() {
         let homeDir = FileManager.default.homeDirectoryForCurrentUser.path
         claudeSettingsPath = "\(homeDir)/.claude/settings.json"
         hookScriptDir = "\(homeDir)/.claude/hooks"
         hookScriptPath = "\(hookScriptDir)/vibestatus.sh"
 
-        // Load widget position from UserDefaults (must set after other stored properties)
-        if let savedPosition = UserDefaults.standard.string(forKey: "widgetPosition") {
-            self.widgetPosition = savedPosition
-        }
+        // Load persisted settings with defaults
+        idleSound = UserDefaults.standard.string(forKey: UserDefaultsKey.idleSound.rawValue)
+            ?? NotificationSound.glass.rawValue
+        needsInputSound = UserDefaults.standard.string(forKey: UserDefaultsKey.needsInputSound.rawValue)
+            ?? NotificationSound.purr.rawValue
+
+        widgetEnabled = UserDefaults.standard.object(forKey: UserDefaultsKey.widgetEnabled.rawValue) as? Bool ?? true
+        widgetAutoShow = UserDefaults.standard.object(forKey: UserDefaultsKey.widgetAutoShow.rawValue) as? Bool ?? true
+        widgetPosition = UserDefaults.standard.string(forKey: UserDefaultsKey.widgetPosition.rawValue)
+            ?? WidgetPosition.bottomRight.rawValue
+
+        widgetTheme = UserDefaults.standard.string(forKey: UserDefaultsKey.widgetTheme.rawValue)
+            ?? WidgetTheme.dark.rawValue
+        widgetOpacity = UserDefaults.standard.object(forKey: UserDefaultsKey.widgetOpacity.rawValue) as? Double
+            ?? UIConstants.defaultWidgetOpacity
+        widgetAccentColor = UserDefaults.standard.string(forKey: UserDefaultsKey.widgetAccentColor.rawValue)
+            ?? AccentColorPreset.orange.rawValue
+        widgetStyle = UserDefaults.standard.string(forKey: UserDefaultsKey.widgetStyle.rawValue)
+            ?? WidgetStyle.standard.rawValue
 
         checkIfConfigured()
     }
 
+    // MARK: - Public API
+
+    /// Check if Claude Code hooks are properly configured
     func checkIfConfigured() {
         let fileManager = FileManager.default
 
-        // Check if hook script exists
         guard fileManager.fileExists(atPath: hookScriptPath) else {
             isConfigured = false
             return
         }
 
-        // Check if settings.json has our hooks configured
         guard let settingsData = fileManager.contents(atPath: claudeSettingsPath),
               let settings = try? JSONSerialization.jsonObject(with: settingsData) as? [String: Any],
               let hooks = settings["hooks"] as? [String: Any],
@@ -99,34 +135,63 @@ class SetupManager: ObservableObject {
         isConfigured = true
     }
 
+    /// Configure Claude Code hooks asynchronously
     func configure() async -> Bool {
-        await MainActor.run {
-            isSettingUp = true
-            setupError = nil
-        }
+        isSettingUp = true
+        setupError = nil
 
         do {
-            try await createHookScript()
-            try await updateClaudeSettings()
+            try await Task.detached(priority: .userInitiated) { [claudeSettingsPath, hookScriptPath, hookScriptDir] in
+                try Self.createHookScript(at: hookScriptPath, in: hookScriptDir)
+                try Self.updateClaudeSettings(at: claudeSettingsPath, hookScriptPath: hookScriptPath)
+            }.value
 
-            await MainActor.run {
-                isConfigured = true
-                isSettingUp = false
-            }
+            isConfigured = true
+            isSettingUp = false
             return true
         } catch {
-            await MainActor.run {
-                setupError = error.localizedDescription
-                isSettingUp = false
-            }
+            setupError = error.localizedDescription
+            isSettingUp = false
             return false
         }
     }
 
-    private func createHookScript() async throws {
+    /// Remove Claude Code hooks
+    func unconfigure() throws {
         let fileManager = FileManager.default
 
-        // Create hooks directory if needed
+        if fileManager.fileExists(atPath: hookScriptPath) {
+            try fileManager.removeItem(atPath: hookScriptPath)
+        }
+
+        if let existingData = fileManager.contents(atPath: claudeSettingsPath),
+           var settings = try? JSONSerialization.jsonObject(with: existingData) as? [String: Any],
+           var hooks = settings["hooks"] as? [String: Any] {
+
+            hooks.removeValue(forKey: "UserPromptSubmit")
+            hooks.removeValue(forKey: "Stop")
+            hooks.removeValue(forKey: "Notification")
+
+            if hooks.isEmpty {
+                settings.removeValue(forKey: "hooks")
+            } else {
+                settings["hooks"] = hooks
+            }
+
+            let jsonData = try JSONSerialization.data(withJSONObject: settings, options: [.prettyPrinted, .sortedKeys])
+            try jsonData.write(to: URL(fileURLWithPath: claudeSettingsPath))
+        }
+
+        isConfigured = false
+    }
+
+    // MARK: - Hook Script Generation
+
+    /// Creates the hook script that Claude Code will execute on status changes.
+    /// This script writes session status to /tmp for StatusManager to read.
+    private nonisolated static func createHookScript(at hookScriptPath: String, in hookScriptDir: String) throws {
+        let fileManager = FileManager.default
+
         if !fileManager.fileExists(atPath: hookScriptDir) {
             try fileManager.createDirectory(atPath: hookScriptDir, withIntermediateDirectories: true)
         }
@@ -150,6 +215,9 @@ class SetupManager: ObservableObject {
             SESSION_ID="$$"
         fi
 
+        # Get the parent process ID (the Claude process)
+        CLAUDE_PID=$PPID
+
         # Extract working directory and get project name (last folder in path)
         WORKING_DIR=$(echo "$INPUT" | grep -o '"cwd":"[^"]*"' | cut -d'"' -f4)
         if [ -z "$WORKING_DIR" ]; then
@@ -162,15 +230,15 @@ class SetupManager: ObservableObject {
 
         case "$HOOK_EVENT" in
             "UserPromptSubmit")
-                echo "{\\"state\\":\\"working\\",\\"project\\":\\"$PROJECT_NAME\\",\\"timestamp\\":\\"$TIMESTAMP\\"}" > "$STATUS_FILE"
+                echo "{\\"state\\":\\"working\\",\\"project\\":\\"$PROJECT_NAME\\",\\"timestamp\\":\\"$TIMESTAMP\\",\\"pid\\":$CLAUDE_PID}" > "$STATUS_FILE"
                 ;;
             "Stop")
-                echo "{\\"state\\":\\"idle\\",\\"project\\":\\"$PROJECT_NAME\\",\\"timestamp\\":\\"$TIMESTAMP\\"}" > "$STATUS_FILE"
+                echo "{\\"state\\":\\"idle\\",\\"project\\":\\"$PROJECT_NAME\\",\\"timestamp\\":\\"$TIMESTAMP\\",\\"pid\\":$CLAUDE_PID}" > "$STATUS_FILE"
                 ;;
             "Notification")
                 # Check if it's an idle_prompt notification
                 if echo "$INPUT" | grep -q "idle_prompt"; then
-                    echo "{\\"state\\":\\"needs_input\\",\\"project\\":\\"$PROJECT_NAME\\",\\"timestamp\\":\\"$TIMESTAMP\\"}" > "$STATUS_FILE"
+                    echo "{\\"state\\":\\"needs_input\\",\\"project\\":\\"$PROJECT_NAME\\",\\"timestamp\\":\\"$TIMESTAMP\\",\\"pid\\":$CLAUDE_PID}" > "$STATUS_FILE"
                 fi
                 ;;
         esac
@@ -179,28 +247,24 @@ class SetupManager: ObservableObject {
         """
 
         try scriptContent.write(toFile: hookScriptPath, atomically: true, encoding: .utf8)
-
-        // Make executable
         try fileManager.setAttributes([.posixPermissions: 0o755], ofItemAtPath: hookScriptPath)
     }
 
-    private func updateClaudeSettings() async throws {
+    /// Updates Claude's settings.json to register our hooks
+    private nonisolated static func updateClaudeSettings(at claudeSettingsPath: String, hookScriptPath: String) throws {
         let fileManager = FileManager.default
 
-        // Create .claude directory if needed
         let claudeDir = (claudeSettingsPath as NSString).deletingLastPathComponent
         if !fileManager.fileExists(atPath: claudeDir) {
             try fileManager.createDirectory(atPath: claudeDir, withIntermediateDirectories: true)
         }
 
-        // Read existing settings or create new
         var settings: [String: Any] = [:]
         if let existingData = fileManager.contents(atPath: claudeSettingsPath),
            let existingSettings = try? JSONSerialization.jsonObject(with: existingData) as? [String: Any] {
             settings = existingSettings
         }
 
-        // Get or create hooks section
         var hooks = settings["hooks"] as? [String: Any] ?? [:]
 
         let hookConfig: [[String: Any]] = [
@@ -214,11 +278,9 @@ class SetupManager: ObservableObject {
             ]
         ]
 
-        // Add our hooks for each event
         hooks["UserPromptSubmit"] = hookConfig
         hooks["Stop"] = hookConfig
 
-        // Add notification hook with matcher
         hooks["Notification"] = [
             [
                 "matcher": "idle_prompt",
@@ -233,38 +295,7 @@ class SetupManager: ObservableObject {
 
         settings["hooks"] = hooks
 
-        // Write back
         let jsonData = try JSONSerialization.data(withJSONObject: settings, options: [.prettyPrinted, .sortedKeys])
         try jsonData.write(to: URL(fileURLWithPath: claudeSettingsPath))
-    }
-
-    func unconfigure() throws {
-        let fileManager = FileManager.default
-
-        // Remove hook script
-        if fileManager.fileExists(atPath: hookScriptPath) {
-            try fileManager.removeItem(atPath: hookScriptPath)
-        }
-
-        // Remove hooks from settings
-        if let existingData = fileManager.contents(atPath: claudeSettingsPath),
-           var settings = try? JSONSerialization.jsonObject(with: existingData) as? [String: Any],
-           var hooks = settings["hooks"] as? [String: Any] {
-
-            hooks.removeValue(forKey: "UserPromptSubmit")
-            hooks.removeValue(forKey: "Stop")
-            hooks.removeValue(forKey: "Notification")
-
-            if hooks.isEmpty {
-                settings.removeValue(forKey: "hooks")
-            } else {
-                settings["hooks"] = hooks
-            }
-
-            let jsonData = try JSONSerialization.data(withJSONObject: settings, options: [.prettyPrinted, .sortedKeys])
-            try jsonData.write(to: URL(fileURLWithPath: claudeSettingsPath))
-        }
-
-        isConfigured = false
     }
 }

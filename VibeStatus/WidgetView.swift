@@ -1,66 +1,262 @@
+// WidgetView.swift
+// VibeStatus
+//
+// SwiftUI views for the floating desktop widget.
+// Provides three display styles:
+// - Standard: Full widget with status text and project name
+// - Compact: Single-line pill showing status
+// - Mini: Dot that expands on hover
+//
+// All views are theme-aware and update reactively via WidgetThemeConfig.
+
 import SwiftUI
 
-struct WidgetView: View {
-    @EnvironmentObject var statusManager: StatusManager
+// MARK: - Theme Configuration
 
-    var body: some View {
-        VStack(spacing: 0) {
-            // Header
-            HStack {
-                Text("vibe status")
-                    .font(.system(size: 9, weight: .medium, design: .rounded))
-                    .foregroundColor(.white.opacity(0.35))
+/// Resolved theme values for widget rendering.
+/// Created from user settings and system appearance.
+struct WidgetThemeConfig {
+    let backgroundColor: Color
+    let textColor: Color
+    let secondaryTextColor: Color
+    let accentColor: Color
+    let opacity: Double
 
-                Spacer()
+    /// Create theme config from current settings
+    @MainActor
+    static func current() -> WidgetThemeConfig {
+        let manager = SetupManager.shared
+        let isDark = resolveIsDarkMode(manager.widgetTheme)
+        let accent = resolveAccentColor(manager.widgetAccentColor)
 
-                Button(action: {
-                    NotificationCenter.default.post(name: .openSettings, object: nil)
-                }) {
-                    Image(systemName: "gearshape.fill")
-                        .font(.system(size: 9))
-                        .foregroundColor(.white.opacity(0.35))
-                }
-                .buttonStyle(.plain)
-            }
-            .padding(.horizontal, 12)
-            .padding(.top, 6)
-            .padding(.bottom, 2)
+        return WidgetThemeConfig(
+            backgroundColor: isDark ? Color.black : Color.white,
+            textColor: isDark ? Color.white.opacity(0.9) : Color.black.opacity(0.9),
+            secondaryTextColor: isDark ? Color.white.opacity(0.5) : Color.black.opacity(0.5),
+            accentColor: accent,
+            opacity: manager.widgetOpacity
+        )
+    }
 
-            // Content
-            if statusManager.sessions.count <= 1 {
-                SingleSessionView()
-            } else {
-                MultiSessionView()
-            }
+    private static func resolveIsDarkMode(_ theme: String) -> Bool {
+        switch theme {
+        case WidgetTheme.light.rawValue: return false
+        case WidgetTheme.dark.rawValue: return true
+        default:
+            return NSApp.effectiveAppearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.black.opacity(0.8))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+    }
+
+    private static func resolveAccentColor(_ colorName: String) -> Color {
+        AccentColorPreset(rawValue: colorName)?.color ?? AccentColorPreset.orange.color
     }
 }
 
-// Notification for opening settings
-extension Notification.Name {
-    static let openSettings = Notification.Name("openSettings")
+// MARK: - Widget Data
+
+/// Snapshot of widget display data
+struct WidgetData {
+    let status: VibeStatus
+    let statusText: String
+    let sessions: [SessionInfo]
+
+    @MainActor
+    static func from(_ manager: StatusManager) -> WidgetData {
+        WidgetData(
+            status: manager.currentStatus,
+            statusText: manager.statusText,
+            sessions: manager.sessions
+        )
+    }
 }
 
-// Single session view
+// MARK: - Main Widget View
+
+/// Routes to the appropriate style view based on settings
+struct WidgetView: View {
+    let data: WidgetData
+    var style: WidgetStyle = .standard
+    var theme: WidgetThemeConfig? = nil
+
+    var body: some View {
+        let currentTheme = theme ?? WidgetThemeConfig.current()
+
+        switch style {
+        case .standard:
+            StandardWidgetView(data: data, theme: currentTheme)
+        case .mini:
+            MiniWidgetView(data: data, theme: currentTheme)
+        case .compact:
+            CompactWidgetView(data: data, theme: currentTheme)
+        }
+    }
+}
+
+// MARK: - Standard Widget View
+
+struct StandardWidgetView: View {
+    let data: WidgetData
+    let theme: WidgetThemeConfig
+
+    var body: some View {
+        VStack(spacing: 0) {
+            WidgetHeader(theme: theme)
+
+            if data.sessions.count <= 1 {
+                SingleSessionView(data: data, theme: theme)
+            } else {
+                MultiSessionView(sessions: data.sessions, theme: theme)
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(theme.backgroundColor.opacity(theme.opacity))
+        .clipShape(RoundedRectangle(cornerRadius: WidgetLayoutConstants.cornerRadius))
+    }
+}
+
+// MARK: - Mini Widget View
+
+/// Collapsed dot that expands on hover to show status
+struct MiniWidgetView: View {
+    let data: WidgetData
+    let theme: WidgetThemeConfig
+    @State private var isHovering = false
+
+    var body: some View {
+        ZStack {
+            if isHovering {
+                expandedView
+            } else {
+                collapsedView
+            }
+        }
+        .animation(
+            .spring(response: UIConstants.hoverAnimationResponse, dampingFraction: UIConstants.hoverAnimationDamping),
+            value: isHovering
+        )
+        .onHover { isHovering = $0 }
+    }
+
+    private var expandedView: some View {
+        HStack(spacing: 8) {
+            statusDot
+
+            VStack(alignment: .leading, spacing: 1) {
+                Text(data.statusText)
+                    .font(.system(size: 11, weight: .medium, design: .rounded))
+                    .foregroundColor(theme.textColor)
+
+                if let project = data.sessions.first?.project {
+                    Text(project)
+                        .font(.system(size: 9, weight: .regular, design: .rounded))
+                        .foregroundColor(theme.secondaryTextColor)
+                        .lineLimit(1)
+                }
+            }
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 8)
+        .background(theme.backgroundColor.opacity(theme.opacity))
+        .clipShape(Capsule())
+        .transition(.scale.combined(with: .opacity))
+    }
+
+    private var collapsedView: some View {
+        statusDot
+            .padding(6)
+            .background(theme.backgroundColor.opacity(theme.opacity))
+            .clipShape(Circle())
+            .transition(.scale.combined(with: .opacity))
+    }
+
+    private var statusDot: some View {
+        Circle()
+            .fill(statusColor)
+            .frame(width: WidgetLayoutConstants.Mini.dotSize, height: WidgetLayoutConstants.Mini.dotSize)
+    }
+
+    private var statusColor: Color {
+        switch data.status {
+        case .working: return theme.accentColor
+        case .idle: return .green
+        case .needsInput: return .blue
+        case .notRunning: return .gray
+        }
+    }
+}
+
+// MARK: - Compact Widget View
+
+/// Single-line pill showing status
+struct CompactWidgetView: View {
+    let data: WidgetData
+    let theme: WidgetThemeConfig
+
+    var body: some View {
+        HStack(spacing: 8) {
+            Circle()
+                .fill(statusColor)
+                .frame(width: 10, height: 10)
+
+            Text(data.statusText)
+                .font(.system(size: 11, weight: .medium, design: .rounded))
+                .foregroundColor(theme.textColor)
+                .lineLimit(1)
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 6)
+        .background(theme.backgroundColor.opacity(theme.opacity))
+        .clipShape(Capsule())
+    }
+
+    private var statusColor: Color {
+        switch data.status {
+        case .working: return theme.accentColor
+        case .idle: return .green
+        case .needsInput: return .blue
+        case .notRunning: return .gray
+        }
+    }
+}
+
+// MARK: - Widget Header
+
+private struct WidgetHeader: View {
+    let theme: WidgetThemeConfig
+
+    var body: some View {
+        HStack {
+            Text("vibe status")
+                .font(.system(size: 9, weight: .medium, design: .rounded))
+                .foregroundColor(theme.secondaryTextColor.opacity(0.7))
+
+            Spacer()
+        }
+        .padding(.horizontal, 12)
+        .padding(.top, 6)
+        .padding(.bottom, 2)
+    }
+}
+
+// MARK: - Single Session View
+
 struct SingleSessionView: View {
-    @EnvironmentObject var statusManager: StatusManager
+    let data: WidgetData
+    let theme: WidgetThemeConfig
 
     var body: some View {
         HStack(spacing: 14) {
             VStack(alignment: .leading, spacing: 2) {
-                Text(statusManager.statusText)
+                Text(data.statusText)
                     .font(.system(size: 15, weight: .medium, design: .rounded))
-                    .foregroundColor(.white.opacity(0.9))
+                    .foregroundColor(theme.textColor)
 
-                if let project = statusManager.sessions.first?.project,
+                if let project = data.sessions.first?.project,
                    !project.isEmpty,
-                   statusManager.currentStatus != .notRunning {
+                   data.status != .notRunning {
                     Text(project)
                         .font(.system(size: 11, weight: .regular, design: .rounded))
-                        .foregroundColor(.white.opacity(0.5))
+                        .foregroundColor(theme.secondaryTextColor)
                         .lineLimit(1)
                 }
             }
@@ -68,7 +264,7 @@ struct SingleSessionView: View {
 
             Spacer()
 
-            StatusIndicator(status: statusManager.currentStatus)
+            StatusIndicator(status: data.status, accentColor: theme.accentColor)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.horizontal, 20)
@@ -76,16 +272,16 @@ struct SingleSessionView: View {
     }
 }
 
-// Multiple sessions view
+// MARK: - Multiple Sessions View
+
 struct MultiSessionView: View {
-    @EnvironmentObject var statusManager: StatusManager
+    let sessions: [SessionInfo]
+    let theme: WidgetThemeConfig
 
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            VStack(alignment: .leading, spacing: 6) {
-                ForEach(statusManager.sessions) { session in
-                    SessionRowView(session: session)
-                }
+        VStack(alignment: .leading, spacing: 6) {
+            ForEach(sessions) { session in
+                SessionRowView(session: session, theme: theme)
             }
         }
         .padding(.horizontal, 16)
@@ -93,24 +289,26 @@ struct MultiSessionView: View {
     }
 }
 
-// Individual session row
+// MARK: - Session Row View
+
 struct SessionRowView: View {
     let session: SessionInfo
+    let theme: WidgetThemeConfig
 
     var body: some View {
         HStack(spacing: 11) {
-            SmallStatusIndicator(status: session.status)
+            SmallStatusIndicator(status: session.status, accentColor: theme.accentColor)
 
             Text(session.project)
                 .font(.system(size: 12, weight: .medium, design: .rounded))
-                .foregroundColor(.white.opacity(0.7))
+                .foregroundColor(theme.textColor.opacity(0.8))
                 .lineLimit(1)
 
             Spacer()
 
             Text(statusLabel)
                 .font(.system(size: 11, weight: .regular, design: .rounded))
-                .foregroundColor(.white.opacity(0.4))
+                .foregroundColor(theme.secondaryTextColor)
         }
     }
 
@@ -124,10 +322,11 @@ struct SessionRowView: View {
     }
 }
 
-// Status indicator - STATIC, NO ANIMATIONS
+// MARK: - Status Indicators
+
 struct StatusIndicator: View {
     let status: VibeStatus
-    private let vibeOrange = Color(red: 0.757, green: 0.373, blue: 0.235)
+    let accentColor: Color
 
     var body: some View {
         switch status {
@@ -135,31 +334,30 @@ struct StatusIndicator: View {
             HStack(spacing: 7) {
                 ForEach(0..<5, id: \.self) { i in
                     RoundedRectangle(cornerRadius: 2)
-                        .fill(vibeOrange)
+                        .fill(accentColor)
                         .frame(width: 9, height: 9)
                         .opacity(0.4 + Double(i) * 0.15)
                 }
             }
         case .idle:
-            RoundedRectangle(cornerRadius: 3)
-                .fill(Color.green.opacity(0.9))
-                .frame(width: 11, height: 11)
+            statusRect(color: .green)
         case .needsInput:
-            RoundedRectangle(cornerRadius: 3)
-                .fill(Color.blue.opacity(0.9))
-                .frame(width: 11, height: 11)
+            statusRect(color: .blue)
         case .notRunning:
-            RoundedRectangle(cornerRadius: 3)
-                .fill(Color.gray.opacity(0.5))
-                .frame(width: 11, height: 11)
+            statusRect(color: .gray, opacity: 0.5)
         }
+    }
+
+    private func statusRect(color: Color, opacity: Double = 0.9) -> some View {
+        RoundedRectangle(cornerRadius: 3)
+            .fill(color.opacity(opacity))
+            .frame(width: 11, height: 11)
     }
 }
 
-// Small status indicator - STATIC, NO ANIMATIONS
 struct SmallStatusIndicator: View {
     let status: VibeStatus
-    private let vibeOrange = Color(red: 0.757, green: 0.373, blue: 0.235)
+    let accentColor: Color
 
     var body: some View {
         switch status {
@@ -167,23 +365,23 @@ struct SmallStatusIndicator: View {
             HStack(spacing: 4) {
                 ForEach(0..<3, id: \.self) { i in
                     Circle()
-                        .fill(vibeOrange)
+                        .fill(accentColor)
                         .frame(width: 7, height: 7)
                         .opacity(0.5 + Double(i) * 0.25)
                 }
             }
         case .idle:
-            Circle()
-                .fill(Color.green.opacity(0.9))
-                .frame(width: 9, height: 9)
+            statusCircle(color: .green)
         case .needsInput:
-            Circle()
-                .fill(Color.blue.opacity(0.9))
-                .frame(width: 9, height: 9)
+            statusCircle(color: .blue)
         case .notRunning:
-            Circle()
-                .fill(Color.gray.opacity(0.5))
-                .frame(width: 9, height: 9)
+            statusCircle(color: .gray, opacity: 0.5)
         }
+    }
+
+    private func statusCircle(color: Color, opacity: Double = 0.9) -> some View {
+        Circle()
+            .fill(color.opacity(opacity))
+            .frame(width: 9, height: 9)
     }
 }
