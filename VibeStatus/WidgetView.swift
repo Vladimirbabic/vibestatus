@@ -39,29 +39,8 @@ struct WidgetView: View {
         .padding(.horizontal, 20)
         .padding(.vertical, 12)
         .background(
-            ZStack {
-                // Glass effect background
-                RoundedRectangle(cornerRadius: 16)
-                    .fill(.ultraThinMaterial)
-                    .environment(\.colorScheme, .dark)
-
-                // Dark overlay for 20% opacity effect
-                RoundedRectangle(cornerRadius: 16)
-                    .fill(Color.black.opacity(0.2))
-
-                // Subtle inner glow
-                RoundedRectangle(cornerRadius: 16)
-                    .fill(
-                        LinearGradient(
-                            colors: [
-                                Color.white.opacity(0.08),
-                                Color.clear
-                            ],
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                    )
-            }
+            RoundedRectangle(cornerRadius: 16)
+                .fill(Color.black.opacity(0.8))
         )
     }
 }

@@ -24,8 +24,8 @@ targets:
       path: VibeStatus/Info.plist
       properties:
         LSUIElement: true
-        CFBundleShortVersionString: "1.0"
-        CFBundleVersion: "1"
+        CFBundleShortVersionString: "1.2"
+        CFBundleVersion: "3"
         NSHumanReadableCopyright: "Copyright © 2025. All rights reserved."
         LSApplicationCategoryType: public.app-category.utilities
         SUFeedURL: "https://raw.githubusercontent.com/Vladimirbabic/vibestatus/main/appcast.xml"
@@ -43,3 +43,28 @@ targets:
       path: VibeStatus/VibeStatus.entitlements
       properties:
         com.apple.security.app-sandbox: false
+    postBuildScripts:
+      - name: "Sign Sparkle XPC Services"
+        script: |
+          # Sign Sparkle's XPC services and helpers for Hardened Runtime
+          SPARKLE_FRAMEWORK="${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework"
+
+          if [ -d "$SPARKLE_FRAMEWORK" ]; then
+            # Sign XPC services
+            find "$SPARKLE_FRAMEWORK" -name "*.xpc" -type d | while read xpc; do
+              codesign --force --options runtime --sign "${CODE_SIGN_IDENTITY}" "$xpc"
+            done
+
+            # Sign helper apps
+            find "$SPARKLE_FRAMEWORK" -name "*.app" -type d | while read app; do
+              codesign --force --options runtime --sign "${CODE_SIGN_IDENTITY}" "$app"
+            done
+
+            # Sign Autoupdate
+            if [ -f "$SPARKLE_FRAMEWORK/Versions/B/Autoupdate" ]; then
+              codesign --force --options runtime --sign "${CODE_SIGN_IDENTITY}" "$SPARKLE_FRAMEWORK/Versions/B/Autoupdate"
+            fi
+
+            # Re-sign the framework itself
+            codesign --force --options runtime --sign "${CODE_SIGN_IDENTITY}" "$SPARKLE_FRAMEWORK"
+          fi
