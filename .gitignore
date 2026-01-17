@@ -31,3 +31,7 @@ Carthage/Build/
 # Temporary files
 *.swp
 *~
+
+# Build artifacts
+build/
+export/
