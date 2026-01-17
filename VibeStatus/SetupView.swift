@@ -123,6 +123,27 @@ struct GeneralSettingsView: View {
                     }
                 }
 
+                // Widget Position
+                SettingsSection(title: "Widget Position") {
+                    HStack {
+                        Text("Screen Corner")
+                            .font(.subheadline)
+
+                        Spacer()
+
+                        Picker("", selection: $setupManager.widgetPosition) {
+                            ForEach(WidgetPosition.allCases, id: \.rawValue) { position in
+                                Text(position.displayName).tag(position.rawValue)
+                            }
+                        }
+                        .frame(width: 150)
+                    }
+
+                    Text("Widget will appear at the selected screen edge")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+
                 // Status Guide
                 SettingsSection(title: "Status Indicators") {
                     VStack(alignment: .leading, spacing: 14) {

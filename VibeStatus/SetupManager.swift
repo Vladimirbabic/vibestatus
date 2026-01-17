@@ -2,6 +2,19 @@ import SwiftUI
 import Foundation
 import AppKit
 
+// Widget position options
+enum WidgetPosition: String, CaseIterable {
+    case bottomRight = "bottom_right"
+    case bottomLeft = "bottom_left"
+
+    var displayName: String {
+        switch self {
+        case .bottomRight: return "Bottom Right"
+        case .bottomLeft: return "Bottom Left"
+        }
+    }
+}
+
 // Available system sounds
 enum NotificationSound: String, CaseIterable {
     case glass = "Glass"
@@ -40,6 +53,13 @@ class SetupManager: ObservableObject {
     @AppStorage("idleSound") var idleSound: String = NotificationSound.glass.rawValue
     @AppStorage("needsInputSound") var needsInputSound: String = NotificationSound.purr.rawValue
 
+    // Widget position (using @Published for Combine support)
+    @Published var widgetPosition: String = WidgetPosition.bottomRight.rawValue {
+        didSet {
+            UserDefaults.standard.set(widgetPosition, forKey: "widgetPosition")
+        }
+    }
+
     private let claudeSettingsPath: String
     private let hookScriptPath: String
     private let hookScriptDir: String
@@ -49,6 +69,11 @@ class SetupManager: ObservableObject {
         claudeSettingsPath = "\(homeDir)/.claude/settings.json"
         hookScriptDir = "\(homeDir)/.claude/hooks"
         hookScriptPath = "\(hookScriptDir)/vibestatus.sh"
+
+        // Load widget position from UserDefaults (must set after other stored properties)
+        if let savedPosition = UserDefaults.standard.string(forKey: "widgetPosition") {
+            self.widgetPosition = savedPosition
+        }
 
         checkIfConfigured()
     }

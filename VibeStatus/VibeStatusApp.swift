@@ -1,6 +1,5 @@
 import SwiftUI
 import AppKit
-import Combine
 import Sparkle
 
 @main
@@ -14,23 +13,33 @@ struct VibeStatusApp: App {
     }
 }
 
+// Custom panel that never becomes key window (doesn't steal focus)
+class NonActivatingPanel: NSPanel {
+    override var canBecomeKey: Bool { false }
+    override var canBecomeMain: Bool { false }
+}
+
 @MainActor
 class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItem: NSStatusItem?
     var floatingWindow: NSWindow?
     var statusManager = StatusManager.shared
     let updaterController = SPUStandardUpdaterController(startingUpdater: true, updaterDelegate: nil, userDriverDelegate: nil)
-    private var cancellables = Set<AnyCancellable>()
 
     private let windowWidth: CGFloat = 220
     private let singleSessionHeight: CGFloat = 62
     private let sessionRowHeight: CGFloat = 28
     private let maxVisibleSessions = 10
 
+    // Simple timer for UI updates
+    private var uiUpdateTimer: Timer?
+    private var lastSessionCount: Int = 0
+    private var lastStatus: VibeStatus = .notRunning
+
     func applicationDidFinishLaunching(_ notification: Notification) {
         setupMenuBar()
         setupFloatingWindow()
-        observeStatusChanges()
+        startUIUpdates()
 
         // Listen for settings open request from widget
         NotificationCenter.default.addObserver(
@@ -43,6 +52,28 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Check if setup is needed
         if !SetupManager.shared.isConfigured {
             showSetupWindow()
+        }
+    }
+
+    private func startUIUpdates() {
+        // Simple timer to check for changes - no Combine, no async
+        uiUpdateTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { [weak self] _ in
+            self?.checkForUIUpdates()
+        }
+    }
+
+    private func checkForUIUpdates() {
+        // Update menu bar icon if status changed
+        if statusManager.currentStatus != lastStatus {
+            lastStatus = statusManager.currentStatus
+            updateMenuBarIcon()
+        }
+
+        // Update window size if session count changed
+        let currentCount = statusManager.sessions.count
+        if currentCount != lastSessionCount {
+            lastSessionCount = currentCount
+            updateFloatingWindowSize(sessionCount: currentCount)
         }
     }
 
@@ -65,22 +96,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusItem?.menu = menu
     }
 
-    func observeStatusChanges() {
-        statusManager.$currentStatus
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.updateMenuBarIcon()
-            }
-            .store(in: &cancellables)
-
-        statusManager.$sessions
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] sessions in
-                self?.updateFloatingWindowSize(sessionCount: sessions.count)
-            }
-            .store(in: &cancellables)
-    }
-
     private func updateFloatingWindowSize(sessionCount: Int) {
         guard let window = floatingWindow, let screen = NSScreen.main else { return }
 
@@ -94,15 +109,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         let padding: CGFloat = 20
-        let xPos = window.frame.origin.x
+        let position = WidgetPosition(rawValue: SetupManager.shared.widgetPosition) ?? .bottomRight
+
+        let xPos: CGFloat
+        switch position {
+        case .bottomRight:
+            xPos = screen.visibleFrame.maxX - windowWidth - padding
+        case .bottomLeft:
+            xPos = screen.visibleFrame.minX + padding
+        }
         let yPos = screen.visibleFrame.minY + padding
 
         let newFrame = NSRect(x: xPos, y: yPos, width: windowWidth, height: newHeight)
-
-        NSAnimationContext.runAnimationGroup { context in
-            context.duration = 0.2
-            window.animator().setFrame(newFrame, display: true)
-        }
+        window.setFrame(newFrame, display: true)
     }
 
     func updateMenuBarIcon() {
@@ -147,30 +166,39 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let hostingView = NSHostingView(rootView: contentView)
         hostingView.frame = NSRect(x: 0, y: 0, width: windowWidth, height: initialHeight)
 
-        // Calculate position (bottom-right corner)
+        // Calculate position based on setting
         guard let screen = NSScreen.main else { return }
         let padding: CGFloat = 20
+        let position = WidgetPosition(rawValue: SetupManager.shared.widgetPosition) ?? .bottomRight
 
-        let xPos = screen.visibleFrame.maxX - windowWidth - padding
+        let xPos: CGFloat
+        switch position {
+        case .bottomRight:
+            xPos = screen.visibleFrame.maxX - windowWidth - padding
+        case .bottomLeft:
+            xPos = screen.visibleFrame.minX + padding
+        }
         let yPos = screen.visibleFrame.minY + padding
 
-        let window = NSWindow(
+        // Use NSPanel with nonactivating style so it doesn't steal focus
+        let panel = NonActivatingPanel(
             contentRect: NSRect(x: xPos, y: yPos, width: windowWidth, height: initialHeight),
-            styleMask: [.borderless],
+            styleMask: [.borderless, .nonactivatingPanel],
             backing: .buffered,
             defer: false
         )
 
-        window.contentView = hostingView
-        window.isOpaque = false
-        window.backgroundColor = .clear
-        window.level = .statusBar
-        window.collectionBehavior = [.canJoinAllSpaces, .stationary]
-        window.isMovableByWindowBackground = true
-        window.hasShadow = true
+        panel.contentView = hostingView
+        panel.isOpaque = false
+        panel.backgroundColor = .clear
+        panel.level = .statusBar
+        panel.collectionBehavior = [.canJoinAllSpaces, .stationary, .fullScreenAuxiliary]
+        panel.isMovableByWindowBackground = true
+        panel.hasShadow = true
+        panel.hidesOnDeactivate = false
 
-        window.orderFront(nil)
-        floatingWindow = window
+        panel.orderFront(nil)
+        floatingWindow = panel
     }
 
     @objc func showWidget() {
