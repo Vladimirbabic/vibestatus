@@ -1,408 +1,408 @@
-2026-01-17 15:49:45 +0000 [MT] Initial pipeline context: <IDEDistributionProcessingPipelineContext: 0xabcc08c00; archive(resolved)="<IDEArchive: 0xabab1f250>", distributionTask(resolved)="2", distributionDestination(resolved)="1", distributionMethod(resolved)="<IDEDistributionMethodDeveloperID: 0xabb55ebc0>", team(resolved)="<IDEProvisioningBasicTeam: 0xab9d13ce0; teamID='7MKQAN7HM5', teamName='Mladjan Antic'>">
+2026-01-17 19:52:42 +0000 [MT] Initial pipeline context: <IDEDistributionProcessingPipelineContext: 0x7316f8900; archive(resolved)="<IDEArchive: 0x7302b6bc0>", distributionTask(resolved)="2", distributionDestination(resolved)="1", distributionMethod(resolved)="<IDEDistributionMethodDeveloperID: 0x7315370e0>", team(resolved)="<IDEProvisioningBasicTeam: 0x72fcdb1e0; teamID='7MKQAN7HM5', teamName='Mladjan Antic'>">
 	Chain (12, self inclusive):
-	<IDEDistributionProcessingPipelineContext: 0xabcc08c00; archive = "<IDEArchive: 0xabab1f250>", distributionMethod="<IDEDistributionMethodDeveloperID: 0xabb55ebc0>", team="<IDEProvisioningBasicTeam: 0xab9d13ce0; teamID='7MKQAN7HM5', teamName='Mladjan Antic'>">
-	<IDEDistributionProcessingPipelineContext: 0xabcc08900; archive = "<IDEArchive: 0xabab1f250>", distributionMethod="<IDEDistributionMethodDeveloperID: 0xabb55ebc0>", team="<IDEProvisioningBasicTeam: 0xab9d13ce0; teamID='7MKQAN7HM5', teamName='Mladjan Antic'>">
-	<IDEDistributionContext: 0xab9c1e080; archive = "<IDEArchive: 0xabab1f250>", distributionMethod="<IDEDistributionMethodDeveloperID: 0xabb55ebc0>", team="<IDEProvisioningBasicTeam: 0xab9d13ce0; teamID='7MKQAN7HM5', teamName='Mladjan Antic'>">
-	<IDEDistributionContext: 0xab9c1de00; archive = "<IDEArchive: 0xabab1f250>", distributionMethod="<IDEDistributionMethodDeveloperID: 0xabb55ebc0>", team="<IDEProvisioningBasicTeam: 0xab9d13ce0; teamID='7MKQAN7HM5', teamName='Mladjan Antic'>">
-	<IDEDistributionContext: 0xab9c1db80; archive = "<IDEArchive: 0xabab1f250>", distributionMethod="<IDEDistributionMethodDeveloperID: 0xabb55ebc0>", team="<IDEProvisioningBasicTeam: 0xab9d13ce0; teamID='7MKQAN7HM5', teamName='Mladjan Antic'>">
-	<IDEDistributionContext: 0xab9c1d900; archive = "<IDEArchive: 0xabab1f250>", distributionMethod="<IDEDistributionMethodDeveloperID: 0xabb55ebc0>", team="<IDEProvisioningBasicTeam: 0xab9d13ce0; teamID='7MKQAN7HM5', teamName='Mladjan Antic'>">
-	<IDEDistributionContext: 0xab9c1ca00; archive = "<IDEArchive: 0xabab1f250>", distributionMethod="<IDEDistributionMethodDeveloperID: 0xabb55ebc0>", team="<IDEProvisioningBasicTeam: 0xab9d13ce0; teamID='7MKQAN7HM5', teamName='Mladjan Antic'>">
-	<IDEDistributionContext: 0xab9c1c780; archive = "<IDEArchive: 0xabab1f250>", distributionMethod="<IDEDistributionMethodDeveloperID: 0xabb55ebc0>", team="<IDEProvisioningBasicTeam: 0xab9d13ce0; teamID='7MKQAN7HM5', teamName='Mladjan Antic'>">
-	<IDEDistributionContext: 0xab9c1c500; archive = "<IDEArchive: 0xabab1f250>", distributionMethod="<IDEDistributionMethodDeveloperID: 0xabb55ebc0>", team="<IDEProvisioningBasicTeam: 0xab9d13ce0; teamID='7MKQAN7HM5', teamName='Mladjan Antic'>">
-	<IDEDistributionContext: 0xab9c1c280; archive = "<IDEArchive: 0xabab1f250>", distributionMethod="<IDEDistributionMethodDeveloperID: 0xabb55ebc0>", team="(null)">
-	<IDEDistributionContext: 0xab9c1c000; archive = "<IDEArchive: 0xabab1f250>", distributionMethod="<IDEDistributionMethodDeveloperID: 0xabb55ebc0>", team="(null)">
-	<IDEDistributionContext: 0x1013026c0; archive = "<IDEArchive: 0xabab1f250>", distributionMethod="(null)", team="(null)">
-</IDEDistributionProcessingPipelineContext: 0xabcc08c00>
-2026-01-17 15:49:45 +0000 [MT] Processing step: IDEDistributionCreateDestRootStep
-2026-01-17 15:49:45 +0000 [MT] Processing step: IDEDistributionCopyItemStep
-2026-01-17 15:49:45 +0000 [MT] Running /usr/bin/ditto '-V' '/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app' '/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app'
-2026-01-17 15:49:45 +0000  >>> Copying /Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app 
-2026-01-17 15:49:45 +0000  copying file ./Contents/_CodeSignature/CodeResources ... 
-2026-01-17 15:49:45 +0000  3555 bytes for ./Contents/_CodeSignature/CodeResources
-2026-01-17 15:49:45 +0000  copying file ./Contents/MacOS/VibeStatus ... 
-2026-01-17 15:49:45 +0000  518928 bytes for ./Contents/MacOS/VibeStatus
-2026-01-17 15:49:45 +0000  copying file ./Contents/Resources/AppIcon.icns ... 
-2026-01-17 15:49:45 +0000  5025 bytes for ./Contents/Resources/AppIcon.icns
-2026-01-17 15:49:45 +0000  copying file ./Contents/Resources/icon.json ... 
-2026-01-17 15:49:45 +0000  510 bytes for ./Contents/Resources/icon.json
-2026-01-17 15:49:45 +0000  copying file ./Contents/Resources/Assets.car ... 
-2026-01-17 15:49:45 +0000  37144 bytes for ./Contents/Resources/Assets.car
-2026-01-17 15:49:45 +0000  copying file ./Contents/Resources/vibestatus.png ... 
-2026-01-17 15:49:45 +0000  6611 bytes for ./Contents/Resources/vibestatus.png
-2026-01-17 15:49:45 +0000  copying symlink ./Contents/Frameworks/Sparkle.framework/Resources ... 
-2026-01-17 15:49:45 +0000  linked ./Contents/Frameworks/Sparkle.framework/Resources
-2026-01-17 15:49:45 +0000  copying symlink ./Contents/Frameworks/Sparkle.framework/Versions/Current ... 
-2026-01-17 15:49:45 +0000  linked ./Contents/Frameworks/Sparkle.framework/Versions/Current
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/_CodeSignature/CodeResources ... 
-2026-01-17 15:49:45 +0000  18089 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/_CodeSignature/CodeResources
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/de.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  11648 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/de.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/he.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  9657 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/he.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ar.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  3554 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ar.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/el.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  5934 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/el.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ja.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  8697 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ja.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fa.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  5716 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fa.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/uk.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  5842 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/uk.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_CN.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  7475 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_CN.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nb.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  5539 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nb.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/es.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  7040 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/es.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/is.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  3954 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/is.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sl.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  5646 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sl.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/da.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  4882 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/da.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/it.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  10956 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/it.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sk.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  5675 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sk.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sv.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  5160 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sv.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ReleaseNotesColorStyle.css ... 
-2026-01-17 15:49:45 +0000  231 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ReleaseNotesColorStyle.css
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/cs.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  10774 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/cs.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ko.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  7797 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ko.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/Base.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  5831 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/Base.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/hu.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  4449 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/hu.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_HK.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  6469 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_HK.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/tr.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  6183 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/tr.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pl.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  5453 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pl.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_TW.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  7625 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_TW.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pt-BR.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  9976 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pt-BR.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ru.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  5784 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ru.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/SUUpdatePermissionPrompt.nib/keyedobjects-110000.nib ... 
-2026-01-17 15:49:45 +0000  25365 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/SUUpdatePermissionPrompt.nib/keyedobjects-110000.nib
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/SUUpdatePermissionPrompt.nib/keyedobjects-101300.nib ... 
-2026-01-17 15:49:45 +0000  25388 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/SUUpdatePermissionPrompt.nib/keyedobjects-101300.nib
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/SUStatus.nib ... 
-2026-01-17 15:49:45 +0000  13047 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/SUStatus.nib
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/SUUpdateAlert.nib ... 
-2026-01-17 15:49:45 +0000  18461 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/SUUpdateAlert.nib
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fr.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  7855 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fr.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fi.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  3252 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fi.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nl.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  9574 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nl.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/th.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  5339 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/th.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nn.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  5671 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nn.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pt-PT.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  5984 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pt-PT.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ro.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  6115 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ro.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/Info.plist ... 
-2026-01-17 15:49:45 +0000  1340 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/Info.plist
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/hr.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  6367 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/hr.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ca.lproj/Sparkle.strings ... 
-2026-01-17 15:49:45 +0000  3501 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ca.lproj/Sparkle.strings
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate ... 
-2026-01-17 15:49:45 +0000  692672 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/_CodeSignature/CodeResources ... 
-2026-01-17 15:49:45 +0000  2446 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/_CodeSignature/CodeResources
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/MacOS/Updater ... 
-2026-01-17 15:49:45 +0000  273968 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/MacOS/Updater
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/Resources/SUStatus.nib ... 
-2026-01-17 15:49:45 +0000  13047 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/Resources/SUStatus.nib
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/Info.plist ... 
-2026-01-17 15:49:45 +0000  2377 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/Info.plist
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/PkgInfo ... 
-2026-01-17 15:49:45 +0000  8 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/PkgInfo
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/_CodeSignature/CodeResources ... 
-2026-01-17 15:49:45 +0000  2200 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/_CodeSignature/CodeResources
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/MacOS/Downloader ... 
-2026-01-17 15:49:45 +0000  171616 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/MacOS/Downloader
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/Info.plist ... 
-2026-01-17 15:49:45 +0000  1716 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/Info.plist
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/_CodeSignature/CodeResources ... 
-2026-01-17 15:49:45 +0000  2200 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/_CodeSignature/CodeResources
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/MacOS/Installer ... 
-2026-01-17 15:49:45 +0000  223264 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/MacOS/Installer
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/Info.plist ... 
-2026-01-17 15:49:45 +0000  1604 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/Info.plist
-2026-01-17 15:49:45 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Sparkle ... 
-2026-01-17 15:49:45 +0000  860528 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Sparkle
-2026-01-17 15:49:45 +0000  copying symlink ./Contents/Frameworks/Sparkle.framework/Autoupdate ... 
-2026-01-17 15:49:45 +0000  linked ./Contents/Frameworks/Sparkle.framework/Autoupdate
-2026-01-17 15:49:45 +0000  copying symlink ./Contents/Frameworks/Sparkle.framework/Updater.app ... 
-2026-01-17 15:49:45 +0000  linked ./Contents/Frameworks/Sparkle.framework/Updater.app
-2026-01-17 15:49:45 +0000  copying symlink ./Contents/Frameworks/Sparkle.framework/XPCServices ... 
-2026-01-17 15:49:45 +0000  linked ./Contents/Frameworks/Sparkle.framework/XPCServices
-2026-01-17 15:49:45 +0000  copying symlink ./Contents/Frameworks/Sparkle.framework/Sparkle ... 
-2026-01-17 15:49:45 +0000  linked ./Contents/Frameworks/Sparkle.framework/Sparkle
-2026-01-17 15:49:45 +0000  copying file ./Contents/Info.plist ... 
-2026-01-17 15:49:45 +0000  1807 bytes for ./Contents/Info.plist
-2026-01-17 15:49:45 +0000  copying file ./Contents/PkgInfo ... 
-2026-01-17 15:49:45 +0000  8 bytes for ./Contents/PkgInfo
-2026-01-17 15:49:45 +0000 [MT] /usr/bin/ditto exited with 0
-2026-01-17 15:49:45 +0000 [MT] Processing step: IDEDistributionEmbedProfileStep
-2026-01-17 15:49:45 +0000 [MT] Skipping profile for item: <IDEDistributionItem: 0xabb717420; bundleID='org.sparkle-project.DownloaderService', path='<DVTFilePath:0xabc49bc60:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0xabb7173c0; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0xabc41b540; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
+	<IDEDistributionProcessingPipelineContext: 0x7316f8900; archive = "<IDEArchive: 0x7302b6bc0>", distributionMethod="<IDEDistributionMethodDeveloperID: 0x7315370e0>", team="<IDEProvisioningBasicTeam: 0x72fcdb1e0; teamID='7MKQAN7HM5', teamName='Mladjan Antic'>">
+	<IDEDistributionProcessingPipelineContext: 0x7316f8c00; archive = "<IDEArchive: 0x7302b6bc0>", distributionMethod="<IDEDistributionMethodDeveloperID: 0x7315370e0>", team="<IDEProvisioningBasicTeam: 0x72fcdb1e0; teamID='7MKQAN7HM5', teamName='Mladjan Antic'>">
+	<IDEDistributionContext: 0x72fc12080; archive = "<IDEArchive: 0x7302b6bc0>", distributionMethod="<IDEDistributionMethodDeveloperID: 0x7315370e0>", team="<IDEProvisioningBasicTeam: 0x72fcdb1e0; teamID='7MKQAN7HM5', teamName='Mladjan Antic'>">
+	<IDEDistributionContext: 0x72fc11e00; archive = "<IDEArchive: 0x7302b6bc0>", distributionMethod="<IDEDistributionMethodDeveloperID: 0x7315370e0>", team="<IDEProvisioningBasicTeam: 0x72fcdb1e0; teamID='7MKQAN7HM5', teamName='Mladjan Antic'>">
+	<IDEDistributionContext: 0x72fc11b80; archive = "<IDEArchive: 0x7302b6bc0>", distributionMethod="<IDEDistributionMethodDeveloperID: 0x7315370e0>", team="<IDEProvisioningBasicTeam: 0x72fcdb1e0; teamID='7MKQAN7HM5', teamName='Mladjan Antic'>">
+	<IDEDistributionContext: 0x72fc11900; archive = "<IDEArchive: 0x7302b6bc0>", distributionMethod="<IDEDistributionMethodDeveloperID: 0x7315370e0>", team="<IDEProvisioningBasicTeam: 0x72fcdb1e0; teamID='7MKQAN7HM5', teamName='Mladjan Antic'>">
+	<IDEDistributionContext: 0x72fc10a00; archive = "<IDEArchive: 0x7302b6bc0>", distributionMethod="<IDEDistributionMethodDeveloperID: 0x7315370e0>", team="<IDEProvisioningBasicTeam: 0x72fcdb1e0; teamID='7MKQAN7HM5', teamName='Mladjan Antic'>">
+	<IDEDistributionContext: 0x72fc10780; archive = "<IDEArchive: 0x7302b6bc0>", distributionMethod="<IDEDistributionMethodDeveloperID: 0x7315370e0>", team="<IDEProvisioningBasicTeam: 0x72fcdb1e0; teamID='7MKQAN7HM5', teamName='Mladjan Antic'>">
+	<IDEDistributionContext: 0x72fc10500; archive = "<IDEArchive: 0x7302b6bc0>", distributionMethod="<IDEDistributionMethodDeveloperID: 0x7315370e0>", team="<IDEProvisioningBasicTeam: 0x72fcdb1e0; teamID='7MKQAN7HM5', teamName='Mladjan Antic'>">
+	<IDEDistributionContext: 0x72fc10280; archive = "<IDEArchive: 0x7302b6bc0>", distributionMethod="<IDEDistributionMethodDeveloperID: 0x7315370e0>", team="(null)">
+	<IDEDistributionContext: 0x72fc10000; archive = "<IDEArchive: 0x7302b6bc0>", distributionMethod="<IDEDistributionMethodDeveloperID: 0x7315370e0>", team="(null)">
+	<IDEDistributionContext: 0x10351a6d0; archive = "<IDEArchive: 0x7302b6bc0>", distributionMethod="(null)", team="(null)">
+</IDEDistributionProcessingPipelineContext: 0x7316f8900>
+2026-01-17 19:52:42 +0000 [MT] Processing step: IDEDistributionCreateDestRootStep
+2026-01-17 19:52:42 +0000 [MT] Processing step: IDEDistributionCopyItemStep
+2026-01-17 19:52:42 +0000 [MT] Running /usr/bin/ditto '-V' '/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app' '/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app'
+2026-01-17 19:52:42 +0000  >>> Copying /Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app 
+2026-01-17 19:52:42 +0000  copying file ./Contents/_CodeSignature/CodeResources ... 
+2026-01-17 19:52:42 +0000  3555 bytes for ./Contents/_CodeSignature/CodeResources
+2026-01-17 19:52:42 +0000  copying file ./Contents/MacOS/VibeStatus ... 
+2026-01-17 19:52:42 +0000  586576 bytes for ./Contents/MacOS/VibeStatus
+2026-01-17 19:52:42 +0000  copying file ./Contents/Resources/AppIcon.icns ... 
+2026-01-17 19:52:42 +0000  5025 bytes for ./Contents/Resources/AppIcon.icns
+2026-01-17 19:52:42 +0000  copying file ./Contents/Resources/icon.json ... 
+2026-01-17 19:52:42 +0000  510 bytes for ./Contents/Resources/icon.json
+2026-01-17 19:52:42 +0000  copying file ./Contents/Resources/Assets.car ... 
+2026-01-17 19:52:42 +0000  37144 bytes for ./Contents/Resources/Assets.car
+2026-01-17 19:52:42 +0000  copying file ./Contents/Resources/vibestatus.png ... 
+2026-01-17 19:52:42 +0000  6611 bytes for ./Contents/Resources/vibestatus.png
+2026-01-17 19:52:42 +0000  copying symlink ./Contents/Frameworks/Sparkle.framework/Resources ... 
+2026-01-17 19:52:42 +0000  linked ./Contents/Frameworks/Sparkle.framework/Resources
+2026-01-17 19:52:42 +0000  copying symlink ./Contents/Frameworks/Sparkle.framework/Versions/Current ... 
+2026-01-17 19:52:42 +0000  linked ./Contents/Frameworks/Sparkle.framework/Versions/Current
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/_CodeSignature/CodeResources ... 
+2026-01-17 19:52:42 +0000  18089 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/_CodeSignature/CodeResources
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/de.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  11648 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/de.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/he.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  9657 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/he.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ar.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  3554 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ar.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/el.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  5934 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/el.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ja.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  8697 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ja.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fa.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  5716 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fa.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/uk.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  5842 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/uk.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_CN.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  7475 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_CN.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nb.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  5539 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nb.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/es.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  7040 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/es.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/is.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  3954 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/is.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sl.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  5646 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sl.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/da.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  4882 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/da.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/it.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  10956 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/it.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sk.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  5675 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sk.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sv.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  5160 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sv.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ReleaseNotesColorStyle.css ... 
+2026-01-17 19:52:42 +0000  231 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ReleaseNotesColorStyle.css
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/cs.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  10774 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/cs.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ko.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  7797 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ko.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/Base.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  5831 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/Base.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/hu.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  4449 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/hu.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_HK.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  6469 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_HK.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/tr.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  6183 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/tr.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pl.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  5453 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pl.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_TW.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  7625 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_TW.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pt-BR.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  9976 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pt-BR.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ru.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  5784 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ru.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/SUUpdatePermissionPrompt.nib/keyedobjects-110000.nib ... 
+2026-01-17 19:52:42 +0000  25365 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/SUUpdatePermissionPrompt.nib/keyedobjects-110000.nib
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/SUUpdatePermissionPrompt.nib/keyedobjects-101300.nib ... 
+2026-01-17 19:52:42 +0000  25388 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/SUUpdatePermissionPrompt.nib/keyedobjects-101300.nib
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/SUStatus.nib ... 
+2026-01-17 19:52:42 +0000  13047 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/SUStatus.nib
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/SUUpdateAlert.nib ... 
+2026-01-17 19:52:42 +0000  18461 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/SUUpdateAlert.nib
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fr.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  7855 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fr.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fi.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  3252 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fi.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nl.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  9574 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nl.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/th.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  5339 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/th.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nn.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  5671 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nn.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pt-PT.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  5984 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pt-PT.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ro.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  6115 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ro.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/Info.plist ... 
+2026-01-17 19:52:42 +0000  1340 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/Info.plist
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/hr.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  6367 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/hr.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ca.lproj/Sparkle.strings ... 
+2026-01-17 19:52:42 +0000  3501 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ca.lproj/Sparkle.strings
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate ... 
+2026-01-17 19:52:42 +0000  692672 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/_CodeSignature/CodeResources ... 
+2026-01-17 19:52:42 +0000  2446 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/_CodeSignature/CodeResources
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/MacOS/Updater ... 
+2026-01-17 19:52:42 +0000  273968 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/MacOS/Updater
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/Resources/SUStatus.nib ... 
+2026-01-17 19:52:42 +0000  13047 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/Resources/SUStatus.nib
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/Info.plist ... 
+2026-01-17 19:52:42 +0000  2377 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/Info.plist
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/PkgInfo ... 
+2026-01-17 19:52:42 +0000  8 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/PkgInfo
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/_CodeSignature/CodeResources ... 
+2026-01-17 19:52:42 +0000  2200 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/_CodeSignature/CodeResources
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/MacOS/Downloader ... 
+2026-01-17 19:52:42 +0000  171616 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/MacOS/Downloader
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/Info.plist ... 
+2026-01-17 19:52:42 +0000  1716 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/Info.plist
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/_CodeSignature/CodeResources ... 
+2026-01-17 19:52:42 +0000  2200 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/_CodeSignature/CodeResources
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/MacOS/Installer ... 
+2026-01-17 19:52:42 +0000  223264 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/MacOS/Installer
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/Info.plist ... 
+2026-01-17 19:52:42 +0000  1604 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/Info.plist
+2026-01-17 19:52:42 +0000  copying file ./Contents/Frameworks/Sparkle.framework/Versions/B/Sparkle ... 
+2026-01-17 19:52:42 +0000  860528 bytes for ./Contents/Frameworks/Sparkle.framework/Versions/B/Sparkle
+2026-01-17 19:52:42 +0000  copying symlink ./Contents/Frameworks/Sparkle.framework/Autoupdate ... 
+2026-01-17 19:52:42 +0000  linked ./Contents/Frameworks/Sparkle.framework/Autoupdate
+2026-01-17 19:52:42 +0000  copying symlink ./Contents/Frameworks/Sparkle.framework/Updater.app ... 
+2026-01-17 19:52:42 +0000  linked ./Contents/Frameworks/Sparkle.framework/Updater.app
+2026-01-17 19:52:42 +0000  copying symlink ./Contents/Frameworks/Sparkle.framework/XPCServices ... 
+2026-01-17 19:52:42 +0000  linked ./Contents/Frameworks/Sparkle.framework/XPCServices
+2026-01-17 19:52:42 +0000  copying symlink ./Contents/Frameworks/Sparkle.framework/Sparkle ... 
+2026-01-17 19:52:42 +0000  linked ./Contents/Frameworks/Sparkle.framework/Sparkle
+2026-01-17 19:52:42 +0000  copying file ./Contents/Info.plist ... 
+2026-01-17 19:52:42 +0000  1807 bytes for ./Contents/Info.plist
+2026-01-17 19:52:42 +0000  copying file ./Contents/PkgInfo ... 
+2026-01-17 19:52:42 +0000  8 bytes for ./Contents/PkgInfo
+2026-01-17 19:52:42 +0000 [MT] /usr/bin/ditto exited with 0
+2026-01-17 19:52:42 +0000 [MT] Processing step: IDEDistributionEmbedProfileStep
+2026-01-17 19:52:42 +0000 [MT] Skipping profile for item: <IDEDistributionItem: 0x7325e4d80; bundleID='org.sparkle-project.DownloaderService', path='<DVTFilePath:0x731692d60:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7325e4f00; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7324cb300; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
     "1.2.840.113635.100.6.1.13"
-), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.DownloaderService', executablePath='<DVTFilePath:0xabc4c80c0:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/MacOS/Downloader'>', hardenedRuntime='1'>'>
-2026-01-17 15:49:45 +0000 [MT] Skipping profile for item: <IDEDistributionItem: 0xabb717600; bundleID='org.sparkle-project.InstallerLauncher', path='<DVTFilePath:0xabc4c8360:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0xabc4c9320; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0xabc41b540; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
+), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.DownloaderService', executablePath='<DVTFilePath:0x7325e45a0:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/MacOS/Downloader'>', hardenedRuntime='1'>'>
+2026-01-17 19:52:42 +0000 [MT] Skipping profile for item: <IDEDistributionItem: 0x7325e51a0; bundleID='org.sparkle-project.InstallerLauncher', path='<DVTFilePath:0x7325e4840:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7325e5200; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7324cb300; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
     "1.2.840.113635.100.6.1.13"
-), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.InstallerLauncher', executablePath='<DVTFilePath:0xabc4c8780:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/MacOS/Installer'>', hardenedRuntime='1'>'>
-2026-01-17 15:49:45 +0000 [MT] Skipping profile for item: <IDEDistributionItem: 0xabb717540; bundleID='(null)', path='<DVTFilePath:0xabb716e20:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0xabb7175a0; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0xabc41b540; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
+), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.InstallerLauncher', executablePath='<DVTFilePath:0x7325e4c60:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/MacOS/Installer'>', hardenedRuntime='1'>'>
+2026-01-17 19:52:42 +0000 [MT] Skipping profile for item: <IDEDistributionItem: 0x7325e50e0; bundleID='(null)', path='<DVTFilePath:0x7325e4180:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7325e5020; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7324cb300; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
     "1.2.840.113635.100.6.1.13"
-), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='Autoupdate', executablePath='<DVTFilePath:0xabb716e20:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate'>', hardenedRuntime='1'>'>
-2026-01-17 15:49:45 +0000 [MT] Skipping profile for item: <IDEDistributionItem: 0xabb7174e0; bundleID='org.sparkle-project.Sparkle.Updater', path='<DVTFilePath:0xabb716ee0:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0xabb717480; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0xabc41b540; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
+), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='Autoupdate', executablePath='<DVTFilePath:0x7325e4180:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate'>', hardenedRuntime='1'>'>
+2026-01-17 19:52:42 +0000 [MT] Skipping profile for item: <IDEDistributionItem: 0x7325e5140; bundleID='org.sparkle-project.Sparkle.Updater', path='<DVTFilePath:0x7325e4240:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7325e5080; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7324cb300; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
     "1.2.840.113635.100.6.1.13"
-), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.Sparkle.Updater', executablePath='<DVTFilePath:0xabb717300:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/MacOS/Updater'>', hardenedRuntime='1'>'>
-2026-01-17 15:49:45 +0000 [MT] Skipping profile for item: <IDEDistributionItem: 0xabb717660; bundleID='org.sparkle-project.Sparkle', path='<DVTFilePath:0xabc498a80:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0xabb717720; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0xabc41b540; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
+), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.Sparkle.Updater', executablePath='<DVTFilePath:0x731692760:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/MacOS/Updater'>', hardenedRuntime='1'>'>
+2026-01-17 19:52:42 +0000 [MT] Skipping profile for item: <IDEDistributionItem: 0x7325e4ea0; bundleID='org.sparkle-project.Sparkle', path='<DVTFilePath:0x732505560:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7325e4e40; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7324cb300; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
     "1.2.840.113635.100.6.1.13"
-), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.Sparkle', executablePath='<DVTFilePath:0xabc4c8a80:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Sparkle'>', hardenedRuntime='1'>'>
-2026-01-17 15:49:45 +0000 [MT] Skipping profile for item: <IDEDistributionItem: 0xabb717a20; bundleID='com.vibestatus.app', path='<DVTFilePath:0xabb714060:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0xabb717780; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0xabc41b540; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
-    "1.2.840.113635.100.6.1.13"
-), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='{
-    "com.apple.security.app-sandbox" = 0;
-}', teamID='7MKQAN7HM5', identifier='com.vibestatus.app', executablePath='<DVTFilePath:0xabc4981e0:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/MacOS/VibeStatus'>', hardenedRuntime='1'>'>
-2026-01-17 15:49:45 +0000 [MT] Processing step: IDEDistributionInfoPlistStep
-2026-01-17 15:49:45 +0000 [MT] Skipping step: IDEDistributionInfoPlistStep because it said so
-2026-01-17 15:49:45 +0000 [MT] Skipping step: IDEDistributionInfoPlistStep because it said so
-2026-01-17 15:49:45 +0000 [MT] Skipping step: IDEDistributionInfoPlistStep because it said so
-2026-01-17 15:49:45 +0000 [MT] Skipping step: IDEDistributionInfoPlistStep because it said so
-2026-01-17 15:49:45 +0000 [MT] Skipping step: IDEDistributionInfoPlistStep because it said so
-2026-01-17 15:49:45 +0000 [MT] Skipping step: IDEDistributionInfoPlistStep because it said so
-2026-01-17 15:49:45 +0000 [MT] Processing step: IDEDistributionAppThinningPlistStep
-2026-01-17 15:49:45 +0000 [MT] Processing step: IDEDistributionSymbolsStep
-2026-01-17 15:49:45 +0000 [MT] Skipping step: IDEDistributionSymbolsStep because it said so
-2026-01-17 15:49:45 +0000 [MT] Processing step: IDEDistributionAppThinningStep
-2026-01-17 15:49:45 +0000 [MT] Skipping step: IDEDistributionAppThinningStep because it said so
-2026-01-17 15:49:45 +0000 [MT] Processing step: IDEDistributionArchThinningStep
-2026-01-17 15:49:45 +0000 [MT] Archs to thin for item /Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc are []
-2026-01-17 15:49:45 +0000 [MT] Archs to thin for item /Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc are []
-2026-01-17 15:49:45 +0000 [MT] Archs to thin for item /Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate are []
-2026-01-17 15:49:45 +0000 [MT] Archs to thin for item /Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app are []
-2026-01-17 15:49:45 +0000 [MT] Archs to thin for item /Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B are []
-2026-01-17 15:49:45 +0000 [MT] Archs to thin for item /Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app are []
-2026-01-17 15:49:45 +0000 [MT] Processing step: IDEDistributionODRStep
-2026-01-17 15:49:45 +0000 [MT] Processing step: IDEDistributionStripXattrsStep
-2026-01-17 15:49:45 +0000 [MT] Skipping stripping extended attributes because the codesign step will strip them.
-2026-01-17 15:49:45 +0000 [MT] Skipping stripping extended attributes because the codesign step will strip them.
-2026-01-17 15:49:45 +0000 [MT] Skipping stripping extended attributes because the codesign step will strip them.
-2026-01-17 15:49:45 +0000 [MT] Skipping stripping extended attributes because the codesign step will strip them.
-2026-01-17 15:49:45 +0000 [MT] Skipping stripping extended attributes because the codesign step will strip them.
-2026-01-17 15:49:45 +0000 [MT] Skipping stripping extended attributes because the codesign step will strip them.
-2026-01-17 15:49:45 +0000 [MT] Processing step: IDEDistributionCodesignStep
-2026-01-17 15:49:45 +0000 [MT] Entitlements for <IDEDistributionItem: 0xabb717420; bundleID='org.sparkle-project.DownloaderService', path='<DVTFilePath:0xabc49bc60:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0xabb7173c0; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0xabc41b540; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
-    "1.2.840.113635.100.6.1.13"
-), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.DownloaderService', executablePath='<DVTFilePath:0xabc4c80c0:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/MacOS/Downloader'>', hardenedRuntime='1'>'>: {
-}
-2026-01-17 15:49:45 +0000 [MT] Associated App Clip Identifiers Filter: Skipping because "com.apple.developer.associated-appclip-app-identifiers" is not present
-2026-01-17 15:49:45 +0000 [MT] Entitlements for <IDEDistributionItem: 0xabb717420; bundleID='org.sparkle-project.DownloaderService', path='<DVTFilePath:0xabc49bc60:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0xabb7173c0; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0xabc41b180; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
-    "1.2.840.113635.100.6.1.13"
-), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.DownloaderService', executablePath='<DVTFilePath:0xabc4c80c0:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/MacOS/Downloader'>', hardenedRuntime='1'>'> are: {
-}
-2026-01-17 15:49:45 +0000 [MT] Writing entitlements for <IDEDistributionItem: 0xabb717420; bundleID='org.sparkle-project.DownloaderService', path='<DVTFilePath:0xabc49bc60:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0xabb7173c0; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0xabc41b180; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
-    "1.2.840.113635.100.6.1.13"
-), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.DownloaderService', executablePath='<DVTFilePath:0xabc4c80c0:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/MacOS/Downloader'>', hardenedRuntime='1'>'> to: /var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/entitlements~~~btQJ0c
-2026-01-17 15:49:45 +0000 [MT] invoking codesign: <NSConcreteTask: 0xab997ab20; launchPath='/usr/bin/codesign', arguments='(
-    "-f",
-    "-s",
-    30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7,
-    "--entitlements",
-    "/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/entitlements~~~btQJ0c",
-    "--requirements",
-    "=designated => anchor apple generic  and identifier \"$self.identifier\" and ((cert leaf[field.1.2.840.113635.100.6.1.9] exists) or ( certificate 1[field.1.2.840.113635.100.6.2.6] exists and certificate leaf[field.1.2.840.113635.100.6.1.13] exists  and certificate leaf[subject.OU] = \"7MKQAN7HM5\" ))",
-    "--preserve-metadata=identifier,flags,runtime,launch-constraints,library-constraints",
-    "--generate-entitlement-der",
-    "--strip-disallowed-xattrs",
-    "-vvv",
-    "/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc"
-)'>
-2026-01-17 15:49:45 +0000 [MT] codesign output: /var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc: replacing existing signature
-/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc: signed bundle with Mach-O universal (x86_64 arm64) [org.sparkle-project.DownloaderService]
-2026-01-17 15:49:45 +0000 [MT] Entitlements for <IDEDistributionItem: 0xabb717600; bundleID='org.sparkle-project.InstallerLauncher', path='<DVTFilePath:0xabc4c8360:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0xabc4c9320; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0xabc41b540; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
-    "1.2.840.113635.100.6.1.13"
-), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.InstallerLauncher', executablePath='<DVTFilePath:0xabc4c8780:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/MacOS/Installer'>', hardenedRuntime='1'>'>: {
-}
-2026-01-17 15:49:45 +0000 [MT] Associated App Clip Identifiers Filter: Skipping because "com.apple.developer.associated-appclip-app-identifiers" is not present
-2026-01-17 15:49:45 +0000 [MT] Entitlements for <IDEDistributionItem: 0xabb717600; bundleID='org.sparkle-project.InstallerLauncher', path='<DVTFilePath:0xabc4c8360:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0xabc4c9320; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0xabc41a700; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
-    "1.2.840.113635.100.6.1.13"
-), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.InstallerLauncher', executablePath='<DVTFilePath:0xabc4c8780:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/MacOS/Installer'>', hardenedRuntime='1'>'> are: {
-}
-2026-01-17 15:49:45 +0000 [MT] Writing entitlements for <IDEDistributionItem: 0xabb717600; bundleID='org.sparkle-project.InstallerLauncher', path='<DVTFilePath:0xabc4c8360:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0xabc4c9320; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0xabc41a700; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
-    "1.2.840.113635.100.6.1.13"
-), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.InstallerLauncher', executablePath='<DVTFilePath:0xabc4c8780:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/MacOS/Installer'>', hardenedRuntime='1'>'> to: /var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/entitlements~~~XN2S1Q
-2026-01-17 15:49:45 +0000 [MT] invoking codesign: <NSConcreteTask: 0xab997ac60; launchPath='/usr/bin/codesign', arguments='(
-    "-f",
-    "-s",
-    30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7,
-    "--entitlements",
-    "/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/entitlements~~~XN2S1Q",
-    "--requirements",
-    "=designated => anchor apple generic  and identifier \"$self.identifier\" and ((cert leaf[field.1.2.840.113635.100.6.1.9] exists) or ( certificate 1[field.1.2.840.113635.100.6.2.6] exists and certificate leaf[field.1.2.840.113635.100.6.1.13] exists  and certificate leaf[subject.OU] = \"7MKQAN7HM5\" ))",
-    "--preserve-metadata=identifier,flags,runtime,launch-constraints,library-constraints",
-    "--generate-entitlement-der",
-    "--strip-disallowed-xattrs",
-    "-vvv",
-    "/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc"
-)'>
-2026-01-17 15:49:45 +0000 [MT] codesign output: /var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc: replacing existing signature
-/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc: signed bundle with Mach-O universal (x86_64 arm64) [org.sparkle-project.InstallerLauncher]
-2026-01-17 15:49:45 +0000 [MT] Entitlements for <IDEDistributionItem: 0xabb717540; bundleID='(null)', path='<DVTFilePath:0xabb716e20:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0xabb7175a0; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0xabc41b540; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
-    "1.2.840.113635.100.6.1.13"
-), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='Autoupdate', executablePath='<DVTFilePath:0xabb716e20:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate'>', hardenedRuntime='1'>'>: {
-}
-2026-01-17 15:49:45 +0000 [MT] Associated App Clip Identifiers Filter: Skipping because "com.apple.developer.associated-appclip-app-identifiers" is not present
-2026-01-17 15:49:45 +0000 [MT] Entitlements for <IDEDistributionItem: 0xabb717540; bundleID='(null)', path='<DVTFilePath:0xabb716e20:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0xabb7175a0; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0xabc41a700; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
-    "1.2.840.113635.100.6.1.13"
-), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='Autoupdate', executablePath='<DVTFilePath:0xabb716e20:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate'>', hardenedRuntime='1'>'> are: {
-}
-2026-01-17 15:49:45 +0000 [MT] Writing entitlements for <IDEDistributionItem: 0xabb717540; bundleID='(null)', path='<DVTFilePath:0xabb716e20:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0xabb7175a0; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0xabc41a700; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
-    "1.2.840.113635.100.6.1.13"
-), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='Autoupdate', executablePath='<DVTFilePath:0xabb716e20:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate'>', hardenedRuntime='1'>'> to: /var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/entitlements~~~wzRidT
-2026-01-17 15:49:45 +0000 [MT] invoking codesign: <NSConcreteTask: 0xabab03f20; launchPath='/usr/bin/codesign', arguments='(
-    "-f",
-    "-s",
-    30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7,
-    "--entitlements",
-    "/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/entitlements~~~wzRidT",
-    "--requirements",
-    "=designated => anchor apple generic  and identifier \"$self.identifier\" and ((cert leaf[field.1.2.840.113635.100.6.1.9] exists) or ( certificate 1[field.1.2.840.113635.100.6.2.6] exists and certificate leaf[field.1.2.840.113635.100.6.1.13] exists  and certificate leaf[subject.OU] = \"7MKQAN7HM5\" ))",
-    "--preserve-metadata=identifier,flags,runtime,launch-constraints,library-constraints",
-    "--generate-entitlement-der",
-    "--strip-disallowed-xattrs",
-    "-vvv",
-    "/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate"
-)'>
-2026-01-17 15:49:46 +0000 [MT] codesign output: /var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate: replacing existing signature
-/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate: signed Mach-O universal (x86_64 arm64) [Autoupdate]
-2026-01-17 15:49:46 +0000 [MT] Entitlements for <IDEDistributionItem: 0xabb7174e0; bundleID='org.sparkle-project.Sparkle.Updater', path='<DVTFilePath:0xabb716ee0:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0xabb717480; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0xabc41b540; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
-    "1.2.840.113635.100.6.1.13"
-), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.Sparkle.Updater', executablePath='<DVTFilePath:0xabb717300:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/MacOS/Updater'>', hardenedRuntime='1'>'>: {
-}
-2026-01-17 15:49:46 +0000 [MT] Associated App Clip Identifiers Filter: Skipping because "com.apple.developer.associated-appclip-app-identifiers" is not present
-2026-01-17 15:49:46 +0000 [MT] Entitlements for <IDEDistributionItem: 0xabb7174e0; bundleID='org.sparkle-project.Sparkle.Updater', path='<DVTFilePath:0xabb716ee0:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0xabb717480; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0xabc41a700; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
-    "1.2.840.113635.100.6.1.13"
-), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.Sparkle.Updater', executablePath='<DVTFilePath:0xabb717300:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/MacOS/Updater'>', hardenedRuntime='1'>'> are: {
-}
-2026-01-17 15:49:46 +0000 [MT] Writing entitlements for <IDEDistributionItem: 0xabb7174e0; bundleID='org.sparkle-project.Sparkle.Updater', path='<DVTFilePath:0xabb716ee0:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0xabb717480; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0xabc41a700; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
-    "1.2.840.113635.100.6.1.13"
-), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.Sparkle.Updater', executablePath='<DVTFilePath:0xabb717300:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/MacOS/Updater'>', hardenedRuntime='1'>'> to: /var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/entitlements~~~3GIQIH
-2026-01-17 15:49:46 +0000 [MT] invoking codesign: <NSConcreteTask: 0xab997ac60; launchPath='/usr/bin/codesign', arguments='(
-    "-f",
-    "-s",
-    30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7,
-    "--entitlements",
-    "/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/entitlements~~~3GIQIH",
-    "--requirements",
-    "=designated => anchor apple generic  and identifier \"$self.identifier\" and ((cert leaf[field.1.2.840.113635.100.6.1.9] exists) or ( certificate 1[field.1.2.840.113635.100.6.2.6] exists and certificate leaf[field.1.2.840.113635.100.6.1.13] exists  and certificate leaf[subject.OU] = \"7MKQAN7HM5\" ))",
-    "--preserve-metadata=identifier,flags,runtime,launch-constraints,library-constraints",
-    "--generate-entitlement-der",
-    "--strip-disallowed-xattrs",
-    "-vvv",
-    "/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app"
-)'>
-2026-01-17 15:49:46 +0000 [MT] codesign output: /var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app: replacing existing signature
-/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app: signed app bundle with Mach-O universal (x86_64 arm64) [org.sparkle-project.Sparkle.Updater]
-2026-01-17 15:49:46 +0000 [MT] Entitlements for <IDEDistributionItem: 0xabb717660; bundleID='org.sparkle-project.Sparkle', path='<DVTFilePath:0xabc498a80:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0xabb717720; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0xabc41b540; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
-    "1.2.840.113635.100.6.1.13"
-), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.Sparkle', executablePath='<DVTFilePath:0xabc4c8a80:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Sparkle'>', hardenedRuntime='1'>'>: {
-}
-2026-01-17 15:49:46 +0000 [MT] Associated App Clip Identifiers Filter: Skipping because "com.apple.developer.associated-appclip-app-identifiers" is not present
-2026-01-17 15:49:46 +0000 [MT] Entitlements for <IDEDistributionItem: 0xabb717660; bundleID='org.sparkle-project.Sparkle', path='<DVTFilePath:0xabc498a80:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0xabb717720; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0xabc41a700; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
-    "1.2.840.113635.100.6.1.13"
-), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.Sparkle', executablePath='<DVTFilePath:0xabc4c8a80:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Sparkle'>', hardenedRuntime='1'>'> are: {
-}
-2026-01-17 15:49:46 +0000 [MT] Writing entitlements for <IDEDistributionItem: 0xabb717660; bundleID='org.sparkle-project.Sparkle', path='<DVTFilePath:0xabc498a80:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0xabb717720; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0xabc41a700; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
-    "1.2.840.113635.100.6.1.13"
-), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.Sparkle', executablePath='<DVTFilePath:0xabc4c8a80:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Sparkle'>', hardenedRuntime='1'>'> to: /var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/entitlements~~~SKA8ew
-2026-01-17 15:49:46 +0000 [MT] invoking codesign: <NSConcreteTask: 0xab997ac60; launchPath='/usr/bin/codesign', arguments='(
-    "-f",
-    "-s",
-    30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7,
-    "--entitlements",
-    "/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/entitlements~~~SKA8ew",
-    "--requirements",
-    "=designated => anchor apple generic  and identifier \"$self.identifier\" and ((cert leaf[field.1.2.840.113635.100.6.1.9] exists) or ( certificate 1[field.1.2.840.113635.100.6.2.6] exists and certificate leaf[field.1.2.840.113635.100.6.1.13] exists  and certificate leaf[subject.OU] = \"7MKQAN7HM5\" ))",
-    "--preserve-metadata=identifier,flags,runtime,launch-constraints,library-constraints",
-    "--generate-entitlement-der",
-    "--strip-disallowed-xattrs",
-    "-vvv",
-    "/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B"
-)'>
-2026-01-17 15:49:47 +0000 [MT] codesign output: /var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B: replacing existing signature
-/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B: signed bundle with Mach-O universal (x86_64 arm64) [org.sparkle-project.Sparkle]
-2026-01-17 15:49:47 +0000 [MT] Entitlements for <IDEDistributionItem: 0xabb717a20; bundleID='com.vibestatus.app', path='<DVTFilePath:0xabb714060:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0xabb717780; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0xabc41b540; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
+), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.Sparkle', executablePath='<DVTFilePath:0x731693120:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Sparkle'>', hardenedRuntime='1'>'>
+2026-01-17 19:52:42 +0000 [MT] Skipping profile for item: <IDEDistributionItem: 0x7325e5800; bundleID='com.vibestatus.app', path='<DVTFilePath:0x732504540:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7325e57a0; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7324cb300; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
     "1.2.840.113635.100.6.1.13"
 ), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='{
     "com.apple.security.app-sandbox" = 0;
-}', teamID='7MKQAN7HM5', identifier='com.vibestatus.app', executablePath='<DVTFilePath:0xabc4981e0:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/MacOS/VibeStatus'>', hardenedRuntime='1'>'>: {
-    "com.apple.security.app-sandbox" = 0;
-}
-2026-01-17 15:49:47 +0000 [MT] Associated App Clip Identifiers Filter: Skipping because "com.apple.developer.associated-appclip-app-identifiers" is not present
-2026-01-17 15:49:47 +0000 [MT] Entitlements for <IDEDistributionItem: 0xabb717a20; bundleID='com.vibestatus.app', path='<DVTFilePath:0xabb714060:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0xabb717780; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0xabc41a700; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
+}', teamID='7MKQAN7HM5', identifier='com.vibestatus.app', executablePath='<DVTFilePath:0x732504cc0:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/MacOS/VibeStatus'>', hardenedRuntime='1'>'>
+2026-01-17 19:52:42 +0000 [MT] Processing step: IDEDistributionInfoPlistStep
+2026-01-17 19:52:42 +0000 [MT] Skipping step: IDEDistributionInfoPlistStep because it said so
+2026-01-17 19:52:42 +0000 [MT] Skipping step: IDEDistributionInfoPlistStep because it said so
+2026-01-17 19:52:42 +0000 [MT] Skipping step: IDEDistributionInfoPlistStep because it said so
+2026-01-17 19:52:42 +0000 [MT] Skipping step: IDEDistributionInfoPlistStep because it said so
+2026-01-17 19:52:42 +0000 [MT] Skipping step: IDEDistributionInfoPlistStep because it said so
+2026-01-17 19:52:42 +0000 [MT] Skipping step: IDEDistributionInfoPlistStep because it said so
+2026-01-17 19:52:42 +0000 [MT] Processing step: IDEDistributionAppThinningPlistStep
+2026-01-17 19:52:42 +0000 [MT] Processing step: IDEDistributionSymbolsStep
+2026-01-17 19:52:42 +0000 [MT] Skipping step: IDEDistributionSymbolsStep because it said so
+2026-01-17 19:52:42 +0000 [MT] Processing step: IDEDistributionAppThinningStep
+2026-01-17 19:52:42 +0000 [MT] Skipping step: IDEDistributionAppThinningStep because it said so
+2026-01-17 19:52:42 +0000 [MT] Processing step: IDEDistributionArchThinningStep
+2026-01-17 19:52:42 +0000 [MT] Archs to thin for item /Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc are []
+2026-01-17 19:52:42 +0000 [MT] Archs to thin for item /Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc are []
+2026-01-17 19:52:42 +0000 [MT] Archs to thin for item /Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate are []
+2026-01-17 19:52:42 +0000 [MT] Archs to thin for item /Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app are []
+2026-01-17 19:52:42 +0000 [MT] Archs to thin for item /Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B are []
+2026-01-17 19:52:42 +0000 [MT] Archs to thin for item /Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app are []
+2026-01-17 19:52:42 +0000 [MT] Processing step: IDEDistributionODRStep
+2026-01-17 19:52:42 +0000 [MT] Processing step: IDEDistributionStripXattrsStep
+2026-01-17 19:52:42 +0000 [MT] Skipping stripping extended attributes because the codesign step will strip them.
+2026-01-17 19:52:42 +0000 [MT] Skipping stripping extended attributes because the codesign step will strip them.
+2026-01-17 19:52:42 +0000 [MT] Skipping stripping extended attributes because the codesign step will strip them.
+2026-01-17 19:52:42 +0000 [MT] Skipping stripping extended attributes because the codesign step will strip them.
+2026-01-17 19:52:42 +0000 [MT] Skipping stripping extended attributes because the codesign step will strip them.
+2026-01-17 19:52:42 +0000 [MT] Skipping stripping extended attributes because the codesign step will strip them.
+2026-01-17 19:52:42 +0000 [MT] Processing step: IDEDistributionCodesignStep
+2026-01-17 19:52:42 +0000 [MT] Entitlements for <IDEDistributionItem: 0x7325e4d80; bundleID='org.sparkle-project.DownloaderService', path='<DVTFilePath:0x731692d60:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7325e4f00; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7324cb300; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
     "1.2.840.113635.100.6.1.13"
-), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='{
-    "com.apple.security.app-sandbox" = 0;
-}', teamID='7MKQAN7HM5', identifier='com.vibestatus.app', executablePath='<DVTFilePath:0xabc4981e0:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/MacOS/VibeStatus'>', hardenedRuntime='1'>'> are: {
-    "com.apple.security.app-sandbox" = 0;
+), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.DownloaderService', executablePath='<DVTFilePath:0x7325e45a0:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/MacOS/Downloader'>', hardenedRuntime='1'>'>: {
 }
-2026-01-17 15:49:47 +0000 [MT] Writing entitlements for <IDEDistributionItem: 0xabb717a20; bundleID='com.vibestatus.app', path='<DVTFilePath:0xabb714060:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0xabb717780; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0xabc41a700; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
+2026-01-17 19:52:42 +0000 [MT] Associated App Clip Identifiers Filter: Skipping because "com.apple.developer.associated-appclip-app-identifiers" is not present
+2026-01-17 19:52:42 +0000 [MT] Entitlements for <IDEDistributionItem: 0x7325e4d80; bundleID='org.sparkle-project.DownloaderService', path='<DVTFilePath:0x731692d60:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7325e4f00; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7324cb480; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
     "1.2.840.113635.100.6.1.13"
-), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='{
-    "com.apple.security.app-sandbox" = 0;
-}', teamID='7MKQAN7HM5', identifier='com.vibestatus.app', executablePath='<DVTFilePath:0xabc4981e0:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/MacOS/VibeStatus'>', hardenedRuntime='1'>'> to: /var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/entitlements~~~oUDfmn
-2026-01-17 15:49:47 +0000 [MT] invoking codesign: <NSConcreteTask: 0xab997ac60; launchPath='/usr/bin/codesign', arguments='(
+), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.DownloaderService', executablePath='<DVTFilePath:0x7325e45a0:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/MacOS/Downloader'>', hardenedRuntime='1'>'> are: {
+}
+2026-01-17 19:52:42 +0000 [MT] Writing entitlements for <IDEDistributionItem: 0x7325e4d80; bundleID='org.sparkle-project.DownloaderService', path='<DVTFilePath:0x731692d60:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7325e4f00; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7324cb480; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
+    "1.2.840.113635.100.6.1.13"
+), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.DownloaderService', executablePath='<DVTFilePath:0x7325e45a0:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/MacOS/Downloader'>', hardenedRuntime='1'>'> to: /var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/entitlements~~~3F0wEm
+2026-01-17 19:52:42 +0000 [MT] invoking codesign: <NSConcreteTask: 0x730b434d0; launchPath='/usr/bin/codesign', arguments='(
     "-f",
     "-s",
     30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7,
     "--entitlements",
-    "/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/entitlements~~~oUDfmn",
+    "/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/entitlements~~~3F0wEm",
     "--requirements",
     "=designated => anchor apple generic  and identifier \"$self.identifier\" and ((cert leaf[field.1.2.840.113635.100.6.1.9] exists) or ( certificate 1[field.1.2.840.113635.100.6.2.6] exists and certificate leaf[field.1.2.840.113635.100.6.1.13] exists  and certificate leaf[subject.OU] = \"7MKQAN7HM5\" ))",
     "--preserve-metadata=identifier,flags,runtime,launch-constraints,library-constraints",
     "--generate-entitlement-der",
     "--strip-disallowed-xattrs",
     "-vvv",
-    "/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app"
+    "/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc"
 )'>
-2026-01-17 15:49:47 +0000 [MT] codesign output: /var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app: replacing existing signature
-/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app: signed app bundle with Mach-O universal (x86_64 arm64) [com.vibestatus.app]
-2026-01-17 15:49:47 +0000 [MT] Processing step: IDEDistributionZipODRItemStep
-2026-01-17 15:49:47 +0000 [MT] Skipping step: IDEDistributionZipODRItemStep because it said so
-2026-01-17 15:49:47 +0000 [MT] Skipping step: IDEDistributionZipODRItemStep because it said so
-2026-01-17 15:49:47 +0000 [MT] Skipping step: IDEDistributionZipODRItemStep because it said so
-2026-01-17 15:49:47 +0000 [MT] Skipping step: IDEDistributionZipODRItemStep because it said so
-2026-01-17 15:49:47 +0000 [MT] Skipping step: IDEDistributionZipODRItemStep because it said so
-2026-01-17 15:49:47 +0000 [MT] Skipping step: IDEDistributionZipODRItemStep because it said so
-2026-01-17 15:49:47 +0000 [MT] Processing step: IDEDistributionSkipPackagingStep
-2026-01-17 15:49:47 +0000 [MT] Processing step: IDEDistributionAppStoreInformationStep
-2026-01-17 15:49:47 +0000 [MT] Skipping step: IDEDistributionAppStoreInformationStep because it said so
-2026-01-17 15:49:47 +0000 [MT] Processing step: IDEDistributionGenerateProcessedDistributionItems
-2026-01-17 15:49:47 +0000 [MT] IDEDistributionItem init <DVTFilePath:0xabcc8c780:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app'>
-2026-01-17 15:49:47 +0000 [MT] [OPTIONAL] Didn't find embedded provisioning profile for <DVTFilePath:0xabcc8c780:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app'>: Error Domain=NSCocoaErrorDomain Code=4 "No file at <DVTFilePath:0xaba6be220:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/embedded.provisionprofile'>" UserInfo={NSLocalizedDescription=No file at <DVTFilePath:0xaba6be220:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/embedded.provisionprofile'>}
-2026-01-17 15:49:47 +0000 [MT] IDEDistributionItem init <DVTFilePath:0xabc601740:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate'>
-2026-01-17 15:49:47 +0000 [MT] [OPTIONAL] Didn't find info dictionary for <DVTFilePath:0xabc601740:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate'>: Error Domain=DVTFoundationNSBundleAdditionsErrorDomain Code=1 "Couldn't load Info dictionary for <DVTFilePath:0xabc601740:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate'>" UserInfo={NSLocalizedDescription=Couldn't load Info dictionary for <DVTFilePath:0xabc601740:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate'>}
-2026-01-17 15:49:47 +0000 [MT] [OPTIONAL] Can't have a profile, not a bundle at <DVTFilePath:0xabc601740:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate'>
-2026-01-17 15:49:47 +0000 [MT] IDEDistributionItem init <DVTFilePath:0xabc600600:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc'>
-2026-01-17 15:49:47 +0000 [MT] [OPTIONAL] Didn't find embedded provisioning profile for <DVTFilePath:0xabc600600:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc'>: Error Domain=NSCocoaErrorDomain Code=4 "No file at <DVTFilePath:0xab9ec1030:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/embedded.provisionprofile'>" UserInfo={NSLocalizedDescription=No file at <DVTFilePath:0xab9ec1030:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/embedded.provisionprofile'>}
-2026-01-17 15:49:47 +0000 [MT] IDEDistributionItem init <DVTFilePath:0xabc6008a0:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc'>
-2026-01-17 15:49:47 +0000 [MT] [OPTIONAL] Didn't find embedded provisioning profile for <DVTFilePath:0xabc6008a0:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc'>: Error Domain=NSCocoaErrorDomain Code=4 "No file at <DVTFilePath:0xab9ec0540:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/embedded.provisionprofile'>" UserInfo={NSLocalizedDescription=No file at <DVTFilePath:0xab9ec0540:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/embedded.provisionprofile'>}
-2026-01-17 15:49:47 +0000 [MT] IDEDistributionItem init <DVTFilePath:0xabc600660:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B'>
-2026-01-17 15:49:47 +0000 [MT] IDEDistributionItem init <DVTFilePath:0xabc600780:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app'>
-2026-01-17 15:49:47 +0000 [MT] [OPTIONAL] Didn't find embedded provisioning profile for <DVTFilePath:0xabc600780:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app'>: Error Domain=NSCocoaErrorDomain Code=4 "No file at <DVTFilePath:0xab9ec0310:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/embedded.provisionprofile'>" UserInfo={NSLocalizedDescription=No file at <DVTFilePath:0xab9ec0310:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~8PrrTt/Root/Applications/VibeStatus.app/Contents/embedded.provisionprofile'>}
-2026-01-17 15:49:47 +0000 [MT] Processing step: IDEDistributionCreateManifestStep
-2026-01-17 15:49:47 +0000 [MT] Skipping step: IDEDistributionCreateManifestStep because it said so
+2026-01-17 19:52:43 +0000 [MT] codesign output: /var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc: replacing existing signature
+/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc: signed bundle with Mach-O universal (x86_64 arm64) [org.sparkle-project.DownloaderService]
+2026-01-17 19:52:43 +0000 [MT] Entitlements for <IDEDistributionItem: 0x7325e51a0; bundleID='org.sparkle-project.InstallerLauncher', path='<DVTFilePath:0x7325e4840:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7325e5200; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7324cb300; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
+    "1.2.840.113635.100.6.1.13"
+), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.InstallerLauncher', executablePath='<DVTFilePath:0x7325e4c60:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/MacOS/Installer'>', hardenedRuntime='1'>'>: {
+}
+2026-01-17 19:52:43 +0000 [MT] Associated App Clip Identifiers Filter: Skipping because "com.apple.developer.associated-appclip-app-identifiers" is not present
+2026-01-17 19:52:43 +0000 [MT] Entitlements for <IDEDistributionItem: 0x7325e51a0; bundleID='org.sparkle-project.InstallerLauncher', path='<DVTFilePath:0x7325e4840:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7325e5200; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7324cb480; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
+    "1.2.840.113635.100.6.1.13"
+), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.InstallerLauncher', executablePath='<DVTFilePath:0x7325e4c60:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/MacOS/Installer'>', hardenedRuntime='1'>'> are: {
+}
+2026-01-17 19:52:43 +0000 [MT] Writing entitlements for <IDEDistributionItem: 0x7325e51a0; bundleID='org.sparkle-project.InstallerLauncher', path='<DVTFilePath:0x7325e4840:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7325e5200; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7324cb480; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
+    "1.2.840.113635.100.6.1.13"
+), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.InstallerLauncher', executablePath='<DVTFilePath:0x7325e4c60:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/MacOS/Installer'>', hardenedRuntime='1'>'> to: /var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/entitlements~~~qXQubw
+2026-01-17 19:52:43 +0000 [MT] invoking codesign: <NSConcreteTask: 0x72ff7abc0; launchPath='/usr/bin/codesign', arguments='(
+    "-f",
+    "-s",
+    30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7,
+    "--entitlements",
+    "/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/entitlements~~~qXQubw",
+    "--requirements",
+    "=designated => anchor apple generic  and identifier \"$self.identifier\" and ((cert leaf[field.1.2.840.113635.100.6.1.9] exists) or ( certificate 1[field.1.2.840.113635.100.6.2.6] exists and certificate leaf[field.1.2.840.113635.100.6.1.13] exists  and certificate leaf[subject.OU] = \"7MKQAN7HM5\" ))",
+    "--preserve-metadata=identifier,flags,runtime,launch-constraints,library-constraints",
+    "--generate-entitlement-der",
+    "--strip-disallowed-xattrs",
+    "-vvv",
+    "/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc"
+)'>
+2026-01-17 19:52:43 +0000 [MT] codesign output: /var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc: replacing existing signature
+/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc: signed bundle with Mach-O universal (x86_64 arm64) [org.sparkle-project.InstallerLauncher]
+2026-01-17 19:52:43 +0000 [MT] Entitlements for <IDEDistributionItem: 0x7325e50e0; bundleID='(null)', path='<DVTFilePath:0x7325e4180:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7325e5020; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7324cb300; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
+    "1.2.840.113635.100.6.1.13"
+), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='Autoupdate', executablePath='<DVTFilePath:0x7325e4180:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate'>', hardenedRuntime='1'>'>: {
+}
+2026-01-17 19:52:43 +0000 [MT] Associated App Clip Identifiers Filter: Skipping because "com.apple.developer.associated-appclip-app-identifiers" is not present
+2026-01-17 19:52:43 +0000 [MT] Entitlements for <IDEDistributionItem: 0x7325e50e0; bundleID='(null)', path='<DVTFilePath:0x7325e4180:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7325e5020; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7324cb480; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
+    "1.2.840.113635.100.6.1.13"
+), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='Autoupdate', executablePath='<DVTFilePath:0x7325e4180:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate'>', hardenedRuntime='1'>'> are: {
+}
+2026-01-17 19:52:43 +0000 [MT] Writing entitlements for <IDEDistributionItem: 0x7325e50e0; bundleID='(null)', path='<DVTFilePath:0x7325e4180:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7325e5020; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7324cb480; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
+    "1.2.840.113635.100.6.1.13"
+), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='Autoupdate', executablePath='<DVTFilePath:0x7325e4180:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate'>', hardenedRuntime='1'>'> to: /var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/entitlements~~~QT9W4m
+2026-01-17 19:52:43 +0000 [MT] invoking codesign: <NSConcreteTask: 0x72ff7abc0; launchPath='/usr/bin/codesign', arguments='(
+    "-f",
+    "-s",
+    30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7,
+    "--entitlements",
+    "/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/entitlements~~~QT9W4m",
+    "--requirements",
+    "=designated => anchor apple generic  and identifier \"$self.identifier\" and ((cert leaf[field.1.2.840.113635.100.6.1.9] exists) or ( certificate 1[field.1.2.840.113635.100.6.2.6] exists and certificate leaf[field.1.2.840.113635.100.6.1.13] exists  and certificate leaf[subject.OU] = \"7MKQAN7HM5\" ))",
+    "--preserve-metadata=identifier,flags,runtime,launch-constraints,library-constraints",
+    "--generate-entitlement-der",
+    "--strip-disallowed-xattrs",
+    "-vvv",
+    "/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate"
+)'>
+2026-01-17 19:52:44 +0000 [MT] codesign output: /var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate: replacing existing signature
+/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate: signed Mach-O universal (x86_64 arm64) [Autoupdate]
+2026-01-17 19:52:44 +0000 [MT] Entitlements for <IDEDistributionItem: 0x7325e5140; bundleID='org.sparkle-project.Sparkle.Updater', path='<DVTFilePath:0x7325e4240:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7325e5080; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7324cb300; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
+    "1.2.840.113635.100.6.1.13"
+), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.Sparkle.Updater', executablePath='<DVTFilePath:0x731692760:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/MacOS/Updater'>', hardenedRuntime='1'>'>: {
+}
+2026-01-17 19:52:44 +0000 [MT] Associated App Clip Identifiers Filter: Skipping because "com.apple.developer.associated-appclip-app-identifiers" is not present
+2026-01-17 19:52:44 +0000 [MT] Entitlements for <IDEDistributionItem: 0x7325e5140; bundleID='org.sparkle-project.Sparkle.Updater', path='<DVTFilePath:0x7325e4240:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7325e5080; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7324cb480; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
+    "1.2.840.113635.100.6.1.13"
+), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.Sparkle.Updater', executablePath='<DVTFilePath:0x731692760:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/MacOS/Updater'>', hardenedRuntime='1'>'> are: {
+}
+2026-01-17 19:52:44 +0000 [MT] Writing entitlements for <IDEDistributionItem: 0x7325e5140; bundleID='org.sparkle-project.Sparkle.Updater', path='<DVTFilePath:0x7325e4240:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7325e5080; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7324cb480; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
+    "1.2.840.113635.100.6.1.13"
+), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.Sparkle.Updater', executablePath='<DVTFilePath:0x731692760:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/MacOS/Updater'>', hardenedRuntime='1'>'> to: /var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/entitlements~~~GErCiX
+2026-01-17 19:52:44 +0000 [MT] invoking codesign: <NSConcreteTask: 0x72ff7abc0; launchPath='/usr/bin/codesign', arguments='(
+    "-f",
+    "-s",
+    30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7,
+    "--entitlements",
+    "/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/entitlements~~~GErCiX",
+    "--requirements",
+    "=designated => anchor apple generic  and identifier \"$self.identifier\" and ((cert leaf[field.1.2.840.113635.100.6.1.9] exists) or ( certificate 1[field.1.2.840.113635.100.6.2.6] exists and certificate leaf[field.1.2.840.113635.100.6.1.13] exists  and certificate leaf[subject.OU] = \"7MKQAN7HM5\" ))",
+    "--preserve-metadata=identifier,flags,runtime,launch-constraints,library-constraints",
+    "--generate-entitlement-der",
+    "--strip-disallowed-xattrs",
+    "-vvv",
+    "/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app"
+)'>
+2026-01-17 19:52:44 +0000 [MT] codesign output: /var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app: replacing existing signature
+/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app: signed app bundle with Mach-O universal (x86_64 arm64) [org.sparkle-project.Sparkle.Updater]
+2026-01-17 19:52:44 +0000 [MT] Entitlements for <IDEDistributionItem: 0x7325e4ea0; bundleID='org.sparkle-project.Sparkle', path='<DVTFilePath:0x732505560:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7325e4e40; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7324cb300; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
+    "1.2.840.113635.100.6.1.13"
+), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.Sparkle', executablePath='<DVTFilePath:0x731693120:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Sparkle'>', hardenedRuntime='1'>'>: {
+}
+2026-01-17 19:52:44 +0000 [MT] Associated App Clip Identifiers Filter: Skipping because "com.apple.developer.associated-appclip-app-identifiers" is not present
+2026-01-17 19:52:44 +0000 [MT] Entitlements for <IDEDistributionItem: 0x7325e4ea0; bundleID='org.sparkle-project.Sparkle', path='<DVTFilePath:0x732505560:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7325e4e40; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7324cb480; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
+    "1.2.840.113635.100.6.1.13"
+), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.Sparkle', executablePath='<DVTFilePath:0x731693120:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Sparkle'>', hardenedRuntime='1'>'> are: {
+}
+2026-01-17 19:52:44 +0000 [MT] Writing entitlements for <IDEDistributionItem: 0x7325e4ea0; bundleID='org.sparkle-project.Sparkle', path='<DVTFilePath:0x732505560:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7325e4e40; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7324cb480; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
+    "1.2.840.113635.100.6.1.13"
+), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='(null)', teamID='7MKQAN7HM5', identifier='org.sparkle-project.Sparkle', executablePath='<DVTFilePath:0x731693120:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Sparkle'>', hardenedRuntime='1'>'> to: /var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/entitlements~~~VWDeKA
+2026-01-17 19:52:44 +0000 [MT] invoking codesign: <NSConcreteTask: 0x72ff7abc0; launchPath='/usr/bin/codesign', arguments='(
+    "-f",
+    "-s",
+    30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7,
+    "--entitlements",
+    "/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/entitlements~~~VWDeKA",
+    "--requirements",
+    "=designated => anchor apple generic  and identifier \"$self.identifier\" and ((cert leaf[field.1.2.840.113635.100.6.1.9] exists) or ( certificate 1[field.1.2.840.113635.100.6.2.6] exists and certificate leaf[field.1.2.840.113635.100.6.1.13] exists  and certificate leaf[subject.OU] = \"7MKQAN7HM5\" ))",
+    "--preserve-metadata=identifier,flags,runtime,launch-constraints,library-constraints",
+    "--generate-entitlement-der",
+    "--strip-disallowed-xattrs",
+    "-vvv",
+    "/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B"
+)'>
+2026-01-17 19:52:44 +0000 [MT] codesign output: /var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B: replacing existing signature
+/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B: signed bundle with Mach-O universal (x86_64 arm64) [org.sparkle-project.Sparkle]
+2026-01-17 19:52:44 +0000 [MT] Entitlements for <IDEDistributionItem: 0x7325e5800; bundleID='com.vibestatus.app', path='<DVTFilePath:0x732504540:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7325e57a0; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7324cb300; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
+    "1.2.840.113635.100.6.1.13"
+), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='{
+    "com.apple.security.app-sandbox" = 0;
+}', teamID='7MKQAN7HM5', identifier='com.vibestatus.app', executablePath='<DVTFilePath:0x732504cc0:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/MacOS/VibeStatus'>', hardenedRuntime='1'>'>: {
+    "com.apple.security.app-sandbox" = 0;
+}
+2026-01-17 19:52:44 +0000 [MT] Associated App Clip Identifiers Filter: Skipping because "com.apple.developer.associated-appclip-app-identifiers" is not present
+2026-01-17 19:52:44 +0000 [MT] Entitlements for <IDEDistributionItem: 0x7325e5800; bundleID='com.vibestatus.app', path='<DVTFilePath:0x732504540:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7325e57a0; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7324cb480; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
+    "1.2.840.113635.100.6.1.13"
+), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='{
+    "com.apple.security.app-sandbox" = 0;
+}', teamID='7MKQAN7HM5', identifier='com.vibestatus.app', executablePath='<DVTFilePath:0x732504cc0:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/MacOS/VibeStatus'>', hardenedRuntime='1'>'> are: {
+    "com.apple.security.app-sandbox" = 0;
+}
+2026-01-17 19:52:44 +0000 [MT] Writing entitlements for <IDEDistributionItem: 0x7325e5800; bundleID='com.vibestatus.app', path='<DVTFilePath:0x732504540:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7325e57a0; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7324cb480; name='Developer ID Application: Mladjan Antic (7MKQAN7HM5)', hash='30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7', serialNumber='3E9B0A2430B7AFAE', certificateKinds='(
+    "1.2.840.113635.100.6.1.13"
+), issueDate='2026-01-17 15:23:09 +0000''>', entitlements='{
+    "com.apple.security.app-sandbox" = 0;
+}', teamID='7MKQAN7HM5', identifier='com.vibestatus.app', executablePath='<DVTFilePath:0x732504cc0:'/Users/vlad/Projects/Claude indicator/ClaudeIndicator/build/VibeStatus.xcarchive/Products/Applications/VibeStatus.app/Contents/MacOS/VibeStatus'>', hardenedRuntime='1'>'> to: /var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/entitlements~~~wmgilm
+2026-01-17 19:52:44 +0000 [MT] invoking codesign: <NSConcreteTask: 0x730b434d0; launchPath='/usr/bin/codesign', arguments='(
+    "-f",
+    "-s",
+    30C05AB4DE941D19C8DA4577FFBF7C03B4FC4BB7,
+    "--entitlements",
+    "/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/entitlements~~~wmgilm",
+    "--requirements",
+    "=designated => anchor apple generic  and identifier \"$self.identifier\" and ((cert leaf[field.1.2.840.113635.100.6.1.9] exists) or ( certificate 1[field.1.2.840.113635.100.6.2.6] exists and certificate leaf[field.1.2.840.113635.100.6.1.13] exists  and certificate leaf[subject.OU] = \"7MKQAN7HM5\" ))",
+    "--preserve-metadata=identifier,flags,runtime,launch-constraints,library-constraints",
+    "--generate-entitlement-der",
+    "--strip-disallowed-xattrs",
+    "-vvv",
+    "/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app"
+)'>
+2026-01-17 19:52:45 +0000 [MT] codesign output: /var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app: replacing existing signature
+/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app: signed app bundle with Mach-O universal (x86_64 arm64) [com.vibestatus.app]
+2026-01-17 19:52:45 +0000 [MT] Processing step: IDEDistributionZipODRItemStep
+2026-01-17 19:52:45 +0000 [MT] Skipping step: IDEDistributionZipODRItemStep because it said so
+2026-01-17 19:52:45 +0000 [MT] Skipping step: IDEDistributionZipODRItemStep because it said so
+2026-01-17 19:52:45 +0000 [MT] Skipping step: IDEDistributionZipODRItemStep because it said so
+2026-01-17 19:52:45 +0000 [MT] Skipping step: IDEDistributionZipODRItemStep because it said so
+2026-01-17 19:52:45 +0000 [MT] Skipping step: IDEDistributionZipODRItemStep because it said so
+2026-01-17 19:52:45 +0000 [MT] Skipping step: IDEDistributionZipODRItemStep because it said so
+2026-01-17 19:52:45 +0000 [MT] Processing step: IDEDistributionSkipPackagingStep
+2026-01-17 19:52:45 +0000 [MT] Processing step: IDEDistributionAppStoreInformationStep
+2026-01-17 19:52:45 +0000 [MT] Skipping step: IDEDistributionAppStoreInformationStep because it said so
+2026-01-17 19:52:45 +0000 [MT] Processing step: IDEDistributionGenerateProcessedDistributionItems
+2026-01-17 19:52:45 +0000 [MT] IDEDistributionItem init <DVTFilePath:0x73268d5c0:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc'>
+2026-01-17 19:52:45 +0000 [MT] [OPTIONAL] Didn't find embedded provisioning profile for <DVTFilePath:0x73268d5c0:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc'>: Error Domain=NSCocoaErrorDomain Code=4 "No file at <DVTFilePath:0x72f40e1b0:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/embedded.provisionprofile'>" UserInfo={NSLocalizedDescription=No file at <DVTFilePath:0x72f40e1b0:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/embedded.provisionprofile'>}
+2026-01-17 19:52:45 +0000 [MT] IDEDistributionItem init <DVTFilePath:0x73268daa0:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc'>
+2026-01-17 19:52:45 +0000 [MT] [OPTIONAL] Didn't find embedded provisioning profile for <DVTFilePath:0x73268daa0:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc'>: Error Domain=NSCocoaErrorDomain Code=4 "No file at <DVTFilePath:0x72f40e220:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/embedded.provisionprofile'>" UserInfo={NSLocalizedDescription=No file at <DVTFilePath:0x72f40e220:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/embedded.provisionprofile'>}
+2026-01-17 19:52:45 +0000 [MT] IDEDistributionItem init <DVTFilePath:0x73268e6a0:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate'>
+2026-01-17 19:52:45 +0000 [MT] [OPTIONAL] Didn't find info dictionary for <DVTFilePath:0x73268e6a0:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate'>: Error Domain=DVTFoundationNSBundleAdditionsErrorDomain Code=1 "Couldn't load Info dictionary for <DVTFilePath:0x73268e6a0:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate'>" UserInfo={NSLocalizedDescription=Couldn't load Info dictionary for <DVTFilePath:0x73268e6a0:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate'>}
+2026-01-17 19:52:45 +0000 [MT] [OPTIONAL] Can't have a profile, not a bundle at <DVTFilePath:0x73268e6a0:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate'>
+2026-01-17 19:52:45 +0000 [MT] IDEDistributionItem init <DVTFilePath:0x73268d440:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app'>
+2026-01-17 19:52:45 +0000 [MT] [OPTIONAL] Didn't find embedded provisioning profile for <DVTFilePath:0x73268d440:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app'>: Error Domain=NSCocoaErrorDomain Code=4 "No file at <DVTFilePath:0x72f40e290:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/embedded.provisionprofile'>" UserInfo={NSLocalizedDescription=No file at <DVTFilePath:0x72f40e290:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/embedded.provisionprofile'>}
+2026-01-17 19:52:45 +0000 [MT] IDEDistributionItem init <DVTFilePath:0x73268dce0:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/Frameworks/Sparkle.framework/Versions/B'>
+2026-01-17 19:52:45 +0000 [MT] IDEDistributionItem init <DVTFilePath:0x73268d560:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app'>
+2026-01-17 19:52:45 +0000 [MT] [OPTIONAL] Didn't find embedded provisioning profile for <DVTFilePath:0x73268d560:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app'>: Error Domain=NSCocoaErrorDomain Code=4 "No file at <DVTFilePath:0x72f40e300:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/embedded.provisionprofile'>" UserInfo={NSLocalizedDescription=No file at <DVTFilePath:0x72f40e300:'/var/folders/6z/1bz8bjj525j2bdrr316xhx_40000gn/T/XcodeDistPipeline.~~~Ml2dP6/Root/Applications/VibeStatus.app/Contents/embedded.provisionprofile'>}
+2026-01-17 19:52:45 +0000 [MT] Processing step: IDEDistributionCreateManifestStep
+2026-01-17 19:52:45 +0000 [MT] Skipping step: IDEDistributionCreateManifestStep because it said so

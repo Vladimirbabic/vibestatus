@@ -186,24 +186,27 @@ struct SmallStatusIndicator: View {
     }
 }
 
-// Small runway lights for multi-session rows - simple pulsing dot
+// Small pulsing indicator for multi-session rows
 struct SmallRunwayLightsView: View {
-    @State private var isPulsing = false
+    @State private var opacity: Double = 0.4
     private let vibeOrange = Color(red: 0.757, green: 0.373, blue: 0.235)
 
     var body: some View {
         Circle()
             .fill(vibeOrange)
             .frame(width: 8, height: 8)
-            .scaleEffect(isPulsing ? 1.2 : 0.8)
-            .opacity(isPulsing ? 1.0 : 0.6)
-            .animation(.easeInOut(duration: 0.6).repeatForever(autoreverses: true), value: isPulsing)
-            .onAppear { isPulsing = true }
+            .opacity(opacity)
+            .onAppear {
+                withAnimation(.easeInOut(duration: 0.8).repeatForever(autoreverses: true)) {
+                    opacity = 1.0
+                }
+            }
     }
 }
 
+// Runway lights animation
 struct RunwayLightsView: View {
-    @State private var isPulsing = false
+    @State private var glowOpacity: Double = 1.0
     private let vibeOrange = Color(red: 0.757, green: 0.373, blue: 0.235)
 
     var body: some View {
@@ -212,16 +215,19 @@ struct RunwayLightsView: View {
                 RoundedRectangle(cornerRadius: 2)
                     .fill(vibeOrange)
                     .frame(width: 8, height: 8)
-                    .opacity(opacity(for: index))
+                    .opacity(opacityFor(index))
             }
         }
-        .animation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true), value: isPulsing)
-        .onAppear { isPulsing = true }
+        .onAppear {
+            withAnimation(.easeInOut(duration: 0.6).repeatForever(autoreverses: true)) {
+                glowOpacity = 0.3
+            }
+        }
     }
 
-    private func opacity(for index: Int) -> Double {
-        let base = isPulsing ? Double(index) / 4.0 : Double(4 - index) / 4.0
-        return 0.3 + (base * 0.7)
+    private func opacityFor(_ index: Int) -> Double {
+        let baseOpacity = Double(index + 1) / 5.0
+        return baseOpacity * glowOpacity + 0.15
     }
 }
 

@@ -101,24 +101,32 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         let iconName: String
         let accessibilityLabel: String
+        let color: NSColor
 
         switch statusManager.currentStatus {
         case .working:
-            iconName = "circle.dotted"
+            iconName = "circle.fill"
             accessibilityLabel = "VibeStatus Working"
+            color = NSColor(red: 0.757, green: 0.373, blue: 0.235, alpha: 1.0) // vibeOrange
         case .idle:
             iconName = "circle.fill"
             accessibilityLabel = "VibeStatus Ready"
+            color = NSColor.systemGreen
         case .needsInput:
             iconName = "questionmark.circle.fill"
             accessibilityLabel = "VibeStatus Needs Input"
+            color = NSColor.systemBlue
         case .notRunning:
             iconName = "circle"
             accessibilityLabel = "VibeStatus Not Running"
+            color = NSColor.systemGray
         }
 
-        button.image = NSImage(systemSymbolName: iconName, accessibilityDescription: accessibilityLabel)
-        button.image?.isTemplate = true
+        let config = NSImage.SymbolConfiguration(paletteColors: [color])
+        if let image = NSImage(systemSymbolName: iconName, accessibilityDescription: accessibilityLabel)?.withSymbolConfiguration(config) {
+            button.image = image
+            button.image?.isTemplate = false
+        }
     }
 
     func setupFloatingWindow() {
