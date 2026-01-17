@@ -1,27 +1,79 @@
 import SwiftUI
 
+// Root view with single TimelineView for animations
 struct WidgetView: View {
     @EnvironmentObject var statusManager: StatusManager
 
     var body: some View {
-        Group {
-            if statusManager.sessions.count <= 1 {
-                SingleSessionView()
-            } else {
-                MultiSessionView()
-            }
+        // Single TimelineView at root - passes time down as parameter
+        TimelineView(.animation(minimumInterval: 0.05)) { timeline in
+            let time = timeline.date.timeIntervalSinceReferenceDate
+
+            WidgetContent(time: time)
+                .environmentObject(statusManager)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color.black.opacity(0.8))
-        )
+        .background(Color.black.opacity(0.8))
+        .clipShape(RoundedRectangle(cornerRadius: 12))
     }
+}
+
+// Content view receives time as parameter (no internal animation state)
+struct WidgetContent: View {
+    @EnvironmentObject var statusManager: StatusManager
+    let time: Double
+
+    var body: some View {
+        VStack(spacing: 0) {
+            // Header with title and settings
+            HStack {
+                Text("vibe status")
+                    .font(.system(size: 9, weight: .medium, design: .rounded))
+                    .foregroundColor(.white.opacity(0.35))
+
+                Spacer()
+
+                Button(action: {
+                    NotificationCenter.default.post(name: .openSettings, object: nil)
+                }) {
+                    Image(systemName: "gearshape.fill")
+                        .font(.system(size: 9))
+                        .foregroundColor(.white.opacity(0.35))
+                }
+                .buttonStyle(.plain)
+                .onHover { hovering in
+                    if hovering {
+                        NSCursor.pointingHand.push()
+                    } else {
+                        NSCursor.pop()
+                    }
+                }
+            }
+            .padding(.horizontal, 12)
+            .padding(.top, 6)
+            .padding(.bottom, 2)
+
+            // Main content
+            Group {
+                if statusManager.sessions.count <= 1 {
+                    SingleSessionView(time: time)
+                } else {
+                    MultiSessionView(time: time)
+                }
+            }
+        }
+    }
+}
+
+// Notification for opening settings
+extension Notification.Name {
+    static let openSettings = Notification.Name("openSettings")
 }
 
 // Single session view
 struct SingleSessionView: View {
     @EnvironmentObject var statusManager: StatusManager
+    let time: Double
 
     private var projectName: String {
         statusManager.sessions.first?.project ?? ""
@@ -45,7 +97,7 @@ struct SingleSessionView: View {
 
             Spacer()
 
-            StatusIndicator(status: statusManager.currentStatus)
+            StatusIndicator(status: statusManager.currentStatus, time: time)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.horizontal, 20)
@@ -56,6 +108,7 @@ struct SingleSessionView: View {
 // Multiple sessions view
 struct MultiSessionView: View {
     @EnvironmentObject var statusManager: StatusManager
+    let time: Double
     private let maxVisibleSessions = 10
 
     var body: some View {
@@ -75,7 +128,7 @@ struct MultiSessionView: View {
     private var sessionList: some View {
         VStack(alignment: .leading, spacing: 6) {
             ForEach(statusManager.sessions) { session in
-                SessionRowView(session: session)
+                SessionRowView(session: session, time: time)
             }
         }
     }
@@ -84,10 +137,11 @@ struct MultiSessionView: View {
 // Individual session row
 struct SessionRowView: View {
     let session: SessionInfo
+    let time: Double
 
     var body: some View {
         HStack(spacing: 11) {
-            SmallStatusIndicator(status: session.status)
+            SmallStatusIndicator(status: session.status, time: time)
 
             Text(session.project)
                 .font(.system(size: 12, weight: .medium, design: .rounded))
@@ -112,151 +166,105 @@ struct SessionRowView: View {
     }
 }
 
-// Full-size status indicator
+// Full-size status indicator - receives time, no internal state
 struct StatusIndicator: View {
     let status: VibeStatus
+    let time: Double
+    private let vibeOrange = Color(red: 0.757, green: 0.373, blue: 0.235)
 
     var body: some View {
         switch status {
         case .working:
-            RunwayLightsView()
+            // Shimmering 5 dots
+            HStack(spacing: 7) {
+                ForEach(0..<5, id: \.self) { index in
+                    RoundedRectangle(cornerRadius: 2)
+                        .fill(vibeOrange)
+                        .frame(width: 9, height: 9)
+                        .opacity(shimmerOpacity(for: index, dotCount: 5))
+                }
+            }
         case .idle:
             RoundedRectangle(cornerRadius: 3)
                 .fill(Color.green.opacity(0.9))
                 .frame(width: 11, height: 11)
         case .needsInput:
-            PulsingIndicator(color: .blue, size: 11, cornerRadius: 3)
+            // Pulsing blue
+            RoundedRectangle(cornerRadius: 3)
+                .fill(Color.blue.opacity(0.9))
+                .frame(width: 11, height: 11)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 3)
+                        .stroke(Color.blue.opacity(pulseOpacity), lineWidth: 2)
+                        .scaleEffect(pulseScale)
+                )
         case .notRunning:
             RoundedRectangle(cornerRadius: 3)
                 .fill(Color.gray.opacity(0.5))
                 .frame(width: 11, height: 11)
         }
     }
+
+    private func shimmerOpacity(for index: Int, dotCount: Int) -> Double {
+        let waveSpeed = 2.0
+        let position = time * waveSpeed
+        let waveCenter = position.truncatingRemainder(dividingBy: Double(dotCount + 2)) - 1
+        let distance = abs(Double(index) - waveCenter)
+        let brightness = exp(-distance * distance * 0.8)
+        return 0.25 + 0.75 * brightness
+    }
+
+    private var pulseScale: Double {
+        1.0 + 0.4 * (0.5 + 0.5 * sin(time * 4))
+    }
+
+    private var pulseOpacity: Double {
+        0.4 * (1 - (pulseScale - 1) / 0.4)
+    }
 }
 
-// Small status indicator for multi-session rows
+// Small status indicator - receives time, no internal state
 struct SmallStatusIndicator: View {
     let status: VibeStatus
+    let time: Double
+    private let vibeOrange = Color(red: 0.757, green: 0.373, blue: 0.235)
 
     var body: some View {
         switch status {
         case .working:
-            SmallRunwayLightsView()
+            // Shimmering 3 dots
+            HStack(spacing: 4) {
+                ForEach(0..<3, id: \.self) { index in
+                    Circle()
+                        .fill(vibeOrange)
+                        .frame(width: 7, height: 7)
+                        .opacity(shimmerOpacity(for: index))
+                }
+            }
         case .idle:
             Circle()
                 .fill(Color.green.opacity(0.9))
                 .frame(width: 9, height: 9)
         case .needsInput:
-            SmallPulsingIndicator(color: .blue)
+            // Pulsing blue
+            Circle()
+                .fill(Color.blue.opacity(0.9))
+                .frame(width: 9, height: 9)
+                .opacity(0.5 + 0.5 * sin(time * 3))
         case .notRunning:
             Circle()
                 .fill(Color.gray.opacity(0.5))
                 .frame(width: 9, height: 9)
         }
     }
-}
 
-// Small runway lights for multi-session rows (3 dots)
-struct SmallRunwayLightsView: View {
-    private let vibeOrange = Color(red: 0.757, green: 0.373, blue: 0.235)
-    @State private var animationPhase: Double = 0
-
-    var body: some View {
-        HStack(spacing: 4) {
-            ForEach(0..<3, id: \.self) { index in
-                Circle()
-                    .fill(vibeOrange)
-                    .frame(width: 7, height: 7)
-                    .opacity(opacityFor(index))
-            }
-        }
-        .onAppear {
-            withAnimation(.linear(duration: 1.2).repeatForever(autoreverses: false)) {
-                animationPhase = 1
-            }
-        }
-    }
-
-    private func opacityFor(_ index: Int) -> Double {
-        let offset = Double(index) / 3.0
-        let phase = (animationPhase + offset).truncatingRemainder(dividingBy: 1.0)
-        return 0.3 + 0.7 * (phase < 0.5 ? phase * 2 : (1 - phase) * 2)
-    }
-}
-
-// Pulsing indicator
-struct PulsingIndicator: View {
-    let color: Color
-    let size: CGFloat
-    let cornerRadius: CGFloat
-    @State private var isPulsing = false
-
-    var body: some View {
-        RoundedRectangle(cornerRadius: cornerRadius)
-            .fill(color.opacity(0.9))
-            .frame(width: size, height: size)
-            .overlay(
-                RoundedRectangle(cornerRadius: cornerRadius)
-                    .stroke(color.opacity(isPulsing ? 0.1 : 0.4), lineWidth: 2)
-                    .scaleEffect(isPulsing ? 1.5 : 1.0)
-            )
-            .onAppear {
-                withAnimation(.easeInOut(duration: 0.8).repeatForever(autoreverses: true)) {
-                    isPulsing = true
-                }
-            }
-    }
-}
-
-// Small pulsing indicator
-struct SmallPulsingIndicator: View {
-    let color: Color
-    @State private var isPulsing = false
-
-    var body: some View {
-        Circle()
-            .fill(color)
-            .frame(width: 9, height: 9)
-            .opacity(isPulsing ? 1.0 : 0.5)
-            .onAppear {
-                withAnimation(.easeInOut(duration: 0.6).repeatForever(autoreverses: true)) {
-                    isPulsing = true
-                }
-            }
-    }
-}
-
-// Runway lights animation - shimmering dots
-struct RunwayLightsView: View {
-    private let vibeOrange = Color(red: 0.757, green: 0.373, blue: 0.235)
-    @State private var animationPhase: Double = 0
-
-    var body: some View {
-        HStack(spacing: 7) {
-            ForEach(0..<5, id: \.self) { index in
-                RoundedRectangle(cornerRadius: 2)
-                    .fill(vibeOrange)
-                    .frame(width: 9, height: 9)
-                    .opacity(opacityFor(index))
-            }
-        }
-        .onAppear {
-            withAnimation(.linear(duration: 1.5).repeatForever(autoreverses: false)) {
-                animationPhase = 1
-            }
-        }
-    }
-
-    private func opacityFor(_ index: Int) -> Double {
-        // Create shimmer wave across 5 dots
-        let offset = Double(index) / 5.0
-        let phase = (animationPhase + offset).truncatingRemainder(dividingBy: 1.0)
-
-        // Gaussian-like brightness curve
-        let distance = abs(phase - 0.5) * 2 // 0 at center, 1 at edges
-        let brightness = exp(-distance * distance * 2)
-
-        return 0.25 + 0.75 * brightness
+    private func shimmerOpacity(for index: Int) -> Double {
+        let waveSpeed = 2.5
+        let position = time * waveSpeed
+        let waveCenter = position.truncatingRemainder(dividingBy: 5) - 1
+        let distance = abs(Double(index) - waveCenter)
+        let brightness = exp(-distance * distance * 0.6)
+        return 0.3 + 0.7 * brightness
     }
 }
 
@@ -266,23 +274,23 @@ struct WidgetView_Previews: PreviewProvider {
         VStack(spacing: 20) {
             WidgetView()
                 .environmentObject(StatusManager.preview(status: .working))
-                .frame(width: 180, height: 44)
+                .frame(width: 220, height: 50)
 
             WidgetView()
                 .environmentObject(StatusManager.preview(status: .idle))
-                .frame(width: 180, height: 44)
+                .frame(width: 220, height: 50)
 
             WidgetView()
                 .environmentObject(StatusManager.preview(status: .needsInput))
-                .frame(width: 180, height: 44)
+                .frame(width: 220, height: 50)
 
             WidgetView()
                 .environmentObject(StatusManager.preview(status: .notRunning))
-                .frame(width: 180, height: 44)
+                .frame(width: 220, height: 50)
 
             WidgetView()
                 .environmentObject(StatusManager.previewMultiSession())
-                .frame(width: 180, height: 80)
+                .frame(width: 220, height: 100)
         }
         .padding()
         .background(Color.gray)

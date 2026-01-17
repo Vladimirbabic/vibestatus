@@ -23,7 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var cancellables = Set<AnyCancellable>()
 
     private let windowWidth: CGFloat = 220
-    private let singleSessionHeight: CGFloat = 50
+    private let singleSessionHeight: CGFloat = 62
     private let sessionRowHeight: CGFloat = 28
     private let maxVisibleSessions = 10
 
@@ -31,6 +31,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         setupMenuBar()
         setupFloatingWindow()
         observeStatusChanges()
+
+        // Listen for settings open request from widget
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(showSetupWindow),
+            name: .openSettings,
+            object: nil
+        )
 
         // Check if setup is needed
         if !SetupManager.shared.isConfigured {
