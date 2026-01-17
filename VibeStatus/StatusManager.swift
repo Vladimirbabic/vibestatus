@@ -74,7 +74,7 @@ class StatusManager: ObservableObject {
 
     // Track individual session statuses
     private var sessionStatuses: [String: (status: VibeStatus, project: String, timestamp: Date)] = [:]
-    private let sessionTimeout: TimeInterval = 30 // Consider session dead after 30s of no updates
+    private let sessionTimeout: TimeInterval = 300 // Consider session dead after 5 minutes of no updates
 
     var statusText: String {
         let count = activeSessionCount
@@ -91,7 +91,6 @@ class StatusManager: ObservableObject {
     }
 
     init() {
-        createStatusFileIfNeeded()
         startFileMonitoring()
         startPulseAnimation()
         startPolling()
@@ -168,11 +167,6 @@ class StatusManager: ObservableObject {
         } catch {
             return false
         }
-    }
-
-    private func createStatusFileIfNeeded() {
-        // No longer needed for multi-session support
-        // Each session creates its own file
     }
 
     private func startFileMonitoring() {

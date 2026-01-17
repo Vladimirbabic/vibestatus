@@ -18,8 +18,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItem: NSStatusItem?
     var floatingWindow: NSWindow?
     var statusManager = StatusManager.shared
-    var statusObserver: NSObjectProtocol?
     let updaterController = SPUStandardUpdaterController(startingUpdater: true, updaterDelegate: nil, userDriverDelegate: nil)
+    private var cancellables = Set<AnyCancellable>()
+
+    private let windowWidth: CGFloat = 220
+    private let singleSessionHeight: CGFloat = 50
+    private let sessionRowHeight: CGFloat = 28
+    private let maxVisibleSessions = 10
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         setupMenuBar()
@@ -52,24 +57,44 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func observeStatusChanges() {
-        statusObserver = NotificationCenter.default.addObserver(
-            forName: NSNotification.Name("VibeStatusStatusChanged"),
-            object: nil,
-            queue: .main
-        ) { [weak self] _ in
-            self?.updateMenuBarIcon()
-        }
-
-        // Also use Combine to observe the published property
         statusManager.$currentStatus
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.updateMenuBarIcon()
             }
             .store(in: &cancellables)
+
+        statusManager.$sessions
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] sessions in
+                self?.updateFloatingWindowSize(sessionCount: sessions.count)
+            }
+            .store(in: &cancellables)
     }
 
-    private var cancellables = Set<AnyCancellable>()
+    private func updateFloatingWindowSize(sessionCount: Int) {
+        guard let window = floatingWindow, let screen = NSScreen.main else { return }
+
+        let newHeight: CGFloat
+        if sessionCount <= 1 {
+            newHeight = singleSessionHeight
+        } else {
+            // Cap at maxVisibleSessions to prevent giant window
+            let visibleCount = min(sessionCount, maxVisibleSessions)
+            newHeight = CGFloat(visibleCount) * sessionRowHeight + 20
+        }
+
+        let padding: CGFloat = 20
+        let xPos = window.frame.origin.x
+        let yPos = screen.visibleFrame.minY + padding
+
+        let newFrame = NSRect(x: xPos, y: yPos, width: windowWidth, height: newHeight)
+
+        NSAnimationContext.runAnimationGroup { context in
+            context.duration = 0.2
+            window.animator().setFrame(newFrame, display: true)
+        }
+    }
 
     func updateMenuBarIcon() {
         guard let button = statusItem?.button else { return }
@@ -97,15 +122,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func setupFloatingWindow() {
-        let windowWidth: CGFloat = 220
-        let windowHeight: CGFloat = 50
+        let initialHeight = singleSessionHeight
 
         let contentView = WidgetView()
             .environmentObject(statusManager)
-            .frame(width: windowWidth, height: windowHeight)
 
         let hostingView = NSHostingView(rootView: contentView)
-        hostingView.frame = NSRect(x: 0, y: 0, width: windowWidth, height: windowHeight)
+        hostingView.frame = NSRect(x: 0, y: 0, width: windowWidth, height: initialHeight)
 
         // Calculate position (bottom-right corner)
         guard let screen = NSScreen.main else { return }
@@ -115,7 +138,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let yPos = screen.visibleFrame.minY + padding
 
         let window = NSWindow(
-            contentRect: NSRect(x: xPos, y: yPos, width: windowWidth, height: windowHeight),
+            contentRect: NSRect(x: xPos, y: yPos, width: windowWidth, height: initialHeight),
             styleMask: [.borderless],
             backing: .buffered,
             defer: false

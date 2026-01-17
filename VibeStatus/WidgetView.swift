@@ -13,6 +13,7 @@ struct WidgetView: View {
                 MultiSessionView()
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(
             RoundedRectangle(cornerRadius: 16)
                 .fill(Color.black.opacity(0.8))
@@ -24,13 +25,26 @@ struct WidgetView: View {
 struct SingleSessionView: View {
     @EnvironmentObject var statusManager: StatusManager
 
+    private var projectName: String {
+        statusManager.sessions.first?.project ?? ""
+    }
+
     var body: some View {
-        HStack(spacing: 16) {
-            // Status text first
-            Text(statusManager.statusText)
-                .font(.system(size: 14, weight: .medium, design: .rounded))
-                .foregroundColor(.white.opacity(0.9))
-                .frame(width: 80, alignment: .leading)
+        HStack(spacing: 12) {
+            // Status text and project name
+            VStack(alignment: .leading, spacing: 2) {
+                Text(statusManager.statusText)
+                    .font(.system(size: 14, weight: .medium, design: .rounded))
+                    .foregroundColor(.white.opacity(0.9))
+
+                if !projectName.isEmpty && statusManager.currentStatus != .notRunning {
+                    Text(projectName)
+                        .font(.system(size: 10, weight: .regular, design: .rounded))
+                        .foregroundColor(.white.opacity(0.5))
+                        .lineLimit(1)
+                }
+            }
+            .frame(minWidth: 80, alignment: .leading)
 
             Spacer()
 
@@ -39,22 +53,35 @@ struct SingleSessionView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.horizontal, 20)
-        .padding(.vertical, 12)
+        .padding(.vertical, 10)
     }
 }
 
 // Multiple sessions view
 struct MultiSessionView: View {
     @EnvironmentObject var statusManager: StatusManager
+    private let maxVisibleSessions = 10
 
     var body: some View {
+        Group {
+            if statusManager.sessions.count > maxVisibleSessions {
+                ScrollView(.vertical, showsIndicators: true) {
+                    sessionList
+                }
+            } else {
+                sessionList
+            }
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 10)
+    }
+
+    private var sessionList: some View {
         VStack(alignment: .leading, spacing: 6) {
             ForEach(statusManager.sessions) { session in
                 SessionRowView(session: session, pulseScale: statusManager.pulseScale)
             }
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 10)
     }
 }
 
@@ -130,22 +157,12 @@ struct StatusIndicator: View {
 struct SmallStatusIndicator: View {
     let status: VibeStatus
     let pulseScale: CGFloat
-    private let vibeOrange = Color(red: 0.757, green: 0.373, blue: 0.235)
 
     var body: some View {
         Group {
             switch status {
             case .working:
-                // Small animated dot for working
-                Circle()
-                    .fill(vibeOrange)
-                    .frame(width: 8, height: 8)
-                    .overlay(
-                        Circle()
-                            .stroke(vibeOrange.opacity(0.4), lineWidth: 1)
-                            .scaleEffect(pulseScale * 0.8)
-                            .opacity(2 - pulseScale)
-                    )
+                SmallRunwayLightsView()
             case .idle:
                 Circle()
                     .fill(Color.green.opacity(0.9))
@@ -169,10 +186,45 @@ struct SmallStatusIndicator: View {
     }
 }
 
+// Small runway lights for multi-session rows
+struct SmallRunwayLightsView: View {
+    @State private var activeDotIndex: Int = 0
+    private let dotCount = 3
+    private let vibeOrange = Color(red: 0.757, green: 0.373, blue: 0.235)
+    private let timer = Timer.publish(every: 0.2, on: .main, in: .common).autoconnect()
+
+    var body: some View {
+        HStack(spacing: 3) {
+            ForEach(0..<dotCount, id: \.self) { index in
+                Circle()
+                    .fill(dotColor(for: index))
+                    .frame(width: 6, height: 6)
+            }
+        }
+        .onReceive(timer) { _ in
+            withAnimation(.easeInOut(duration: 0.1)) {
+                activeDotIndex = (activeDotIndex + 1) % dotCount
+            }
+        }
+    }
+
+    private func dotColor(for index: Int) -> Color {
+        let distance = (index - activeDotIndex + dotCount) % dotCount
+        if distance == 0 {
+            return vibeOrange
+        } else if distance == dotCount - 1 {
+            return vibeOrange.opacity(0.5)
+        } else {
+            return vibeOrange.opacity(0.15)
+        }
+    }
+}
+
 struct RunwayLightsView: View {
     @State private var activeDotIndex: Int = 0
     private let dotCount = 5
-    private let vibeOrange = Color(red: 0.757, green: 0.373, blue: 0.235) // #C15F3C
+    private let vibeOrange = Color(red: 0.757, green: 0.373, blue: 0.235)
+    private let timer = Timer.publish(every: 0.15, on: .main, in: .common).autoconnect()
 
     var body: some View {
         HStack(spacing: 6) {
@@ -182,15 +234,15 @@ struct RunwayLightsView: View {
                     .frame(width: 8, height: 8)
             }
         }
-        .onAppear {
-            startAnimation()
+        .onReceive(timer) { _ in
+            withAnimation(.easeInOut(duration: 0.1)) {
+                activeDotIndex = (activeDotIndex + 1) % dotCount
+            }
         }
     }
 
     private func dotColor(for index: Int) -> Color {
-        // Create a trailing effect: active dot is brightest, previous dots fade
         let distance = (index - activeDotIndex + dotCount) % dotCount
-
         if distance == 0 {
             return vibeOrange
         } else if distance == dotCount - 1 {
@@ -199,14 +251,6 @@ struct RunwayLightsView: View {
             return vibeOrange.opacity(0.4)
         } else {
             return vibeOrange.opacity(0.12)
-        }
-    }
-
-    private func startAnimation() {
-        Timer.scheduledTimer(withTimeInterval: 0.15, repeats: true) { _ in
-            withAnimation(.easeInOut(duration: 0.1)) {
-                activeDotIndex = (activeDotIndex + 1) % dotCount
-            }
         }
     }
 }
