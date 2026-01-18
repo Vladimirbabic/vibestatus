@@ -215,13 +215,15 @@ final class SetupManager: ObservableObject {
             SESSION_ID="$$"
         fi
 
-        # Find the main Claude process - walk up the process tree to find 'claude'
+        # Find the main Claude process - walk up the process tree
         # PPID is the immediate parent (usually a shell), so we look for the actual Claude process
+        # Check for 'claude', 'Claude', or 'node' (when run via node directly)
         CLAUDE_PID=$PPID
         CURRENT_PID=$PPID
-        for _ in 1 2 3 4 5; do
+        for _ in 1 2 3 4 5 6 7 8; do
             PARENT_NAME=$(ps -p "$CURRENT_PID" -o comm= 2>/dev/null | xargs basename 2>/dev/null)
-            if [ "$PARENT_NAME" = "claude" ]; then
+            PARENT_NAME_LOWER=$(echo "$PARENT_NAME" | tr '[:upper:]' '[:lower:]')
+            if [ "$PARENT_NAME_LOWER" = "claude" ] || [ "$PARENT_NAME_LOWER" = "node" ]; then
                 CLAUDE_PID=$CURRENT_PID
                 break
             fi
