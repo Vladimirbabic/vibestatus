@@ -303,6 +303,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         window.contentView = hostingView
         window.title = "Settings"
+        window.backgroundColor = NSColor.black
         window.center()
         window.makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)

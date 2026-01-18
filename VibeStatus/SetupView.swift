@@ -75,7 +75,7 @@ private struct SettingsSidebar: View {
         }
         .padding(12)
         .frame(width: 180)
-        .background(Color(NSColor.controlBackgroundColor).opacity(0.5))
+        .background(Color(NSColor.black).opacity(0.3))
     }
 }
 
@@ -616,7 +616,7 @@ struct AboutSettingsView: View {
 
             Spacer()
 
-            Text("© 2025 Vladimir Babic")
+            Text("© 2026 Vladimir Babic")
                 .font(.caption)
                 .foregroundColor(.secondary)
                 .padding(.bottom, 20)
