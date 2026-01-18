@@ -62,6 +62,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         setupMenuBar()
         setupSubscriptions()
+        setupNotificationObservers()
         statusManager.start()
 
         // Show widget if enabled (auto-show handles visibility based on sessions)
@@ -135,6 +136,21 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
                 self?.rebuildMenu()
             }
             .store(in: &cancellables)
+    }
+
+    // MARK: - Notification Observers
+
+    private func setupNotificationObservers() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleOpenLicenseSettings),
+            name: .openLicenseSettings,
+            object: nil
+        )
+    }
+
+    @objc private func handleOpenLicenseSettings() {
+        openSettingsWindow(tab: .license)
     }
 
     // MARK: - Menu Bar
@@ -261,13 +277,21 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - Actions
 
     @objc func showSetupWindow() {
+        openSettingsWindow(tab: nil)
+    }
+
+    private func openSettingsWindow(tab: SettingsTab?) {
         if let window = settingsWindow, window.isVisible {
             window.makeKeyAndOrderFront(nil)
             NSApp.activate(ignoringOtherApps: true)
+            // If a specific tab is requested, post notification to switch
+            if let tab = tab {
+                NotificationCenter.default.post(name: .switchSettingsTab, object: tab)
+            }
             return
         }
 
-        let setupView = SetupView()
+        let setupView = SetupView(initialTab: tab ?? .general)
         let hostingView = NSHostingView(rootView: setupView)
 
         let window = NSWindow(

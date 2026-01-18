@@ -70,10 +70,8 @@ final class WidgetViewModel: ObservableObject {
         theme = WidgetThemeConfig.current()
     }
 
-    func openCheckout() {
-        if let url = URL(string: LicenseConstants.checkoutURL) {
-            NSWorkspace.shared.open(url)
-        }
+    func openLicenseSettings() {
+        NotificationCenter.default.post(name: .openLicenseSettings, object: nil)
     }
 }
 
@@ -93,7 +91,7 @@ struct ObservableWidgetView: View {
             style: viewModel.style,
             theme: viewModel.theme,
             isLicensed: viewModel.isLicensed,
-            onUnlicensedTap: viewModel.openCheckout
+            onUnlicensedTap: viewModel.openLicenseSettings
         )
     }
 }

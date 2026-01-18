@@ -6,6 +6,13 @@
 
 import SwiftUI
 
+// MARK: - Notification Names
+
+extension Notification.Name {
+    static let openLicenseSettings = Notification.Name("openLicenseSettings")
+    static let switchSettingsTab = Notification.Name("switchSettingsTab")
+}
+
 // MARK: - Core Status Types
 
 /// Represents the current operational state of a Claude Code session.

@@ -116,7 +116,7 @@ struct UnlicensedWidgetView: View {
                     .font(.system(size: 13, weight: .medium, design: .rounded))
                     .foregroundColor(theme.textColor)
 
-                Text("Tap to purchase")
+                Text("Tap to activate")
                     .font(.system(size: 11, weight: .regular, design: .rounded))
                     .foregroundColor(theme.secondaryTextColor)
             }

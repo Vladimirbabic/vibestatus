@@ -13,7 +13,11 @@ import SwiftUI
 // MARK: - Main Setup View
 
 struct SetupView: View {
-    @State private var selectedTab: SettingsTab = .general
+    @State private var selectedTab: SettingsTab
+
+    init(initialTab: SettingsTab = .general) {
+        _selectedTab = State(initialValue: initialTab)
+    }
 
     var body: some View {
         HStack(spacing: 0) {
@@ -36,6 +40,11 @@ struct SetupView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .frame(width: 650, height: 480)
+        .onReceive(NotificationCenter.default.publisher(for: .switchSettingsTab)) { notification in
+            if let tab = notification.object as? SettingsTab {
+                selectedTab = tab
+            }
+        }
     }
 }
 
