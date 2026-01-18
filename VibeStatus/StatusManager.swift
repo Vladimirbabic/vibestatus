@@ -226,6 +226,9 @@ final class StatusManager: ObservableObject {
     }
 
     private func playNotificationSound(for status: VibeStatus) {
+        // Only play sounds if licensed
+        guard LicenseManager.shared.isLicensed else { return }
+
         let soundName: String
         switch status {
         case .idle:

@@ -165,6 +165,7 @@ enum SettingsTab: String, CaseIterable {
     case general = "General"
     case widget = "Widget"
     case sounds = "Sounds"
+    case license = "License"
     case about = "About"
 
     var icon: String {
@@ -172,7 +173,33 @@ enum SettingsTab: String, CaseIterable {
         case .general: return "gearshape"
         case .widget: return "square.on.square"
         case .sounds: return "speaker.wave.2"
+        case .license: return "key.fill"
         case .about: return "info.circle"
         }
+    }
+}
+
+// MARK: - License Types
+
+/// License validation status
+enum LicenseStatus: String, Codable {
+    case valid = "valid"
+    case invalid = "invalid"
+    case expired = "expired"
+    case revoked = "revoked"
+    case notValidated = "not_validated"
+
+    var displayName: String {
+        switch self {
+        case .valid: return "Licensed"
+        case .invalid: return "Invalid License"
+        case .expired: return "License Expired"
+        case .revoked: return "License Revoked"
+        case .notValidated: return "Not Licensed"
+        }
+    }
+
+    var isActive: Bool {
+        self == .valid
     }
 }

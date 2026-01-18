@@ -88,6 +88,27 @@ enum UserDefaultsKey: String {
     case widgetTheme
     case widgetOpacity
     case widgetAccentColor
+
+    // License settings
+    case licenseKey
+    case licenseStatus
+    case licenseValidatedAt
+}
+
+// MARK: - License Constants
+
+enum LicenseConstants {
+    /// Polar.sh API endpoint for license validation (no auth required for customer portal)
+    static let validationURL = "https://api.polar.sh/v1/customer-portal/license-keys/validate"
+
+    /// Your Polar.sh organization ID
+    static let organizationId = "e443356b-577b-4c05-bba5-9ef851189b5e"
+
+    /// Polar.sh checkout URL for purchasing a license
+    static let checkoutURL = "https://buy.polar.sh/polar_cl_O6qwqlyebCVmHQ791YQv686eVlWzxxmGAc3Gc2JNYQa"
+
+    /// How often to re-validate the license (24 hours)
+    static let revalidationIntervalSeconds: TimeInterval = 86400
 }
 
 // MARK: - UI Constants

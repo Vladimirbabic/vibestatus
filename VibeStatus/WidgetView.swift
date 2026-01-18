@@ -77,17 +77,58 @@ struct WidgetView: View {
     let data: WidgetData
     var style: WidgetStyle = .standard
     var theme: WidgetThemeConfig? = nil
+    var isLicensed: Bool = true
+    var onUnlicensedTap: (() -> Void)? = nil
 
     var body: some View {
         let currentTheme = theme ?? WidgetThemeConfig.current()
 
-        switch style {
-        case .standard:
-            StandardWidgetView(data: data, theme: currentTheme)
-        case .mini:
-            MiniWidgetView(data: data, theme: currentTheme)
-        case .compact:
-            CompactWidgetView(data: data, theme: currentTheme)
+        if !isLicensed {
+            UnlicensedWidgetView(theme: currentTheme, onTap: onUnlicensedTap)
+        } else {
+            switch style {
+            case .standard:
+                StandardWidgetView(data: data, theme: currentTheme)
+            case .mini:
+                MiniWidgetView(data: data, theme: currentTheme)
+            case .compact:
+                CompactWidgetView(data: data, theme: currentTheme)
+            }
+        }
+    }
+}
+
+// MARK: - Unlicensed Widget View
+
+/// Shows when no valid license is present
+struct UnlicensedWidgetView: View {
+    let theme: WidgetThemeConfig
+    var onTap: (() -> Void)? = nil
+
+    var body: some View {
+        HStack(spacing: 14) {
+            Image(systemName: "key.fill")
+                .font(.system(size: 24))
+                .foregroundColor(.orange)
+
+            VStack(alignment: .leading, spacing: 2) {
+                Text("License Required")
+                    .font(.system(size: 13, weight: .medium, design: .rounded))
+                    .foregroundColor(theme.textColor)
+
+                Text("Tap to purchase")
+                    .font(.system(size: 11, weight: .regular, design: .rounded))
+                    .foregroundColor(theme.secondaryTextColor)
+            }
+
+            Spacer()
+        }
+        .padding(.horizontal, 16)
+        .frame(width: WidgetLayoutConstants.Standard.width, height: WidgetLayoutConstants.Standard.singleSessionHeight)
+        .background(theme.backgroundColor.opacity(theme.opacity))
+        .clipShape(RoundedRectangle(cornerRadius: WidgetLayoutConstants.cornerRadius))
+        .onTapGesture {
+            onTap?()
         }
     }
 }

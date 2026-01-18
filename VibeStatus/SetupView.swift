@@ -27,6 +27,8 @@ struct SetupView: View {
                     WidgetSettingsView()
                 case .sounds:
                     SoundsSettingsView()
+                case .license:
+                    LicenseSettingsView()
                 case .about:
                     AboutSettingsView()
                 }
@@ -403,6 +405,161 @@ struct SoundsSettingsView: View {
                 Spacer()
             }
             .padding(30)
+        }
+    }
+}
+
+// MARK: - License Settings
+
+struct LicenseSettingsView: View {
+    @StateObject private var licenseManager = LicenseManager.shared
+    @State private var licenseKeyInput: String = ""
+    @State private var showingKeyField: Bool = false
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 24) {
+                LicenseStatusSection(licenseManager: licenseManager, showingKeyField: $showingKeyField)
+
+                if showingKeyField || !licenseManager.isLicensed {
+                    LicenseKeyInputSection(
+                        licenseManager: licenseManager,
+                        licenseKeyInput: $licenseKeyInput,
+                        showingKeyField: $showingKeyField
+                    )
+                }
+
+                LicenseInfoSection()
+
+                Spacer()
+            }
+            .padding(30)
+        }
+        .onAppear {
+            licenseKeyInput = licenseManager.licenseKey
+        }
+    }
+}
+
+private struct LicenseStatusSection: View {
+    @ObservedObject var licenseManager: LicenseManager
+    @Binding var showingKeyField: Bool
+
+    var body: some View {
+        SettingsSection(title: "License Status") {
+            HStack(spacing: 16) {
+                Image(systemName: licenseManager.isLicensed ? "checkmark.seal.fill" : "key.slash")
+                    .font(.system(size: 32))
+                    .foregroundColor(licenseManager.isLicensed ? .green : .orange)
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(licenseManager.licenseStatus.displayName)
+                        .font(.headline)
+
+                    if licenseManager.isLicensed, let validatedAt = licenseManager.lastValidatedAt {
+                        Text("Validated \(validatedAt.formatted(date: .abbreviated, time: .shortened))")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                    } else if !licenseManager.isLicensed {
+                        Text("Enter a license key to unlock all features")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                    }
+                }
+
+                Spacer()
+
+                if licenseManager.isLicensed {
+                    VStack(spacing: 8) {
+                        Button("Change Key") {
+                            showingKeyField = true
+                        }
+
+                        Button("Remove") {
+                            licenseManager.clearLicense()
+                            showingKeyField = false
+                        }
+                        .foregroundColor(.red)
+                    }
+                }
+            }
+
+            if let error = licenseManager.validationError {
+                Text(error)
+                    .font(.caption)
+                    .foregroundColor(.red)
+                    .padding(.top, 8)
+            }
+        }
+    }
+}
+
+private struct LicenseKeyInputSection: View {
+    @ObservedObject var licenseManager: LicenseManager
+    @Binding var licenseKeyInput: String
+    @Binding var showingKeyField: Bool
+
+    var body: some View {
+        SettingsSection(title: "Enter License Key") {
+            VStack(alignment: .leading, spacing: 16) {
+                Text("Paste your license key below to activate Vibe Status")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+
+                TextField("XXXX-XXXX-XXXX-XXXX", text: $licenseKeyInput)
+                    .textFieldStyle(.roundedBorder)
+                    .font(.system(.body, design: .monospaced))
+
+                HStack {
+                    Button(action: {
+                        Task {
+                            await licenseManager.validateLicense(key: licenseKeyInput)
+                            if licenseManager.isLicensed {
+                                showingKeyField = false
+                            }
+                        }
+                    }) {
+                        if licenseManager.isValidating {
+                            ProgressView()
+                                .scaleEffect(0.7)
+                                .frame(width: 80)
+                        } else {
+                            Text("Activate")
+                                .frame(width: 80)
+                        }
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(AppConstants.brandOrange)
+                    .disabled(licenseManager.isValidating || licenseKeyInput.trimmingCharacters(in: .whitespaces).isEmpty)
+
+                    if licenseManager.isLicensed {
+                        Button("Cancel") {
+                            licenseKeyInput = licenseManager.licenseKey
+                            showingKeyField = false
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+private struct LicenseInfoSection: View {
+    var body: some View {
+        SettingsSection(title: "Get a License") {
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Vibe Status is $4.99 for a lifetime license.")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+
+                Link(destination: URL(string: LicenseConstants.checkoutURL)!) {
+                    HStack {
+                        Image(systemName: "cart")
+                        Text("Purchase License")
+                    }
+                    .font(.subheadline)
+                }
+            }
         }
     }
 }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		20ACD9B541686F0052F11805 /* icon.json in Resources */ = {isa = PBXBuildFile; fileRef = D8350CD5E857CC0D98AA8820 /* icon.json */; };
 		3DA544F7C18DE916BA35D611 /* StatusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A463B145CA42C5E50923202 /* StatusManager.swift */; };
+		3E876A8FB962456F4D9EC9C7 /* LicenseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF615DD670C7C15E6657C55 /* LicenseManager.swift */; };
 		4C20DC04FC3D47E2F04F0321 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E2AAC2067CCE3EFAEC1CC6 /* Constants.swift */; };
 		5895C989E31D69E6907FBF8D /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70E5CB1FF7DBC83116DA6DA /* Types.swift */; };
 		5AFA32077A3F5C28A43F7446 /* SetupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF86F6EB9C44E4D2B358120C /* SetupManager.swift */; };
@@ -23,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		140DA74FA64F361E90C3068C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1EF615DD670C7C15E6657C55 /* LicenseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseManager.swift; sourceTree = "<group>"; };
 		2D1D2A93D202FD3350744520 /* VibeStatus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VibeStatus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47E2AAC2067CCE3EFAEC1CC6 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		60A48C8FDA2A1FE59903E641 /* WidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetView.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 				47E2AAC2067CCE3EFAEC1CC6 /* Constants.swift */,
 				D09B6CA81F0BFA2DB61B0B0F /* FloatingWidgetController.swift */,
 				C86E9678C318609D6BD7EB6B /* Info.plist */,
+				1EF615DD670C7C15E6657C55 /* LicenseManager.swift */,
 				CF86F6EB9C44E4D2B358120C /* SetupManager.swift */,
 				A19C86FF5E455EA2DBD30C0F /* SetupView.swift */,
 				8A463B145CA42C5E50923202 /* StatusManager.swift */,
@@ -204,6 +207,7 @@
 			files = (
 				4C20DC04FC3D47E2F04F0321 /* Constants.swift in Sources */,
 				BBAE18020A23C500CE25C43B /* FloatingWidgetController.swift in Sources */,
+				3E876A8FB962456F4D9EC9C7 /* LicenseManager.swift in Sources */,
 				5AFA32077A3F5C28A43F7446 /* SetupManager.swift in Sources */,
 				F877D28594870DBF61BFDE74 /* SetupView.swift in Sources */,
 				3DA544F7C18DE916BA35D611 /* StatusManager.swift in Sources */,

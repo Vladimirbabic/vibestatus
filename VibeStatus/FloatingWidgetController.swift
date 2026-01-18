@@ -50,11 +50,16 @@ final class WidgetViewModel: ObservableObject {
     @Published var sessions: [SessionInfo] = []
     @Published var style: WidgetStyle = .standard
     @Published var theme: WidgetThemeConfig?
+    @Published var isLicensed: Bool = false
 
     func update(from manager: StatusManager) {
         status = manager.currentStatus
         statusText = manager.statusText
         sessions = manager.sessions
+    }
+
+    func updateLicenseStatus() {
+        isLicensed = LicenseManager.shared.isLicensed
     }
 
     func updateStyle(_ newStyle: WidgetStyle) {
@@ -63,6 +68,12 @@ final class WidgetViewModel: ObservableObject {
 
     func updateTheme() {
         theme = WidgetThemeConfig.current()
+    }
+
+    func openCheckout() {
+        if let url = URL(string: LicenseConstants.checkoutURL) {
+            NSWorkspace.shared.open(url)
+        }
     }
 }
 
@@ -80,7 +91,9 @@ struct ObservableWidgetView: View {
                 sessions: viewModel.sessions
             ),
             style: viewModel.style,
-            theme: viewModel.theme
+            theme: viewModel.theme,
+            isLicensed: viewModel.isLicensed,
+            onUnlicensedTap: viewModel.openCheckout
         )
     }
 }
@@ -94,6 +107,7 @@ final class FloatingWidgetController: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private let statusManager = StatusManager.shared
     private let setupManager = SetupManager.shared
+    private let licenseManager = LicenseManager.shared
     private let viewModel = WidgetViewModel()
 
     @Published private(set) var isVisible: Bool = false
@@ -118,6 +132,7 @@ final class FloatingWidgetController: ObservableObject {
         viewModel.update(from: statusManager)
         viewModel.updateTheme()
         viewModel.updateStyle(WidgetStyle(rawValue: setupManager.widgetStyle) ?? .standard)
+        viewModel.updateLicenseStatus()
 
         updatePanelSize()
         updatePosition()
@@ -208,6 +223,15 @@ final class FloatingWidgetController: ObservableObject {
             viewModel.updateTheme()
         }
         .store(in: &cancellables)
+
+        // React to license status changes
+        licenseManager.$licenseStatus
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self, isVisible else { return }
+                viewModel.updateLicenseStatus()
+            }
+            .store(in: &cancellables)
     }
 
     private func createPanel() {

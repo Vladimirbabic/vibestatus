@@ -38,6 +38,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var statusItem: NSStatusItem?
     private var settingsWindow: NSWindow?
     private let statusManager = StatusManager.shared
+    private let licenseManager = LicenseManager.shared
     private let widgetController = FloatingWidgetController()
     private var lastSessionCount: Int = 0
     private var cancellables = Set<AnyCancellable>()
@@ -72,6 +73,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         if !SetupManager.shared.isConfigured {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
                 self?.showSetupWindow()
+            }
+        }
+
+        // Revalidate license periodically (every 24 hours)
+        if licenseManager.needsRevalidation() {
+            Task {
+                await licenseManager.validateLicense()
             }
         }
     }
@@ -118,6 +126,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
                 rebuildMenu()
             }
             .store(in: &cancellables)
+
+        // Update menu bar when license status changes
+        licenseManager.$licenseStatus
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.updateStatusBar()
+                self?.rebuildMenu()
+            }
+            .store(in: &cancellables)
     }
 
     // MARK: - Menu Bar
@@ -130,6 +147,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private func updateStatusBar() {
         guard let button = statusItem?.button else { return }
+
+        // Show lock icon if not licensed
+        if !licenseManager.isLicensed {
+            button.title = ""
+            button.image = NSImage(systemSymbolName: "lock.fill", accessibilityDescription: "License required")
+            button.image?.isTemplate = true
+            return
+        }
 
         let sessions = statusManager.sessions
 
