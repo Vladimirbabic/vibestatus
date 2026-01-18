@@ -65,6 +65,7 @@ private struct SettingsSidebar: View {
                     }
                     .padding(.horizontal, 12)
                     .padding(.vertical, 8)
+                    .contentShape(Rectangle())
                     .background(selectedTab == tab ? Color.accentColor.opacity(0.2) : Color.clear)
                     .cornerRadius(6)
                 }
