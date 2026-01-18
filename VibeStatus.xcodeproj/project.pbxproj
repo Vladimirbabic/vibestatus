@@ -140,7 +140,7 @@
 				TargetAttributes = {
 					39E544D97E60FB8707292710 = {
 						DevelopmentTeam = 7MKQAN7HM5;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -225,8 +225,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = VibeStatus/VibeStatus.entitlements;
-				CODE_SIGN_IDENTITY = "Developer ID Application: Mladjan Antic (7MKQAN7HM5)";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 7MKQAN7HM5;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -246,8 +245,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = VibeStatus/VibeStatus.entitlements;
-				CODE_SIGN_IDENTITY = "Developer ID Application: Mladjan Antic (7MKQAN7HM5)";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 7MKQAN7HM5;
 				ENABLE_HARDENED_RUNTIME = YES;
