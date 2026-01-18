@@ -250,16 +250,6 @@ private struct WidgetBasicSettings: View {
 
                 Divider()
 
-                SettingsToggle(
-                    title: "Auto Show/Hide",
-                    subtitle: "Automatically show when Claude is active, hide when idle",
-                    isOn: $setupManager.widgetAutoShow
-                )
-                .disabled(!setupManager.widgetEnabled)
-                .opacity(setupManager.widgetEnabled ? 1 : 0.5)
-
-                Divider()
-
                 SettingsPicker(
                     title: "Style",
                     subtitle: "Widget appearance style",
