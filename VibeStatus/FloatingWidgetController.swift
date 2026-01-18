@@ -198,13 +198,13 @@ final class FloatingWidgetController: ObservableObject {
             }
             .store(in: &cancellables)
 
-        // React to style changes
+        // React to style changes - recreate panel for new dimensions
+        // Note: Don't update viewModel.style here as it triggers SwiftUI during teardown
+        // The style is correctly set in show() -> createPanel() after recreation
         setupManager.$widgetStyle
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] styleString in
+            .sink { [weak self] _ in
                 guard let self, isVisible else { return }
-                let style = WidgetStyle(rawValue: styleString) ?? .standard
-                viewModel.updateStyle(style)
                 recreatePanel()
             }
             .store(in: &cancellables)
